@@ -54,7 +54,7 @@
 #include "net/ip/uip-debug.h"
 
 #ifndef PERIOD
-#define PERIOD 5
+#define PERIOD 10
 #endif
 
 #define START_INTERVAL		(15 * CLOCK_SECOND)
@@ -67,7 +67,7 @@
 #include "core/sys/residual.h"
 #include "core/sys/log_message.h"
 
-static int lifetime;
+static int lifetime = 1;
 
 /* Remaining energy init JJH*/
 #if RPL_ENERGY_MODE

@@ -4,6 +4,7 @@
  #define RESIDUAL_ENERGY_MAX 2000000
 // #define RESIDUAL_ENERGY_MAX 1000000
 // #define RESIDUAL_ENERGY_MAX 100000
+// #define RESIDUAL_ENERGY_MAX 1000
 
 #include <stdio.h>
 #include <stdint.h>

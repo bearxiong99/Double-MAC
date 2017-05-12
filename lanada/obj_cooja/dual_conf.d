@@ -28,7 +28,8 @@ obj_cooja/dual_conf.o: ..//platform/cooja/./dual_conf.c \
  ..//core/./net/ipv6/multicast/uip-mcast6-route.h \
  ..//core/./net/ipv6/multicast/smrf.h \
  ..//core/./net/ipv6/multicast/roll-tm.h \
- ..//core/./net/ipv6/multicast/uip-mcast6-stats.h
+ ..//core/./net/ipv6/multicast/uip-mcast6-stats.h \
+ ..//core/./net/rpl/rpl-icmp6.h
 ..//platform/cooja/./dual_conf.c :
  ..//platform/cooja/./dev/cooja-radio.h ..//core/./contiki.h :
  ..//core/./contiki-version.h ..//platform/cooja/./contiki-conf.h :
@@ -60,3 +61,4 @@ obj_cooja/dual_conf.o: ..//platform/cooja/./dual_conf.c \
  ..//core/./net/ipv6/multicast/smrf.h :
  ..//core/./net/ipv6/multicast/roll-tm.h :
  ..//core/./net/ipv6/multicast/uip-mcast6-stats.h :
+ ..//core/./net/rpl/rpl-icmp6.h :

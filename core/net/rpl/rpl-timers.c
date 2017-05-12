@@ -165,7 +165,7 @@ LSA_convergence_radio_broadcast(void)
 
 	LSA_broadcast_count ++;
 	LSA_converge = 1;
-	if (LSA_broadcast_count < MAX_LSA_RETRANSMISSION) {
+	if (LSA_broadcast_count <= MAX_LSA_RETRANSMISSION) {
 		rpl_LSA_convergence_timer(3);
 	}
 }
