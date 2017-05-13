@@ -128,12 +128,12 @@ calculate_path_metric(rpl_parent_t *p)
 //	  PRINTF("weight: %d rank_rate: %d\n",p->parent_sum_weight * RPL_DAG_MC_ETX_DIVISOR, rank_rate);
 //	  ret_metric = p->parent_sum_weight * RPL_DAG_MC_ETX_DIVISOR + ALPHA * rank_rate;
 
-	  ret_metric = p->rank + (p->parent_sum_weight + p->parent_weight) * RPL_DAG_MC_ETX_DIVISOR;
+	  ret_metric = p->rank * ALPHA + (p->parent_sum_weight + p->parent_weight) * RPL_DAG_MC_ETX_DIVISOR;
 #else
 	  ret_metric = p->rank + (uint16_t)nbr->link_metric;
 #endif
-	  PRINTF("ip:%d %c weight:%d rank:%d ret_metric:%d %d\n",nbr->ipaddr.u8[15], nbr->ipaddr.u8[8]==0x82 ? 'L' : 'S',
-			  p->parent_sum_weight * RPL_DAG_MC_ETX_DIVISOR, p->rank, ret_metric, rpl_get_any_dag()->preferred_parent == p);
+//	  printf("ip:%d %c weight:%d rank:%d ret_metric:%d %d\n",nbr->ipaddr.u8[15], nbr->ipaddr.u8[8]==0x82 ? 'L' : 'S',
+//			  p->parent_sum_weight * RPL_DAG_MC_ETX_DIVISOR, p->rank, ret_metric, rpl_get_any_dag()->preferred_parent == p);
 	  return ret_metric;
   }
 #elif RPL_DAG_MC == RPL_DAG_MC_ETX
@@ -214,14 +214,16 @@ neighbor_link_callback(rpl_parent_t *p, int status, int numtx)
 	PRINTF("LTMAX_OF link_metric %d\n",nbr->link_metric);
 #if RPL_LIFETIME_MAX_MODE
 #if DUAL_RADIO
-    if(radio_received_is_longrange() == LONG_RADIO)
+/*    if(radio_received_is_longrange() == LONG_RADIO)
     {
     	is_longrange = 1;
     }
     else
     {
     	is_longrange = 0;
-    }
+    }*/
+	is_longrange = long_ip_from_lladdr_map(&(nbr->ipaddr)) == 1 ? 1 : 0;
+
 #if RPL_ETX_WEIGHT
 	if(nbr->link_metric == 0)
 	{
@@ -236,7 +238,7 @@ neighbor_link_callback(rpl_parent_t *p, int status, int numtx)
 
 #endif
 
-	PRINTF("LTMAX_OF %d parent_weight %d\n",is_longrange,p->parent_weight);
+//	printf("LTMAX_OF id:%d 8th:%d %d parent_weight %d\n",rpl_get_nbr(p)->ipaddr.u8[15],rpl_get_nbr(p)->ipaddr.u8[8],is_longrange,p->parent_weight);
 #else
 #if RPL_ETX_WEIGHT
 	if(nbr->link_metric == 0)
@@ -273,7 +275,7 @@ calculate_rank(rpl_parent_t *p, rpl_rank_t base_rank)
   } else {
 	  if(p->parent_sum_weight == 0)
 	  {
-		  rank_increase = (nbr->ipaddr.u8[8] == 0x82 ? LONG_WEIGHT_RATIO : 1) * RPL_DAG_MC_ETX_DIVISOR;
+		  rank_increase = (long_ip_from_lladdr_map(&(nbr->ipaddr)) == 1 ? LONG_WEIGHT_RATIO : 1) * RPL_DAG_MC_ETX_DIVISOR;
 	  }
 	  else
 	  {

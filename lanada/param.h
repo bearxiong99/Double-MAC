@@ -15,6 +15,9 @@
 /* Weight ratio between long and short*/
 #define LONG_WEIGHT_RATIO 2
 
+/* Weight ratio between rank and parent's degree */
+#define ALPHA	1
+
 /* Sink's infinite energy */
 #define SINK_INFINITE_ENERGY	1
 
