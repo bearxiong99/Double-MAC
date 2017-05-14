@@ -34,6 +34,9 @@
 #include "net/ipv6/uip-ds6.h"
 #include "net/ip/uip-udp-packet.h"
 #include "sys/ctimer.h"
+#include "net/nbr-table.h"
+#include "rpl/rpl-private.h"
+
 #ifdef WITH_COMPOWER
 #include "powertrace.h"
 #endif
@@ -149,6 +152,16 @@ send_packet(void *ptr)
 		LOG_MESSAGE("[PS] CSMA_Transmission: %d, CXMAC_Transmission: %d, CXMAC_Collision: %d\n", 
 				csma_transmission_count, cxmac_transmission_count, cxmac_collision_count);
 		LOG_MESSAGE("[PS] Remaining energy: %d\n", (int) get_residual_energy());
+
+		rpl_parent_t *p = nbr_table_head(rpl_parents);
+		if (p != NULL) {
+			rpl_parent_t *preferred_parent = p->dag->preferred_parent;
+			if (preferred_parent != NULL) {
+				uip_ds6_nbr_t *nbr = rpl_get_nbr(preferred_parent);
+				LOG_MESSAGE("[PS] My parent is : %c %d\n", nbr->ipaddr.u8[8]>128 ? 'L':'S', nbr->ipaddr.u8[15]) ;
+			}
+		}
+
 	}
 
 	if (lifetime > 0) {

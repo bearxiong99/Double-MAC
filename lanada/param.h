@@ -38,7 +38,7 @@
  * Only long duty cylce, long preamble */
 #if DUAL_RADIO
 #define LSA_MAC	1
-#define LSA_R	1
+#define LSA_R	0
 #else	/* DUAL_RADIO */
 #define LSA_MAC 0
 #define LSA_R 0

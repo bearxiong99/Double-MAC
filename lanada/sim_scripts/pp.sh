@@ -4,6 +4,10 @@
 
 node_count=2
 MAX_NODE_NUMBER=50
+DELAY=1
+ENERGY=1
+PRR=1
+COLLISION=1
 
 
 if [ -e parsing ]
@@ -14,6 +18,7 @@ fi
 mkdir parsing
 
 echo "Parsing the raw data"
+
 
 while [ $node_count -le $MAX_NODE_NUMBER ]
 do
@@ -66,29 +71,41 @@ fi
 ########################################################################################
 echo "Processing the parsed data"
 
-if [ -e delay ]
+if [ $DELAY == "1" ]
 then
- rm -rf delay
+	if [ -e delay ]
+	then
+	 rm -rf delay
+	fi
+	mkdir delay
 fi
-mkdir delay
 
-if [ -e energy ]
+if [ $ENERGY == "1" ]
 then
- rm -rf energy
+	if [ -e energy ]
+	then
+	 rm -rf energy
+	fi
+	mkdir energy
 fi
-mkdir energy
 
-if [ -e PRR ]
+if [ $PRR == "1" ]
 then
- rm -rf PRR
+	if [ -e PRR ]
+	then
+	 rm -rf PRR
+	fi
+	mkdir PRR
 fi
-mkdir PRR
 
-if [ -e collision ]
+if [ $COLLISION == "1" ]
 then
- rm -rf collision
+	if [ -e collision ]
+	then
+	 rm -rf collision
+	fi
+	mkdir collision
 fi
-mkdir collision
 
 node_count=2
 while [ $node_count -le $MAX_NODE_NUMBER ]
@@ -101,145 +118,158 @@ do
 
 	echo "Working on node number: $node_count"
 ######################### Delay ######################
-	if [ -e delay/packet_delay$node_count.txt ]
+	if [ $DELAY == "1" ]
 	then
-		rm delay/packet_delay$node_count.txt
-	fi
-	
-	tot_delay=0
-	count_delay=0
-
-	while read line
-	do
-		time=`echo "$line" | cut -d':' -f1`
-		part1=`echo "$line" | cut -d' ' -f3`
-		part2=`echo "$part1" | cut -d':' -f2`
-		#echo $time $part2
-		recv=`cat parsing/from$node_count.txt | grep "id:$part2 "`
-		#echo recv "$recv"
-		if [ -n "$recv" ]
+		if [ -e delay/packet_delay$node_count.txt ]
 		then
-			time_recv=`echo "$recv" | cut -d':' -f1`
-			#echo time_recv $time_recv
-			#echo time $time
-			let "delay=$time_recv-$time"
-			echo packet id $part2 delay: $delay >> delay/packet_delay$node_count.txt
-			let "tot_delay=$tot_delay+$delay"
-			let "count_delay=$count_delay+1"
-		else
-			echo packet id $part2 loss!!! >> delay/packet_delay$node_count.txt
+			rm delay/packet_delay$node_count.txt
 		fi
+		
+		tot_delay=0
+		count_delay=0
 
-	done < parsing/node_send$node_count.txt
-	
-	avg_delay=`echo "$tot_delay / $count_delay"|bc`
-	echo "<AVG delay: $avg_delay us>" >> delay/avg_packet_delay.txt
+		while read line
+		do
+			time=`echo "$line" | cut -d':' -f1`
+			part1=`echo "$line" | cut -d' ' -f3`
+			part2=`echo "$part1" | cut -d':' -f2`
+			#echo $time $part2
+			recv=`cat parsing/from$node_count.txt | grep "id:$part2 "`
+			#echo recv "$recv"
+			if [ -n "$recv" ]
+			then
+				time_recv=`echo "$recv" | cut -d':' -f1`
+				#echo time_recv $time_recv
+				#echo time $time
+				let "delay=$time_recv-$time"
+				echo packet id $part2 delay: $delay >> delay/packet_delay$node_count.txt
+				let "tot_delay=$tot_delay+$delay"
+				let "count_delay=$count_delay+1"
+			else
+				echo packet id $part2 loss!!! >> delay/packet_delay$node_count.txt
+			fi
+
+		done < parsing/node_send$node_count.txt
+		
+		avg_delay=`echo "$tot_delay / $count_delay"|bc`
+		echo "<AVG delay: $avg_delay us>" >> delay/avg_packet_delay.txt
+	fi
 
 ######################### Energy consumption #####################
-
-	if [ -e energy/node_energy$node_count.txt ]
+	if [ $ENERGY == "1" ]
 	then
-		rm energy/node_energy$node_count.txt
+		if [ -e energy/node_energy$node_count.txt ]
+		then
+			rm energy/node_energy$node_count.txt
+		fi
+
+		energy=0
+		count=1
+		while read DISSIPATION
+		do
+			if [ -n "`echo "$DISSIPATION" | grep DISSIPATION_RATE`" ]
+			then
+				break
+			fi
+		done < COOJA.testlog
+
+		DISSIPATION=`echo "$DISSIPATION" | cut -d':' -f4`
+		#echo $DISSIPATION
+
+		while read line
+		do
+			part1=`echo "$line" | cut -d' ' -f2`
+			part2=`echo "$line" | cut -d' ' -f3`
+			part3=`echo "$line" | cut -d' ' -f5`
+			
+			case "$part1" in
+				"ON" ) 	multi=`echo "$DISSIPATION" | cut -d',' -f1`;;
+
+				"TX" )  multi=`echo "$DISSIPATION" | cut -d',' -f2`;;
+
+				"RX" ) 	multi=`echo "$DISSIPATION" | cut -d',' -f3`;;
+
+				"ONL" ) multi=`echo "$DISSIPATION" | cut -d',' -f4`;;
+
+				"TXL" ) multi=`echo "$DISSIPATION" | cut -d',' -f5`;;
+
+				"RXL" ) multi=`echo "$DISSIPATION" | cut -d',' -f6`;;
+
+				* )  multi=-1 ;;
+			esac
+
+			if [ "$part3" == "100.00" ]
+			then
+				multi=0;
+			fi
+			
+			#echo $multi 
+			if [ "$multi" -ne -1 ]
+			then
+				increment=`echo "$part2*$multi"|bc`
+				#echo "$increment"
+				energy=`echo "$energy+$increment"|bc`
+			fi
+			
+			echo -n "$part1: $part3% | " >> energy/node_energy$node_count.txt
+
+			if [ "$part1" == "INTL" ]
+			then
+				let "count=$count+1"
+				echo "Energy: $energy" >> energy/node_energy$node_count.txt
+				energy=0
+			fi
+
+		done < parsing/Stat$node_count.txt
 	fi
-
-	energy=0
-	count=1
-	while read DISSIPATION
-	do
-		if [ -n "`echo "$DISSIPATION" | grep DISSIPATION_RATE`" ]
-		then
-			break
-		fi
-	done < COOJA.testlog
-
-	DISSIPATION=`echo "$DISSIPATION" | cut -d':' -f4`
-	#echo $DISSIPATION
-
-	while read line
-	do
-		part1=`echo "$line" | cut -d' ' -f2`
-		part2=`echo "$line" | cut -d' ' -f3`
-		part3=`echo "$line" | cut -d' ' -f5`
-		
-		case "$part1" in
-			"ON" ) 	multi=`echo "$DISSIPATION" | cut -d',' -f1`;;
-
-			"TX" )  multi=`echo "$DISSIPATION" | cut -d',' -f2`;;
-
-			"RX" ) 	multi=`echo "$DISSIPATION" | cut -d',' -f3`;;
-
-			"ONL" ) multi=`echo "$DISSIPATION" | cut -d',' -f4`;;
-
-			"TXL" ) multi=`echo "$DISSIPATION" | cut -d',' -f5`;;
-
-			"RXL" ) multi=`echo "$DISSIPATION" | cut -d',' -f6`;;
-
-			* )  multi=-1 ;;
-		esac
-		
-		#echo $multi 
-		if [ "$multi" -ne -1 ]
-		then
-			increment=`echo "$part2*$multi"|bc`
-			#echo "$increment"
-			energy=`echo "$energy+$increment"|bc`
-		fi
-		
-		echo -n "$part1: $part3% | " >> energy/node_energy$node_count.txt
-
-		if [ "$part1" == "INTL" ]
-		then
-			let "count=$count+1"
-			echo "Energy: $energy" >> energy/node_energy$node_count.txt
-			energy=0
-		fi
-
-	done < parsing/Stat$node_count.txt
-
-
-
 ###################### PRR ######################
 
-	#if [ -e PRR/PRR.txt ]
-	#then
-  #	rm PRR/PRR.txt
-	#fi
+	if [ $PRR == "1" ]
+	then
+		#if [ -e PRR/PRR.txt ]
+		#then
+		#	rm PRR/PRR.txt
+		#fi
 
-	recv=0
-	send=0
-	while read line
-	do
-		let "recv=$recv+1"
-	done < parsing/from$node_count.txt
+		recv=0
+		send=0
+		while read line
+		do
+			let "recv=$recv+1"
+		done < parsing/from$node_count.txt
 
-	while read line
-	do
-		let "send=$send+1"
-	done < parsing/node_send$node_count.txt
+		while read line
+		do
+			let "send=$send+1"
+		done < parsing/node_send$node_count.txt
 
-	PRR=`echo "scale=3;$recv/$send*100"|bc`
-	echo "<PRR: $PRR %>" >> PRR/PRR.txt
+		PRR=`echo "scale=3;$recv/$send*100"|bc`
+		echo "<PRR: $PRR %>" >> PRR/PRR.txt
+	fi
 
 #################### Node collision ratio ##########################
+	if [ $COLLISION == "1" ]
+	then
+		#if [ -e collision_ratio.txt ]
+		#then
+		#	rm collision_ratio.txt
+		#fi
 
-	#if [ -e collision_ratio.txt ]
-	#then
-	#	rm collision_ratio.txt
-	#fi
+		while read line
+		do
+			if [ -n "`echo "$line" | grep CSMA_Transmission`" ]
+			then
+				part1=`echo "$line" | cut -d',' -f1`
+				part2=`echo "$part1" | cut -d':' -f4`
+				part3=`echo "$line" | cut -d' ' -f7`
+			fi
+		done < parsing/PS$node_count.txt
 
-	while read line
-	do
-		if [ -n "`echo "$line" | grep CSMA_Transmission`" ]
-		then
-			part1=`echo "$line" | cut -d',' -f1`
-			part2=`echo "$part1" | cut -d':' -f4`
-			part3=`echo "$line" | cut -d' ' -f7`
-		fi
-	done < parsing/PS$node_count.txt
+		collision_ratio=`echo "scale=3;$part3/$part2*100"|bc`
+		echo "<Collision ratio: $collision_ratio %>" >> collision/collision_ratio.txt
+		
+	fi
 
-	collision_ratio=`echo "scale=3;$part3/$part2*100"|bc`
-	echo "<Collision ratio: $collision_ratio %>" >> collision/collision_ratio.txt
-	
 	let "node_count=$node_count+1"
 done
 
@@ -275,4 +305,27 @@ do
 
 done
 
-paste temp.txt delay/avg_packet_delay.txt energy/final_energy.txt PRR/PRR.txt collision/collision_ratio.txt > report_summary.txt
+max_energy=0
+while read line
+do
+	part1=`echo $line | cut -d' ' -f3`
+	part2=`echo $part1 | cut -d'>' -f1`
+	#echo $part2
+	if [ $part2 -gt $max_energy ]
+	then
+		max_energy=$part2
+	fi
+done < energy/final_energy.txt
+
+while read line
+do
+	part1=`echo $line | cut -d' ' -f3`
+	part2=`echo $part1 | cut -d'>' -f1`
+	percent=`echo "scale=3;$part2/$max_energy*100"|bc`
+	#echo $percent
+
+	echo "<Energy $percent %>" >> energy/percent_energy.txt
+done < energy/final_energy.txt
+
+
+paste temp.txt delay/avg_packet_delay.txt energy/percent_energy.txt PRR/PRR.txt collision/collision_ratio.txt > report_summary.txt

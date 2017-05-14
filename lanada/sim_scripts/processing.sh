@@ -1,6 +1,6 @@
 for DIR in *
 do
-	if [ -d $DIR ]
+	if [ -d $DIR -a -n "`echo "$DIR" | grep simulation`" ]
 	then
 		echo "------------------- Entering to DIR $DIR ----------------------"
 		cd $DIR
@@ -11,10 +11,10 @@ do
 			then
 				echo "@@@@@@@@@@@@@@@@@ Entering to dir $dir @@@@@@@@@@@@@@@@@@@@@"
 				cd $dir
-				if [ ! -e report_summary.txt ]
-				then
+				#if [ ! -e report_summary.txt ]
+				#then
 					../../pp.sh
-				fi
+				#fi
 				cd ..
 			fi
 		done

@@ -1,37 +1,61 @@
 #!/bin/bash
 
-#mkdir 0513_simulation_period20
 
 CONTIKI=~/Desktop/Double-MAC
 
-cd 0514_simulation_period10
-
-for weight in 2
+for period in 20
 do
-	for topology in 16linear 36grid 50random
+#mkdir 0515_simulation_period$period
+#cd 0515_simulation_period$period
+
+mkdir debug_LSA-MAC
+cd debug_LSA-MAC
+
+	for weight in 2
 	do
-		for LR_range in 2X
+		#for topology in 16linear 36grid 50random
+		for topology in 36grid
 		do
-			for energy in 200 
+			for LR_range in 2X
 			do
-				for LS in S
+				for energy in 200 
 				do
-					if [ ! -e $topology\_E$energy\_LR$LR_range_\$LS\_W$weight ]
-					then
-						mkdir $topology\_E$energy\_LR$LR_range\_$LS\_W$weight
-					fi
-					cd  $topology\_E$energy\_LR$LR_range\_$LS\_W$weight
-					echo "#########################  We are in $PWD  ########################"
-					if [ ! -e COOJA.testlog ]
-					then
-						java -mx512m -jar $CONTIKI/tools/cooja/dist/cooja.jar -nogui=$CONTIKI/lanada/sim_scripts/0502_$topology\_$LR_range\.csc -contiki="$CONTIKI"
-					fi
-					cd ..
+					for LS in LS
+					do
+						if [ ! -e $topology\_E$energy\_LR$LR_range_\$LS\_W$weight ]
+						then
+							mkdir $topology\_E$energy\_LR$LR_range\_$LS\_W$weight
+						fi
+
+						case "$weight" in 
+							2 )	sed -i 's/\#define LONG_WEIGHT_RATIO 5/\#define LONG_WEIGHT_RATIO 2/g' $CONTIKI/lanada/param.h;;
+							5 )	sed -i 's/\#define LONG_WEIGHT_RATIO 2/\#define LONG_WEIGHT_RATIO 5/g' $CONTIKI/lanada/param.h;;
+						esac
+						
+						case "$LS" in
+							S  )  sed -i 's/\#define DUAL_RADIO 1/\#define DUAL_RADIO 0/g' $CONTIKI/platform/cooja/contiki-conf.h;;
+							LS  ) sed -i 's/\#define DUAL_RADIO 0/\#define DUAL_RADIO 1/g' $CONTIKI/platform/cooja/contiki-conf.h;;
+						esac
+
+						case "$period" in
+							10  )  sed -i 's/\#define PERIOD 10/\#define PERIOD 20/g' $CONTIKI/lanada/param.h;;
+							20  ) sed -i 's/\#define PERIOD 20/\#define PERIOD 10/g' $CONTIKI/lanada/param.h;;
+						esac
+
+						cd  $topology\_E$energy\_LR$LR_range\_$LS\_W$weight
+						echo "#########################  We are in $PWD  ########################"
+						if [ ! -e COOJA.testlog ]
+						then
+							java -mx512m -jar $CONTIKI/tools/cooja/dist/cooja.jar -nogui=$CONTIKI/lanada/sim_scripts/0502_$topology\_$LR_range\.csc -contiki="$CONTIKI"
+						fi
+						../../pp.sh
+						cd ..
+					done
 				done
 			done
 		done
 	done
+	cd ..
 done
 
-cd ..
 echo "Simulation finished"
