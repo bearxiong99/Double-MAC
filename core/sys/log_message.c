@@ -43,7 +43,11 @@ void log_initialization(void){
 	printf("DISSIPATION_RATE: %d, %d, %d, %d, %d, %d, %d\n",DISSIPATION_RATE[0],DISSIPATION_RATE[1],\
 			DISSIPATION_RATE[2],DISSIPATION_RATE[3],DISSIPATION_RATE[4],DISSIPATION_RATE[5],DISSIPATION_RATE[6]);
 #endif
+#if TRAFFIC_MODEL == 0
 	printf("PERIOD: %d\n", PERIOD);
+#elif TRAFFIC_MODEL ==1
+	printf("POISSON_RATE: %d\n", ARRIVAL_RATE);
+#endif
 #endif
 	
 

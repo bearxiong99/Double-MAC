@@ -46,7 +46,14 @@
 
 #define SERVER_NODE 1
 
+#define TRAFFIC_MODEL 1 // 0: Periodic, 1: Poisson
+#if TRAFFIC_MODEL == 0
 #define PERIOD 10
+#elif TRAFFIC_MODEL == 1
+#define ARRIVAL_RATE 100 // Mean value, 1/lambda
+#endif
+
+
 
 #if DUAL_ROUTING_CONVERGE
 uint8_t long_duty_on;
