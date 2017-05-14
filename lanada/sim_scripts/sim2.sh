@@ -1,18 +1,17 @@
 #!/bin/bash
 
-
 CONTIKI=~/Desktop/Double-MAC
 
-#For periodic traffic
-sed -i 's/\#define TRAFFIC_MODEL 1/\#define TRAFFIC_MODEL 0/g' $CONTIKI/lanada/param.h
+#For poisson traffic
+sed -i 's/\#define TRAFFIC_MODEL 0/\#define TRAFFIC_MODEL 1/g' $CONTIKI/lanada/param.h
 
-for period in 20
+for arrival in 100
 do
-mkdir 0515_simulation_period$period
-cd 0515_simulation_period$period
+mkdir 0515_simulation_poisson$arrival
+cd 0515_simulation_poisson$arrival
 
-mkdir debug_LSA-MAC
-cd debug_LSA-MAC
+#mkdir debug_LSA-MAC
+#cd debug_LSA-MAC
 
 	for weight in 2
 	do
@@ -40,9 +39,9 @@ cd debug_LSA-MAC
 							LS  ) sed -i 's/\#define DUAL_RADIO 0/\#define DUAL_RADIO 1/g' $CONTIKI/platform/cooja/contiki-conf.h;;
 						esac
 
-						case "$period" in
-							10  )  sed -i 's/\#define PERIOD 10/\#define PERIOD 20/g' $CONTIKI/lanada/param.h;;
-							20  ) sed -i 's/\#define PERIOD 20/\#define PERIOD 10/g' $CONTIKI/lanada/param.h;;
+						case "$arrival" in
+							100  )  sed -i 's/\#define ARRIVAL_RATE 100/\#define ARRIVAL_RATE 200/g' $CONTIKI/lanada/param.h;;
+							200  ) sed -i 's/\#define ARRIVAL_RATE 200/\#define ARRIVAL_RATE 100/g' $CONTIKI/lanada/param.h;;
 						esac
 
 						cd  $topology\_E$energy\_LR$LR_range\_$LS\_W$weight
