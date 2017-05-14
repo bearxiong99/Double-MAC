@@ -6,24 +6,24 @@ CONTIKI=~/Desktop/Double-MAC
 #For periodic traffic
 sed -i 's/\#define TRAFFIC_MODEL 1/\#define TRAFFIC_MODEL 0/g' $CONTIKI/lanada/param.h
 
-for period in 20
+for period in 30 60
 do
 mkdir 0515_simulation_period$period
 cd 0515_simulation_period$period
 
-mkdir debug_LSA-MAC
-cd debug_LSA-MAC
+#mkdir debug_LSA-MAC
+#cd debug_LSA-MAC
 
 	for weight in 2
 	do
-		#for topology in 16linear 36grid 50random
-		for topology in 36grid
+		for topology in 16linear 36grid 50random
+		#for topology in 36grid
 		do
-			for LR_range in 2X
+			for LR_range in 2X 4X
 			do
 				for energy in 200 
 				do
-					for LS in LS
+					for LS in LS S
 					do
 						if [ ! -e $topology\_E$energy\_LR$LR_range_\$LS\_W$weight ]
 						then
@@ -41,8 +41,8 @@ cd debug_LSA-MAC
 						esac
 
 						case "$period" in
-							10  )  sed -i 's/\#define PERIOD 10/\#define PERIOD 20/g' $CONTIKI/lanada/param.h;;
-							20  ) sed -i 's/\#define PERIOD 20/\#define PERIOD 10/g' $CONTIKI/lanada/param.h;;
+							30  )  sed -i 's/\#define PERIOD 60/\#define PERIOD 30/g' $CONTIKI/lanada/param.h;;
+							60  ) sed -i 's/\#define PERIOD 30/\#define PERIOD 60/g' $CONTIKI/lanada/param.h;;
 						esac
 
 						cd  $topology\_E$energy\_LR$LR_range\_$LS\_W$weight
