@@ -44,6 +44,9 @@
 #define LSA_R 0
 #endif /* DUAL_RADIO */
 
+uint8_t simple_convergence;
+#define SIMPLE_CONV_TIME (900ul * CLOCK_SECOND)
+
 #define SERVER_NODE 1
 
 #define TRAFFIC_MODEL 1 // 0: Periodic, 1: Poisson

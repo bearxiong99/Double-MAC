@@ -1067,6 +1067,9 @@ best_parent(rpl_dag_t *dag)
 		return prev;
 	}
 #endif
+	if (simple_convergence == 1){ // Temp convergence
+		return prev;
+	}
 
 #if RPL_LIFETIME_MAX_MODE
   dag->base_rank = p->rank;
@@ -1103,7 +1106,7 @@ best_parent(rpl_dag_t *dag)
   if(best != prev && best != NULL && prev != NULL)
   {
 //	  printf("among my_parent_number^2: %d weight diff: %d\n",my_parent_number, prev->parent_sum_weight - best->parent_sum_weight);
-	  if(rand() % (my_parent_number) > (prev->parent_sum_weight - best->parent_sum_weight))
+	  if(rand() % (my_parent_number * my_parent_number) > (prev->parent_sum_weight - best->parent_sum_weight))
 	  {
 		  return prev;
 	  }

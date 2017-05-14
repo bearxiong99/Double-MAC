@@ -360,6 +360,10 @@ rpl_init(void)
   rpl_reset_periodic_timer();
   rpl_icmp6_register_handlers();
 
+  // RPL_CONVERGENCE TEMP timer
+  rpl_convergence_timer();
+  simple_convergence = 0;
+
 #if RPL_LIFETIME_MAX_MODE
 #if DUAL_RADIO
 #if DUAL_ROUTING_CONVERGE
