@@ -53,16 +53,23 @@
 #define DEBUG DEBUG_FULL
 #include "net/ip/uip-debug.h"
 
-#ifndef PERIOD
-#define PERIOD 0	// defined in lanada/param.h
-#endif
+//#ifndef PERIOD
+//#define PERIOD 0	// defined in lanada/param.h
+//#endif
+#include "param.h"
 
 #define START_INTERVAL		(15 * CLOCK_SECOND)
+#if TRAFFIC_MODEL == 0
 #define SEND_INTERVAL		(PERIOD * CLOCK_SECOND)
 #define SEND_TIME		(random_rand() % (SEND_INTERVAL))
+#endif
 #define MAX_PAYLOAD_LEN		50
 
-#include "param.h"
+
+#if TRAFFIC_MODEL == 1
+#include "lib/random.h"
+#include <math.h>
+#endif
 
 #include "core/sys/residual.h"
 #include "core/sys/log_message.h"
@@ -233,8 +240,11 @@ set_global_address(void)
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(udp_client_process, ev, data)
 {
-  static struct etimer periodic;
+  static struct etimer arrival;
   static struct ctimer backoff_timer;
+#if TRAFFIC_MODEL == 1 // Poisson traffic
+  static clock_time_t poisson_int;
+#endif
 #if WITH_COMPOWER
   static int print = 0;
 #endif
@@ -244,9 +254,13 @@ PROCESS_THREAD(udp_client_process, ev, data)
   PROCESS_PAUSE();
 
   set_global_address();
-
+#if TRAFFIC_MODEL == 0
   PRINTF("UDP client process started nbr:%d routes:%d\ period:%d\n",
          NBR_TABLE_CONF_MAX_NEIGHBORS, UIP_CONF_MAX_ROUTES, PERIOD);
+#elif TRAFFIC_MODEL == 1
+  PRINTF("UDP client process started nbr:%d routes:%d\ poisson_avg:%d\n",
+         NBR_TABLE_CONF_MAX_NEIGHBORS, UIP_CONF_MAX_ROUTES, ARRIVAL_RATE);
+#endif
 
   print_local_addresses();
 
@@ -267,7 +281,13 @@ PROCESS_THREAD(udp_client_process, ev, data)
   powertrace_sniff(POWERTRACE_ON);
 #endif
 
-  etimer_set(&periodic, SEND_INTERVAL);
+#if TRAFFIC_MODEL == 0 // Periodic
+  etimer_set(&arrival, SEND_INTERVAL);
+#else if TRAFFIC_MODEL == 1 // Poisson traffic
+  poisson_int = (-ARRIVAL_RATE) * logf(random_rand()/(float)RANDOM_RAND_MAX) * CLOCK_SECOND;
+//  printf("poisson %d\n",poisson_int);
+  etimer_set(&arrival, poisson_int);
+#endif
   while(1) {
     PROCESS_YIELD();
     if(ev == tcpip_event) {
@@ -308,9 +328,16 @@ PROCESS_THREAD(udp_client_process, ev, data)
       }
     }
 
-    if(etimer_expired(&periodic)) {
-      etimer_reset(&periodic);
-      ctimer_set(&backoff_timer, SEND_TIME, send_packet, NULL);
+    if(etimer_expired(&arrival)) {
+#if TRAFFIC_MODEL == 0
+    	etimer_reset(&arrival);
+        ctimer_set(&backoff_timer, SEND_TIME, send_packet, NULL);
+#elif TRAFFIC_MODEL == 1
+        ctimer_set(&backoff_timer, random_rand() % (poisson_int  * CLOCK_SECOND), send_packet, NULL);
+        poisson_int = (-ARRIVAL_RATE) * logf(random_rand()/(float)RANDOM_RAND_MAX) * CLOCK_SECOND;
+//    	printf("poisson %d\n",poisson_int);
+    	etimer_set(&arrival, poisson_int);
+#endif
 
 #if WITH_COMPOWER
       if (print == 0) {
