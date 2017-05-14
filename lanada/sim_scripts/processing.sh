@@ -11,7 +11,10 @@ do
 			then
 				echo "@@@@@@@@@@@@@@@@@ Entering to dir $dir @@@@@@@@@@@@@@@@@@@@@"
 				cd $dir
-				../../pp.sh
+				if [ ! -e report_summary.txt ]
+				then
+					../../pp.sh
+				fi
 				cd ..
 			fi
 		done

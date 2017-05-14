@@ -275,7 +275,11 @@ calculate_rank(rpl_parent_t *p, rpl_rank_t base_rank)
   } else {
 	  if(p->parent_sum_weight == 0)
 	  {
+#if DUAL_RADIO
 		  rank_increase = (long_ip_from_lladdr_map(&(nbr->ipaddr)) == 1 ? LONG_WEIGHT_RATIO : 1) * RPL_DAG_MC_ETX_DIVISOR;
+#else
+		  rank_increase = RPL_DAG_MC_ETX_DIVISOR;
+#endif
 	  }
 	  else
 	  {

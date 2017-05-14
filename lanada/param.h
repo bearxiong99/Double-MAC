@@ -46,7 +46,7 @@
 
 #define SERVER_NODE 1
 
-
+#define PERIOD 10
 
 #if DUAL_ROUTING_CONVERGE
 uint8_t long_duty_on;

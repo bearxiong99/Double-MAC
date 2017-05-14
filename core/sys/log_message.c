@@ -43,6 +43,7 @@ void log_initialization(void){
 	printf("DISSIPATION_RATE: %d, %d, %d, %d, %d, %d, %d\n",DISSIPATION_RATE[0],DISSIPATION_RATE[1],\
 			DISSIPATION_RATE[2],DISSIPATION_RATE[3],DISSIPATION_RATE[4],DISSIPATION_RATE[5],DISSIPATION_RATE[6]);
 #endif
+	printf("PERIOD: %d\n", PERIOD);
 #endif
 	
 
