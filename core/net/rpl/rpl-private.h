@@ -313,7 +313,9 @@ void dio_ack_output(rpl_instance_t *, uip_ipaddr_t *uc_addr);
 #endif
 
 #if LSA_R
+#if CONVERGE_MODE == 1
 void LSA_converge_output(uint8_t lr_child);
+#endif 
 #endif
 
 void rpl_icmp6_register_handlers(void);
@@ -380,8 +382,12 @@ void rpl_reset_convergence_timer(void);
 #endif
 
 #if LSA_R
+#if CONVERGE_MODE == 2
+void simple_rpl_convergence_timer(void);
+#elif CONVERGE_MODE == 1
 void rpl_LSA_convergence_timer(uint8_t);
 void rpl_reset_LSA_convergence_timer(void);
+#endif
 #endif
 
 void rpl_reset_dio_timer(rpl_instance_t *);

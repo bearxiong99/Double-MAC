@@ -77,12 +77,11 @@ static void new_dio_interval(rpl_instance_t *instance);
 static void handle_dio_timer(void *ptr);
 
 #if DUAL_RADIO
-
-static void convergence_radio_off(void);
 #if DUAL_ROUTING_CONVERGE
 static void convergence_radio_off(void);
 #endif
 #if LSA_R
+static void simple_convergence_radio_off(void);
 static void LSA_convergence_radio_broadcast(void);
 #endif
 
@@ -92,19 +91,8 @@ static uint16_t next_dis;
 
 /* dio_send_ok is true if the node is ready to send DIOs */
 static uint8_t dio_send_ok;
-static void convergence_radio_off(void);
 #if RPL_LIFETIME_MAX_MODE
 #if DUAL_RADIO
-static struct ctimer converge_timer;
-rpl_convergence_timer(void)
-{
-	ctimer_set(&converge_timer, SIMPLE_CONV_TIME, &convergence_radio_off,NULL);
-}
-static void
-convergence_radio_off(void)
-{
-	simple_convergence = 1;
-}
 #if DUAL_ROUTING_CONVERGE
 /*---------------------------------------------------------------------------*/
 static struct ctimer timer_conv;
@@ -146,6 +134,21 @@ convergence_radio_off(void)
 #endif	/* DUAL_ROUTING_CONVERGE */
 
 #if LSA_R
+#if CONVERGE_MODE == 2
+static struct ctimer converge_timer;
+simple_rpl_convergence_timer(void)
+{
+	// printf("SIMPLE CONVERGE SET\n");
+	ctimer_set(&converge_timer, SIMPLE_CONV_TIME, &simple_convergence_radio_off,NULL);
+}
+static void
+simple_convergence_radio_off(void)
+{
+	// printf("SIMPLE CONVERGE\n");
+	LSA_lr_child = rpl_lr_in_child();
+	simple_convergence = 1;
+}
+#elif CONVERGE_MODE == 1
 static struct ctimer timer_LSA_conv;
 void
 rpl_LSA_convergence_timer(uint8_t mode)
@@ -182,6 +185,7 @@ LSA_convergence_radio_broadcast(void)
 		rpl_LSA_convergence_timer(3);
 	}
 }
+#endif /* CONVERGENCE_MODE */
 #endif /* LSA_R */
 
 #endif	/* DUAL_RADIO */

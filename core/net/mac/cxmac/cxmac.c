@@ -494,7 +494,11 @@ cpowercycle(void *ptr)
 #else /* DUAL_ROUTING_CONVERGE */
 #if LSA_MAC
 #if LSA_R
+#if CONVERGE_MODE == 1
 		if (LSA_converge == 1)
+#elif CONVERGE_MODE == 2
+		if (simple_convergence == 1) 
+#endif /* CONVERGE_MODE */ 
 		{
 			if (LSA_lr_child == 1) {
 				powercycle_dual_turn_radio_on(LONG_RADIO);
@@ -507,7 +511,7 @@ cpowercycle(void *ptr)
 #else /* LSA_R */ 
 		powercycle_dual_turn_radio_on(LONG_RADIO);
 #endif /* LSA_R */
-#else
+#else /* LSA_MAC */
     if(dual_duty_cycle_count <= DUAL_DUTY_RATIO-2)
     {
     	dual_duty_cycle_count++;
@@ -835,7 +839,8 @@ send_packet(void)
 #if DUAL_RADIO
 #if LSA_MAC
 #if LSA_R
-	if (is_broadcast || LSA_SR_preamble == 0) {  
+	if (is_broadcast || LSA_SR_preamble == 0) 
+	{
 		if (sending_in_LR() == SHORT_RADIO){
 			was_short = 1;
 			dual_radio_switch(LONG_RADIO);
