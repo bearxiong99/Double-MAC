@@ -51,7 +51,7 @@ uint8_t simple_convergence;
 
 #define TRAFFIC_MODEL 1 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 30
+#define PERIOD 60
 #elif TRAFFIC_MODEL == 1
 #define ARRIVAL_RATE 100 // Mean value, 1/lambda
 #endif
