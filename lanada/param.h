@@ -53,7 +53,7 @@ uint8_t simple_convergence;
 #if TRAFFIC_MODEL == 0
 #define PERIOD 10
 #elif TRAFFIC_MODEL == 1
-#define ARRIVAL_RATE 100 // Mean value, 1/lambda
+#define ARRIVAL_RATE 200 // Mean value, 1/lambda
 #endif
 
 
