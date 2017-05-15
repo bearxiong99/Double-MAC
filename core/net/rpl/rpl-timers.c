@@ -92,7 +92,7 @@ static uint16_t next_dis;
 
 /* dio_send_ok is true if the node is ready to send DIOs */
 static uint8_t dio_send_ok;
-
+static void convergence_radio_off(void);
 #if RPL_LIFETIME_MAX_MODE
 #if DUAL_RADIO
 static struct ctimer converge_timer;
