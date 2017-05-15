@@ -50,6 +50,7 @@
 
 #include "lib/list.h"
 #include "lib/memb.h"
+#include "lanada/param.h"
 
 #include <string.h>
 
@@ -299,8 +300,19 @@ collision(struct rdc_buf_list *q, struct neighbor_queue *n,
     /* Increment to indicate a next retry */
     n->transmissions++;
   }
-
+	
+	printf("Collision\n");
   if(n->transmissions >= metadata->max_transmissions) {
+
+		printf("Changing SR_preamble\n");
+#if LSA_MAC
+#if LSA_R
+#if CONVERGE_MODE == 2
+		printf("Changing SR_preamble\n");
+		LSA_SR_preamble = !LSA_SR_preamble;
+#endif 
+#endif
+#endif
     tx_done(MAC_TX_COLLISION, q, n);
   } else {
     PRINTF("csma: rexmit collision %d\n", n->transmissions);

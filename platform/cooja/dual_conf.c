@@ -19,7 +19,9 @@ PROCESS(dual_dis_broadcast, "dis_broadcast");
 PROCESS(dual_dio_ack_broadcast, "dio_ack_broadcast");
 #endif
 #if LSA_R
+#if CONVERGE_MODE == 1
 PROCESS(dual_LSA_converge_broadcast, "LSA_converge_broadcast");
+#endif
 #endif
 
 int long_range_radio = 0;
@@ -206,6 +208,7 @@ PROCESS_THREAD(dual_dio_ack_broadcast, ev, data)
 #endif
 
 #if LSA_R
+#if CONVERGE_MODE == 1
 PROCESS_THREAD(dual_LSA_converge_broadcast, ev, data)
 {
 	static struct etimer et;
@@ -242,6 +245,7 @@ PROCESS_THREAD(dual_LSA_converge_broadcast, ev, data)
 	PROCESS_END();
 }
 #endif
+#endif
 
 
 
@@ -269,10 +273,12 @@ int dio_ack_broadcast(rpl_instance_t * instance)
 
 
 #if LSA_R
+#if CONVERGE_MODE == 1
 int LSA_converge_broadcast(uint8_t lr_child)
 {
 	temp_lr_child = lr_child;
 	process_start(&dual_LSA_converge_broadcast, NULL);
 	return 1;
 }
+#endif
 #endif

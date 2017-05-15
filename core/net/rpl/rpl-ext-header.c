@@ -109,6 +109,7 @@ rpl_verify_header(int uip_ext_opt_offset)
     }
     RPL_STAT(rpl_stats.forward_errors++);
     /* Trigger DAO retransmission */
+		printf("joonki9\n");
     rpl_reset_dio_timer(instance);
     /* drop the packet as it is not routable */
     return 1;
@@ -156,7 +157,8 @@ rpl_verify_header(int uip_ext_opt_offset)
       RPL_STAT(rpl_stats.loop_errors++);
       PRINTF("RPL: Rank error signalled in RPL option!\n");
       /* Packet must be dropped and dio trickle timer reset, see RFC6550 - 11.2.2.2 */
-      rpl_reset_dio_timer(instance);
+      printf("joonki10\n");
+			rpl_reset_dio_timer(instance);
       return 1;
     }
     PRINTF("RPL: Single error tolerated\n");

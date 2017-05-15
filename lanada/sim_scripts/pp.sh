@@ -111,7 +111,7 @@ node_count=2
 while [ $node_count -le $MAX_NODE_NUMBER ]
 do
 
-	if [ ! -e parsing/from$node_count.txt ]
+	if [ ! -e parsing/node_send$node_count.txt ]
 	then
 		break
 	fi
@@ -243,8 +243,8 @@ do
 			let "send=$send+1"
 		done < parsing/node_send$node_count.txt
 
-		PRR=`echo "scale=3;$recv/$send*100"|bc`
-		echo "<PRR: $PRR %>" >> PRR/PRR.txt
+		PRR_value=`echo "scale=3;$recv/$send*100"|bc`
+		echo "<PRR: $PRR_value %>" >> PRR/PRR.txt
 	fi
 
 #################### Node collision ratio ##########################

@@ -20,6 +20,7 @@ do
 			echo $traffic $dir : node$node $lifetime
 			cd ..
 		done
+		echo 
 	fi
 	cd ..
 done

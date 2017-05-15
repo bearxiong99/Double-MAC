@@ -101,7 +101,9 @@ static void dao_ack_input(void);
 static void dio_ack_input(void);
 #endif
 #if LSA_R
+#if CONVERGE_MODE == 1
 static void LSA_converge_input(void);
+#endif
 #endif
 
 static void dao_output_target_seq(rpl_parent_t *parent, uip_ipaddr_t *prefix,
@@ -133,7 +135,9 @@ UIP_ICMP6_HANDLER(dao_ack_handler, ICMP6_RPL, RPL_CODE_DAO_ACK, dao_ack_input);
 UIP_ICMP6_HANDLER(dio_ack_handler, ICMP6_RPL, RPL_CODE_DIO_ACK, dio_ack_input);
 #endif
 #if LSA_R
+#if CONVERGE_MODE == 1
 UIP_ICMP6_HANDLER(LSA_converge_handler, ICMP6_RPL, RPL_CODE_LSA, LSA_converge_input);
+#endif
 #endif
 /*---------------------------------------------------------------------------*/
 
@@ -324,6 +328,7 @@ dis_input(void)
 #else /* !RPL_LEAF_ONLY */
       if(uip_is_addr_mcast(&UIP_IP_BUF->destipaddr)) {
         PRINTF("RPL: Multicast DIS => reset DIO timer\n");
+				printf("joonki11\n");
         rpl_reset_dio_timer(instance);
       } else {
 #endif /* !RPL_LEAF_ONLY */
@@ -690,6 +695,7 @@ dio_input(void)
   if(prev_weight != my_weight)
   {
 	  PRINTF("DIO Reset in DIO\n");
+		printf("joonki12\n");
 	  rpl_reset_dio_timer(rpl_get_default_instance());
   }
   PRINTF("DIO INPUT my_weight %d\n",my_weight);
@@ -1212,6 +1218,7 @@ dio_ack_output(rpl_instance_t *instance, uip_ipaddr_t *uc_addr)
 #endif
 
 #if LSA_R
+#if CONVERGE_MODE == 1
 void
 LSA_converge_input(void)
 {
@@ -1235,8 +1242,6 @@ LSA_converge_input(void)
 	buffer = UIP_ICMP_PAYLOAD;
 
 	LSA_lr_child = buffer[pos++];
-	
-
 
 	rpl_parent_t *p = nbr_table_head(rpl_parents);
 	if (p != NULL) {
@@ -1280,7 +1285,7 @@ LSA_converge_output(uint8_t lr_child)
   uip_create_linklocal_rplnodes_mcast(&addr);
   uip_icmp6_send(&addr, ICMP6_RPL, RPL_CODE_LSA, pos);
 }
-
+#endif /* CONVERGE_MODE */
 #endif /* LSA_R */
 /*---------------------------------------------------------------------------*/
 static void
@@ -1689,6 +1694,7 @@ fwd_dao:
   if(prev_weight != my_weight)
   {
 	  PRINTF("DIO Reset in DAO\n");
+		printf("joonki13\n");
 	  rpl_reset_dio_timer(instance);
   }
 #endif
@@ -2143,7 +2149,9 @@ rpl_icmp6_register_handlers()
   uip_icmp6_register_input_handler(&dio_ack_handler);
 #endif
 #if LSA_R
+#if CONVERGE_MODE == 1
   uip_icmp6_register_input_handler(&LSA_converge_handler);
+#endif
 #endif
 }
 /*---------------------------------------------------------------------------*/

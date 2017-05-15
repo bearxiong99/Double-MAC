@@ -38,20 +38,17 @@
  * Only long duty cylce, long preamble */
 #if DUAL_RADIO
 #define LSA_MAC	1
-#define LSA_R	0
+#define LSA_R	1
 #else	/* DUAL_RADIO */
 #define LSA_MAC 0
 #define LSA_R 0
 #endif /* DUAL_RADIO */
 
-uint8_t simple_convergence;
-#define SIMPLE_CONV_TIME (900ul * CLOCK_SECOND)
-
 #define SERVER_NODE 1
 
-#define TRAFFIC_MODEL 1 // 0: Periodic, 1: Poisson
+#define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 60
+#define PERIOD 30
 #elif TRAFFIC_MODEL == 1
 #define ARRIVAL_RATE 200 // Mean value, 1/lambda
 #endif
@@ -71,11 +68,18 @@ uint8_t LSA_lr_child;
 uint8_t LSA_message_input;
 uint8_t LSA_message_flag;
 uint8_t LSA_broadcast_count;
-#define CONVERGE_MODE	2
+#define CONVERGE_MODE	1
+
+/* CONVERGE_MODE 1 */
 #define MAX_LSA_RETRANSMISSION 3
 #define LSA_CONVERGE_TIME	(900ul * CLOCK_SECOND) // Convergence time in second
 #define LSA_MESSAGE_TIME	(100ul * CLOCK_SECOND) // Convergence time in second
 #define LSA_BROADCAST_TIME	(1ul * CLOCK_SECOND) // Convergence time in second
+
+/* CONVERGE_MODE 2 */
+uint8_t simple_convergence;
+#define SIMPLE_CONV_TIME (900ul * CLOCK_SECOND)
+
 
 #ifdef RPL_LIFETIME_MAX_MODE
 #undef RPL_LIFETIME_MAX_MODE
