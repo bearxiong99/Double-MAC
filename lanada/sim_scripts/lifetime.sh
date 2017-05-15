@@ -1,0 +1,24 @@
+#!/bin/bash
+
+for DIR in 0515*
+do
+	if [ -d $DIR ]
+	then
+		traffic=`echo $DIR | cut -d'_' -f3`
+		echo "$traffic"
+		cd $DIR
+		for dir in *
+		do
+			cd $dir
+			part1=`grep -r ":Lifetime"`
+			lifetime=`echo "$part1" | cut -d':' -f2`
+			#echo $lifetime
+			node=`echo "$part1" | cut -d':' -f3`
+			echo $traffic $dir : node$node $lifetime
+			cd ..
+		done
+	fi
+	cd ..
+done
+
+

@@ -19,7 +19,7 @@ cd 0515_simulation_period$period
 		for topology in 16linear 36grid 50random
 		#for topology in 36grid
 		do
-			for LR_range in 2X 4X
+			for LR_range in 2X
 			do
 				for energy in 200 
 				do
