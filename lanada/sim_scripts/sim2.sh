@@ -5,24 +5,24 @@ CONTIKI=/media/user/Harddisk/Double-MAC
 #For poisson traffic
 sed -i 's/\#define TRAFFIC_MODEL 0/\#define TRAFFIC_MODEL 1/g' $CONTIKI/lanada/param.h
 
-for arrival in 100 200
+for arrival in 100
 do
-mkdir 0515_simulation_poisson$arrival
-cd 0515_simulation_poisson$arrival
+mkdir 0515_2_simulation_poisson$arrival
+cd 0515_2_simulation_poisson$arrival
 
 #mkdir debug_LSA-MAC
 #cd debug_LSA-MAC
 
 	for weight in 2
 	do
-		for topology in 16linear 36grid 50random
-		#for topology in 36grid
+	    #for topology in 16linear 36grid 50random
+	    for topology in 50random
 		do
 			for LR_range in 2X
 			do
 				for energy in 200 
 				do
-					for LS in S
+					for LS in LS S
 					do
 						if [ ! -e $topology\_E$energy\_LR$LR_range_\$LS\_W$weight ]
 						then

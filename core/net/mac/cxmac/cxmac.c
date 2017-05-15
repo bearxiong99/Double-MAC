@@ -187,7 +187,7 @@ static volatile unsigned char radio_is_on = 0;
 #define LEDS_ON(x) leds_on(x)
 #define LEDS_OFF(x) leds_off(x)
 #define LEDS_TOGGLE(x) leds_toggle(x)
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG
 #include <stdio.h>
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -1168,7 +1168,8 @@ input_packet(void)
 #if STROBE_CNT_MODE
     char dispatch_ext = hdr->dispatch << 6;
 //    printf("packet input dispatch %d\n",dispatch_ext);
-    if(dispatch_ext != DISPATCH) 
+    if(dispatch_ext != DISPATCH
+    		|| (hdr->type != TYPE_STROBE_ACK && hdr->type != TYPE_STROBE && hdr->type != TYPE_ANNOUNCEMENT))
 #else
     if(hdr->dispatch != DISPATCH) 
 #endif
@@ -1394,7 +1395,7 @@ input_packet(void)
     } else if(hdr->type == TYPE_STROBE_ACK) {
       PRINTDEBUG("cxmac: stray strobe ack\n");
     } else {
-      PRINTF("cxmac: unknown type %u (%u)\n", hdr->type,
+      PRINTF("cxmac: unknown type %u %u(%u)\n", hdr->type,
              packetbuf_datalen());
     }
   } else {

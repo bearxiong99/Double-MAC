@@ -22,7 +22,7 @@
 #define SINK_INFINITE_ENERGY	1
 
 /* Using strobe cnt, reducing idle listening while Tx preamble */
-#define STROBE_CNT_MODE		0
+#define STROBE_CNT_MODE		1
 
 /* Energy log */
 #define RPL_ICMP_ENERGY_LOG		0
@@ -53,7 +53,7 @@ uint8_t simple_convergence;
 #if TRAFFIC_MODEL == 0
 #define PERIOD 60
 #elif TRAFFIC_MODEL == 1
-#define ARRIVAL_RATE 100 // Mean value, 1/lambda
+#define ARRIVAL_RATE 200 // Mean value, 1/lambda
 #endif
 
 
