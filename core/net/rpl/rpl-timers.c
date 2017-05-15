@@ -71,11 +71,14 @@ void RPL_CALLBACK_NEW_DIO_INTERVAL(uint8_t dio_interval);
 /*---------------------------------------------------------------------------*/
 static struct ctimer periodic_timer;
 
+
 static void handle_periodic_timer(void *ptr);
 static void new_dio_interval(rpl_instance_t *instance);
 static void handle_dio_timer(void *ptr);
 
 #if DUAL_RADIO
+
+static void convergence_radio_off(void);
 #if DUAL_ROUTING_CONVERGE
 static void convergence_radio_off(void);
 #endif
@@ -92,6 +95,16 @@ static uint8_t dio_send_ok;
 
 #if RPL_LIFETIME_MAX_MODE
 #if DUAL_RADIO
+static struct ctimer converge_timer;
+rpl_convergence_timer(void)
+{
+	ctimer_set(&converge_timer, SIMPLE_CONV_TIME, &convergence_radio_off,NULL);
+}
+static void
+convergence_radio_off(void)
+{
+	simple_convergence = 1;
+}
 #if DUAL_ROUTING_CONVERGE
 /*---------------------------------------------------------------------------*/
 static struct ctimer timer_conv;

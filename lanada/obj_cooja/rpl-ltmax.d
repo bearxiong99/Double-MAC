@@ -27,8 +27,7 @@ obj_cooja/rpl-ltmax.o: ..//core/net/rpl/rpl-ltmax.c \
  ..//core/./net/ipv6/multicast/smrf.h \
  ..//core/./net/ipv6/multicast/roll-tm.h \
  ..//core/./net/ipv6/multicast/uip-mcast6-stats.h \
- ..//core/net/rpl/rpl_debug.h ..//core/./net/ip/uip-debug.h \
- ../platform/cooja/dual_conf.h ../platform/cooja/dev/cooja-radio.h
+ ..//core/net/rpl/rpl_debug.h ..//core/./net/ip/uip-debug.h
 ..//core/net/rpl/rpl-ltmax.c :
  ..//core/./net/rpl/rpl-private.h ..//core/./net/rpl/rpl.h :
  ..//core/./net/rpl/rpl-conf.h ..//platform/cooja/./contiki-conf.h :
@@ -59,4 +58,3 @@ obj_cooja/rpl-ltmax.o: ..//core/net/rpl/rpl-ltmax.c \
  ..//core/./net/ipv6/multicast/roll-tm.h :
  ..//core/./net/ipv6/multicast/uip-mcast6-stats.h :
  ..//core/net/rpl/rpl_debug.h ..//core/./net/ip/uip-debug.h :
- ../platform/cooja/dual_conf.h ../platform/cooja/dev/cooja-radio.h :

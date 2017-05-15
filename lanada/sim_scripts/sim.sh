@@ -23,7 +23,7 @@ cd 0515_simulation_period$period
 			do
 				for energy in 200 
 				do
-					for LS in LS S
+					for LS in S
 					do
 						if [ ! -e $topology\_E$energy\_LR$LR_range_\$LS\_W$weight ]
 						then
