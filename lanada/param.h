@@ -22,7 +22,7 @@
 #define SINK_INFINITE_ENERGY	1
 
 /* Using strobe cnt, reducing idle listening while Tx preamble */
-#define STROBE_CNT_MODE		1
+#define STROBE_CNT_MODE		0
 
 /* Energy log */
 #define RPL_ICMP_ENERGY_LOG		0
@@ -68,7 +68,7 @@ uint8_t LSA_lr_child;
 uint8_t LSA_message_input;
 uint8_t LSA_message_flag;
 uint8_t LSA_broadcast_count;
-#define CONVERGE_MODE	1
+#define CONVERGE_MODE	2
 
 /* CONVERGE_MODE 1 */
 #define MAX_LSA_RETRANSMISSION 3

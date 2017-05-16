@@ -167,10 +167,6 @@ struct cxmac_config cxmac_config = {
 
 static struct pt pt;
 PROCESS(strobe_wait, "strobe wait");
-#if DUAL_RADIO
-#if LSA_MAC
-#endif
-#endif
 static volatile unsigned char strobe_target;
 
 static volatile uint8_t cxmac_is_on = 0;
