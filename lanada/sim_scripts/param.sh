@@ -25,8 +25,8 @@ echo "#define RPL_ENERGY_MODE 0
 #define STROBE_CNT_MODE		$3
 
 /* To determine valid parent set, only valid parents are considered as a parent set */
-#define PARENT_REDUCTION_MODE	0
-#define VALID_PARENT_RATIO	0.5
+#define PARENT_REDUCTION_MODE	$8
+#define VALID_PARENT_RATIO	$9
 
 /* Energy log */
 #define RPL_ICMP_ENERGY_LOG		0

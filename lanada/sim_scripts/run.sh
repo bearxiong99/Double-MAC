@@ -10,6 +10,8 @@ VAR_LR_RANGE=(4X)
 VAR_LR_WEIGHT=(2)
 VAR_LSA_R=1
 VAR_STROBE_CNT=1
+VAR_PARENT_REDUCTION=1
+VAR_REDUCTION_RATIO=0.5
 
 # SR_RANGE simulation
 
@@ -48,7 +50,10 @@ then
 		do
 		    for weight in $VAR_LR_WEIGHT
 		    do
-			./lr_run.sh $topology $TRAFFIC $period 0 1 $VAR_STROBE_CNT $weight $VAR_LSA_R $range
+			for ratio in $VAR_REDUCTION_RATIO
+			do
+			./lr_run.sh $topology $TRAFFIC $period 0 1 $VAR_STROBE_CNT $weight $VAR_LSA_R $range $VAR_PARENT_REDUCTION $ratio
+			done
 		    done
 		done
 	    done
@@ -62,7 +67,10 @@ then
 		do
 		    for weight in $VAR_LR_WEIGHT
 		    do
-			./lr_run.sh $topology $TRAFFIC 0 $arrival 1 $VAR_STROBE_CNT $weight $VAR_LSA_R $range
+			for ratio in $VAR_REDUCTION_RATIO
+			do
+			./lr_run.sh $topology $TRAFFIC 0 $arrival 1 $VAR_STROBE_CNT $weight $VAR_LSA_R $range $VAR_PARENT_REDUCTION $ratio
+			done
 		    done
 		done
 	    done

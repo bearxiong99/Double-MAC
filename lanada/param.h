@@ -24,7 +24,7 @@
 #define STROBE_CNT_MODE		1
 
 /* To determine valid parent set, only valid parents are considered as a parent set */
-#define PARENT_REDUCTION_MODE	0
+#define PARENT_REDUCTION_MODE	1
 #define VALID_PARENT_RATIO	0.5
 
 /* Energy log */
