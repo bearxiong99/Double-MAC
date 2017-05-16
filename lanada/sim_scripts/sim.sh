@@ -6,20 +6,21 @@ CONTIKI=~/Desktop/Double-MAC
 #For periodic traffic
 sed -i 's/\#define TRAFFIC_MODEL 1/\#define TRAFFIC_MODEL 0/g' $CONTIKI/lanada/param.h
 
-for period in 30
+for period in 60
 do
-#mkdir 0515_simulation_period$period
-#cd 0515_simulation_period$period
+	
+mkdir 0516_v2_simulation_period$period
+cd 0516_v2_simulation_period$period
 
-mkdir debug
-cd debug
+#mkdir debug
+#cd debug
 
 	for weight in 2
 	do
 		#for topology in 16linear 36grid 50random
 		for topology in 50random
 		do
-			for LR_range in 4X
+			for LR_range in 2X
 			do
 				for energy in 200 
 				do
@@ -49,7 +50,12 @@ cd debug
 						echo "#########################  We are in $PWD  ########################"
 						if [ ! -e COOJA.testlog ]
 						then
+<<<<<<< HEAD
+							java -mx512m -jar $CONTIKI/tools/cooja/dist/cooja.jar -nogui=$CONTIKI/lanada/sim_scripts/0502_$topology\_$LR_range\.csc -contiki="$CONTIKI"
+							#java -mx512m -jar $CONTIKI/tools/cooja/dist/cooja.jar -nogui=$CONTIKI/lanada/sim_scripts/0502_$topology\_$LR_range\_seed123457.csc -contiki="$CONTIKI"
+=======
 							java -mx512m -jar $CONTIKI/tools/cooja/dist/cooja.jar -nogui=$CONTIKI/lanada/sim_scripts/scripts/0502_$topology\_$LR_range\.csc -contiki="$CONTIKI"
+>>>>>>> f5d41c35c0bf95750a2284a90b750d3af89d1c64
 						fi
 						../../pp.sh
 						cd ..

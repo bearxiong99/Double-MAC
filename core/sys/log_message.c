@@ -12,7 +12,9 @@ int log_file;
 
 
 void log_initialization(void){
+	csma_drop_count = 0;
 	cxmac_collision_count = 0;
+	cxmac_retransmission_count = 0;
 	cxmac_transmission_count = 0;
 	csma_transmission_count = 0;
 	control_message_count = 0;
@@ -34,8 +36,8 @@ void log_initialization(void){
 			DUAL_RADIO, ADDR_MAP, RPL_LIFETIME_MAX_MODE, \
 			LONG_WEIGHT_RATIO, STROBE_CNT_MODE, DUAL_ROUTING_CONVERGE, LSA_MAC);
 #if LSA_R
-	printf("LSA_R: %d\nMAX_LSA_RETRANSMISSION: %d\nLSA_CONVERGE_TIME: %d\nLSA_MESSAGE_TIME: %d\nLSA_BROADCAST_TIME: %d\n", \
-			LSA_R, MAX_LSA_RETRANSMISSION, LSA_CONVERGE_TIME, LSA_MESSAGE_TIME, LSA_BROADCAST_TIME);
+	printf("LSA_R: %d\nMAX_LSA_RETRANSMISSION: %d\nLSA_CONVERGE_TIME: %d\nLSA_MESSAGE_TIME: %d\nLSA_BROADCAST_TIME: %d\nCONVERGE_MODE: %d\nSIMPLE_CONV_TIME: %d\n", \
+			LSA_R, MAX_LSA_RETRANSMISSION, LSA_CONVERGE_TIME, LSA_MESSAGE_TIME, LSA_BROADCAST_TIME, CONVERGE_MODE, SIMPLE_CONV_TIME);
 #endif 
 	printf("DETERMINED_ROUTING_TREE: %d\nRESIDUAL_ENERGY_MAX: %d\n", \
 			DETERMINED_ROUTING_TREE, RESIDUAL_ENERGY_MAX);

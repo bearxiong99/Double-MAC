@@ -302,6 +302,7 @@ collision(struct rdc_buf_list *q, struct neighbor_queue *n,
   }
 
   if(n->transmissions >= metadata->max_transmissions) {
+		csma_drop_count++;
     tx_done(MAC_TX_COLLISION, q, n);
   } else {
     PRINTF("csma: rexmit collision %d\n", n->transmissions);
@@ -327,6 +328,7 @@ noack(struct rdc_buf_list *q, struct neighbor_queue *n, int num_transmissions)
 #endif 
 #endif
 #endif
+		csma_drop_count++;
     tx_done(MAC_TX_NOACK, q, n);
   } else {
     PRINTF("csma: rexmit noack %d\n", n->transmissions);
@@ -376,9 +378,12 @@ packet_sent(void *ptr, int status, int num_transmissions)
     tx_ok(q, n, num_transmissions);
     break;
   case MAC_TX_NOACK:
+		cxmac_retransmission_count ++;
     noack(q, n, num_transmissions);
     break;
   case MAC_TX_COLLISION:
+		cxmac_collision_count ++;
+		cxmac_retransmission_count ++;
     collision(q, n, num_transmissions);
     break;
   case MAC_TX_DEFERRED:
