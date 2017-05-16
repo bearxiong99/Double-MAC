@@ -328,7 +328,7 @@ dis_input(void)
 #else /* !RPL_LEAF_ONLY */
       if(uip_is_addr_mcast(&UIP_IP_BUF->destipaddr)) {
         PRINTF("RPL: Multicast DIS => reset DIO timer\n");
-				printf("joonki11\n");
+//				printf("joonki11\n");
         rpl_reset_dio_timer(instance);
       } else {
 #endif /* !RPL_LEAF_ONLY */
@@ -695,7 +695,7 @@ dio_input(void)
   if(prev_weight != my_weight)
   {
 	  PRINTF("DIO Reset in DIO\n");
-		printf("joonki12\n");
+//		printf("joonki12\n");
 	  rpl_reset_dio_timer(rpl_get_default_instance());
   }
   PRINTF("DIO INPUT my_weight %d\n",my_weight);
@@ -1694,7 +1694,7 @@ fwd_dao:
   if(prev_weight != my_weight)
   {
 	  PRINTF("DIO Reset in DAO\n");
-		printf("joonki13\n");
+//		printf("joonki13\n");
 	  rpl_reset_dio_timer(instance);
   }
 #endif

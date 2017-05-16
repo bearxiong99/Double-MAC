@@ -553,7 +553,7 @@ rpl_set_root(uint8_t instance_id, uip_ipaddr_t *dag_id)
 
   ANNOTATE("#A root=%u\n", dag->dag_id.u8[sizeof(dag->dag_id) - 1]);
 
-	printf("joonki1\n");
+//	printf("joonki1\n");
   rpl_reset_dio_timer(instance);
 
   return dag;
@@ -575,7 +575,7 @@ rpl_repair_root(uint8_t instance_id)
   RPL_LOLLIPOP_INCREMENT(instance->current_dag->version);
   RPL_LOLLIPOP_INCREMENT(instance->dtsn_out);
   PRINTF("RPL: rpl_repair_root initiating global repair with version %d\n", instance->current_dag->version);
-  printf("joonki2\n");
+//  printf("joonki2\n");
 	rpl_reset_dio_timer(instance);
   return 1;
 }
@@ -1025,7 +1025,7 @@ rpl_select_dag(rpl_instance_t *instance, rpl_parent_t *p)
       RPL_LOLLIPOP_INCREMENT(instance->dtsn_out);
       rpl_schedule_dao(instance);
     }
-		printf("joonki3\n");
+//		printf("joonki3\n");
     rpl_reset_dio_timer(instance);
 //#if DEBUG
     rpl_print_neighbor_list();
@@ -1369,7 +1369,7 @@ rpl_join_instance(uip_ipaddr_t *from, rpl_dio_t *dio)
 
   ANNOTATE("#A join=%u\n", dag->dag_id.u8[sizeof(dag->dag_id) - 1]);
 
-	printf("joonki4\n");
+//	printf("joonki4\n");
   rpl_reset_dio_timer(instance);
   rpl_set_default_route(instance, from);
 
@@ -1523,7 +1523,7 @@ rpl_local_repair(rpl_instance_t *instance)
   /* no downward route anymore */
   instance->has_downward_route = 0;
 
-	printf("joonki5\n");
+//	printf("joonki5\n");
   rpl_reset_dio_timer(instance);
   /* Request refresh of DAO registrations next DIO */
   RPL_LOLLIPOP_INCREMENT(instance->dtsn_out);
@@ -1643,7 +1643,7 @@ rpl_process_dio(uip_ipaddr_t *from, rpl_dio_t *dio)
         PRINTF("RPL: Root received inconsistent DIO version number (current: %u, received: %u)\n", dag->version, dio->version);
         dag->version = dio->version;
         RPL_LOLLIPOP_INCREMENT(dag->version);
-				printf("joonki6\n");
+//				printf("joonki6\n");
         rpl_reset_dio_timer(instance);
       } else {
         PRINTF("RPL: Global repair\n");
@@ -1662,7 +1662,7 @@ rpl_process_dio(uip_ipaddr_t *from, rpl_dio_t *dio)
       /* The DIO sender is on an older version of the DAG. */
       PRINTF("RPL: old version received => inconsistency detected\n");
       if(dag->joined) {
-				printf("joonki7\n");
+//				printf("joonki7\n");
         rpl_reset_dio_timer(instance);
         return;
       }
@@ -1715,7 +1715,7 @@ rpl_process_dio(uip_ipaddr_t *from, rpl_dio_t *dio)
            (unsigned)dio->rank);
     return;
   } else if(dio->rank == INFINITE_RANK && dag->joined) {
-		printf("joonki8\n");
+//		printf("joonki8\n");
     rpl_reset_dio_timer(instance);
   }
 

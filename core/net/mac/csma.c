@@ -301,10 +301,10 @@ collision(struct rdc_buf_list *q, struct neighbor_queue *n,
     n->transmissions++;
   }
 	
-	printf("Collision\n");
+//	printf("Collision\n");
   if(n->transmissions >= metadata->max_transmissions) {
 
-		printf("Changing SR_preamble\n");
+//		printf("Changing SR_preamble\n");
 #if LSA_MAC
 #if LSA_R
 #if CONVERGE_MODE == 2

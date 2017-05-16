@@ -166,9 +166,9 @@ struct cxmac_config cxmac_config = {
 #include <stdio.h>
 
 static struct pt pt;
+PROCESS(strobe_wait, "strobe wait");
 #if DUAL_RADIO
 #if LSA_MAC
-PROCESS(strobe_wait, "strobe wait");
 #endif
 #endif
 static volatile unsigned char strobe_target;
@@ -335,8 +335,6 @@ powercycle_turn_radio_on(void)
   }
 }
 #endif
-#if DUAL_RADIO
-#if LSA_MAC
 PROCESS_THREAD(strobe_wait, ev, data)
 {
 	static struct etimer et;
@@ -382,8 +380,6 @@ PROCESS_THREAD(strobe_wait, ev, data)
 	is_short_waiting = 0;
 	PROCESS_END();
 }
-#endif
-#endif
 
 /*---------------------------------------------------------------------------*/
 #if DUAL_RADIO

@@ -38,7 +38,7 @@
  * Only long duty cylce, long preamble */
 #if DUAL_RADIO
 #define LSA_MAC	1
-#define LSA_R	1
+#define LSA_R	0
 #else	/* DUAL_RADIO */
 #define LSA_MAC 0
 #define LSA_R 0
@@ -48,7 +48,7 @@
 
 #define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 30
+#define PERIOD 60
 #elif TRAFFIC_MODEL == 1
 #define ARRIVAL_RATE 200 // Mean value, 1/lambda
 #endif
@@ -106,9 +106,9 @@ uint8_t my_parent_number;
 #endif /* RPL_ENERGY_MODE */
 
 
-#if LSA_MAC
+//#if LSA_MAC
 #define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 2) // Short on time slot length in rtimer
-#endif
+//#endif
 
 /*-----------------------------------------------------------------------------------------------*/
 #define DETERMINED_ROUTING_TREE	0
