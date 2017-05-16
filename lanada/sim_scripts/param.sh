@@ -116,4 +116,4 @@ uint8_t my_parent_number;
 #if DETERMINED_ROUTING_TREE
 #define MAX_NODE_NUMBER 30
 
-#endif /* ROUTING_TREE */" >> ../param.h
+#endif /* ROUTING_TREE */" > ../../param.h
