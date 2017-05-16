@@ -48,7 +48,7 @@ cd 0515_2_simulation_poisson$arrival
 						echo "#########################  We are in $PWD  ########################"
 						if [ ! -e COOJA.testlog ]
 						then
-							java -mx512m -jar $CONTIKI/tools/cooja/dist/cooja.jar -nogui=$CONTIKI/lanada/sim_scripts/0502_$topology\_$LR_range\.csc -contiki="$CONTIKI"
+							java -mx512m -jar $CONTIKI/tools/cooja/dist/cooja.jar -nogui=$CONTIKI/lanada/sim_scripts/scripts/0502_$topology\_$LR_range\.csc -contiki="$CONTIKI"
 						fi
 						../../pp.sh
 						cd ..
