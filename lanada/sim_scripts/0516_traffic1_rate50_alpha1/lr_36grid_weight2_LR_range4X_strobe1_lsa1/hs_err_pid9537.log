@@ -1,0 +1,70 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGFPE (0x8) at pc=0x879d6e31, pid=9537, tid=2270800704
+#
+# JRE version: OpenJDK Runtime Environment (7.0_79-b14) (build 1.7.0_79-b14)
+# Java VM: OpenJDK Server VM (24.79-b02 mixed mode linux-x86 )
+# Derivative: IcedTea 2.5.6
+# Distribution: Ubuntu 14.04 LTS, package 7u79-2.5.6-0ubuntu1.14.04.1
+# Problematic frame:
+# C  [mtype787.cooja+0x10e31]
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please include
+# instructions on how to reproduce the bug and visit:
+#   http://icedtea.classpath.org/bugzilla
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x87411c00):  JavaThread "Thread-6" [_thread_in_native, id=10497, stack(0x8754a000,0x8759b000)]
+
+siginfo:si_signo=SIGFPE: si_errno=0, si_code=1 (FPE_INTDIV), si_addr=0x879d6e31
+
+Registers:
+EAX=0x0000ff2f, EBX=0x879f6034, ECX=0x00000000, EDX=0x00000000
+ESP=0x879f82bc, EBP=0x879f8314, ESI=0x00000000, EDI=0x00000000
+EIP=0x879d6e31, EFLAGS=0x00010206, CR2=0xb777c000
+
+Top of Stack: (sp=0x879f82bc)
+0x879f82bc:   879f6328 00000026 00000000 0000cbff
+0x879f82cc:   879fbe40 879f6088 879f8304 879d9882
+0x879f82dc:   879ff418 00000088 879f6328 027f9488
+0x879f82ec:   00000000 00000000 019ff418 00000088
+0x879f82fc:   00000004 000003dc 879f8334 879d9f38
+0x879f830c:   879f611c 879f6034 879f8344 879d9f38
+0x879f831c:   879f6034 00000088 879f6328 00000088
+0x879f832c:   04000400 00000000 879f8364 879da00b 
+
+Instructions: (pc=0x879d6e31)
+0x879d6e11:   c0 0f 84 a6 00 00 00 e8 2b 1e 00 00 0f b7 c0 8b
+0x879d6e21:   15 24 63 9f 87 69 ca e8 03 00 00 ba 00 00 00 00
+0x879d6e31:   f7 f1 89 d0 c7 44 24 0c 00 00 00 00 c7 44 24 08
+0x879d6e41:   81 65 9d 87 89 44 24 04 c7 04 24 40 63 9f 87 e8 
+
+Register to memory mapping:
+
+EAX=0x0000ff2f is an unknown value
+EBX=0x879f6034: udp_client_process+0xc in /home/user/Desktop/Double-MAC/lanada/obj_cooja/mtype787.cooja at 0x879c6000
+ECX=0x00000000 is an unknown value
+EDX=0x00000000 is an unknown value
+ESP=0x879f82bc: <offset 0x322bc> in /home/user/Desktop/Double-MAC/lanada/obj_cooja/mtype787.cooja at 0x879c6000
+EBP=0x879f8314: <offset 0x32314> in /home/user/Desktop/Double-MAC/lanada/obj_cooja/mtype787.cooja at 0x879c6000
+ESI=0x00000000 is an unknown value
+EDI=0x00000000 is an unknown value
+
+
+Stack: [0x8754a000,0x8759b000],  sp=0x879f82bc,  free space=4792k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [mtype787.cooja+0x10e31]
+C  [mtype787.cooja+0x13f38]
+C  [mtype787.cooja+0x1415c]
+C  [mtype787.cooja+0x14179]  process_run+0x1b
+C  [mtype787.cooja+0x1161c]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J 668  org.contikios.cooja.corecomm.Lib2.tick()V (0 bytes) @ 0xb351c420 [0xb351c3e0+0x40]

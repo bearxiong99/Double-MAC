@@ -1073,12 +1073,12 @@ best_parent(rpl_dag_t *dag)
 	}
 #elif CONVERGE_MODE == 2
 	if (simple_convergence == 1){ // Temp convergence
-		printf("Best parent is %d\n",rpl_get_nbr(dag->preferred_parent)->ipaddr.u8[15]);
+		//printf("Best parent is %d\n",rpl_get_nbr(dag->preferred_parent)->ipaddr.u8[15]);
 		return dag->preferred_parent;
 	}
 #endif /* CONVERGENCE_MODE */
 	
-	printf ("strange, simple_convergence: %d\n",simple_convergence);
+	//printf ("strange, simple_convergence: %d\n",simple_convergence);
 
 #endif
 	
