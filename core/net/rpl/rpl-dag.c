@@ -517,7 +517,6 @@ rpl_set_root(uint8_t instance_id, uip_ipaddr_t *dag_id)
   dag->preference = RPL_PREFERENCE;
   instance->mop = RPL_MOP_DEFAULT;
   instance->of = &RPL_OF;
-	printf("jk1\n");
   rpl_set_preferred_parent(dag, NULL);
 
   memcpy(&dag->dag_id, dag_id, sizeof(dag->dag_id));
@@ -826,6 +825,16 @@ rpl_add_parent(rpl_dag_t *dag, rpl_dio_t *dio, uip_ipaddr_t *addr)
       p->dtsn = dio->dtsn;
 #if RPL_LIFETIME_MAX_MODE
       my_parent_number++;
+#if PARENT_REDUCTION_MODE
+      if(my_valid_parent_number == 0
+    		  || random_rand() % 100 <= (VALID_PARENT_RATIO * 100))
+      {
+    	  my_valid_parent_number++;
+    	  p->valid_flag = 1;
+      }
+      printf("PARENT_REDUCTION #parent: %d, #valid_parent: %d\n",my_parent_number,my_valid_parent_number);
+#endif
+
 #endif
 //      printf("my_parent_number inc: %d\n",my_parent_number);
       /* Check whether we have a neighbor that has not gotten a link metric yet */
@@ -1001,7 +1010,6 @@ rpl_select_dag(rpl_instance_t *instance, rpl_parent_t *p)
     best_dag->min_rank = best_dag->rank;
   } else if(!acceptable_rank(best_dag, best_dag->rank)) {
     PRINTF("RPL: New rank unacceptable!\n");
-		printf("jk2\n");
     rpl_set_preferred_parent(instance->current_dag, NULL);
     if(instance->mop != RPL_MOP_NO_DOWNWARD_ROUTES && last_parent != NULL) {
       /* Send a No-Path DAO to the removed preferred parent. */
@@ -1104,7 +1112,11 @@ best_parent(rpl_dag_t *dag)
 		  dag->base_rank = p->rank;
 	  }
 #endif
+#if PARENT_REDUCTION_MODE
+    if(p->dag != dag || p->rank == INFINITE_RANK || p->valid_flag == 0) {
+#else
     if(p->dag != dag || p->rank == INFINITE_RANK) {
+#endif
       /* ignore this neighbor */
     } else if(best == NULL) {
       best = p;
@@ -1117,10 +1129,17 @@ best_parent(rpl_dag_t *dag)
   if(best != prev && best != NULL && prev != NULL)
   {
 //	  printf("among my_parent_number^2: %d weight diff: %d\n",my_parent_number, prev->parent_sum_weight - best->parent_sum_weight);
+#if PARENT_REDUCTION_MODE
+	  if(rand() % (my_valid_parent_number * my_valid_parent_number) > (prev->parent_sum_weight - best->parent_sum_weight))
+	  {
+		  return prev;
+	  }
+#else
 	  if(rand() % (my_parent_number * my_parent_number) > (prev->parent_sum_weight - best->parent_sum_weight))
 	  {
 		  return prev;
 	  }
+#endif
   }
 #endif
 
@@ -1134,7 +1153,6 @@ rpl_select_parent(rpl_dag_t *dag)
   rpl_parent_t *best = best_parent(dag);
   if(best != NULL) {
 
-		printf("jk3\n");
     rpl_set_preferred_parent(dag, best);
     dag->rank = dag->instance->of->calculate_rank(dag->preferred_parent, 0);
   } else {
@@ -1150,7 +1168,10 @@ rpl_remove_parent(rpl_parent_t *parent)
   PRINTF("RPL: Removing parent ");
   PRINT6ADDR(rpl_get_parent_ipaddr(parent));
   PRINTF("\n");
-
+#if PARENT_REDUCTION_MODE
+  if(parent->valid_flag == 1)
+	  my_valid_parent_number--;
+#endif
   rpl_nullify_parent(parent);
 #if RPL_LIFETIME_MAX_MODE
   my_parent_number--;
@@ -1193,7 +1214,6 @@ rpl_nullify_parent(rpl_parent_t *parent)
       /* Send No-Path DAO only to preferred parent, if any */
       if(parent == dag->preferred_parent) {
         dao_output(parent, RPL_ZERO_LIFETIME);
-				printf("jk4\n");
         rpl_set_preferred_parent(dag, NULL);
       }
     }
@@ -1209,7 +1229,6 @@ rpl_move_parent(rpl_dag_t *dag_src, rpl_dag_t *dag_dst, rpl_parent_t *parent)
 {
   if(parent == dag_src->preferred_parent) {
 
-			printf("jk5\n");
       rpl_set_preferred_parent(dag_src, NULL);
       dag_src->rank = INFINITE_RANK;
     if(dag_src->joined && dag_src->instance->def_route != NULL) {
@@ -1361,7 +1380,6 @@ rpl_join_instance(uip_ipaddr_t *from, rpl_dio_t *dio)
   memcpy(&dag->prefix_info, &dio->prefix_info, sizeof(rpl_prefix_t));
 
 
-	printf("jk6\n");
   rpl_set_preferred_parent(dag, p);
   instance->of->update_metric_container(instance);
   dag->rank = instance->of->calculate_rank(p, 0);
@@ -1457,7 +1475,6 @@ rpl_add_dag(uip_ipaddr_t *from, rpl_dio_t *dio)
   /* copy prefix information into the dag */
   memcpy(&dag->prefix_info, &dio->prefix_info, sizeof(rpl_prefix_t));
 
-	printf("jk7\n");
   rpl_set_preferred_parent(dag, p);
   dag->rank = instance->of->calculate_rank(p, 0);
   dag->min_rank = dag->rank; /* So far this is the lowest rank we know of. */

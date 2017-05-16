@@ -123,6 +123,9 @@ struct rpl_parent {
 #if RPL_LIFETIME_MAX_MODE
   uint8_t parent_weight; /* The parent's weight */
   uint8_t parent_sum_weight; /* The parent's sum of chilren's weight  JJH */
+#if PARENT_REDUCTION_MODE
+  uint8_t valid_flag; /* Only valid parent has 1 */
+#endif
 #endif
 };
 typedef struct rpl_parent rpl_parent_t;
