@@ -59,6 +59,8 @@
 //#ifndef PERIOD
 //#define PERIOD 0	// defined in lanada/param.h
 //#endif
+
+#define PS (600 / PERIOD)
 #include "param.h"
 
 #define START_INTERVAL		(15 * CLOCK_SECOND)
@@ -146,7 +148,7 @@ send_packet(void *ptr)
 	total_count1 = dio_count + dao_count + dis_count + dio_ack_count;
 	total_count2 = dao_ack_count + dao_fwd_count + dao_ack_fwd_count + LSA_count;
 
-	if (data_message_count%100 == 0) {
+	if (data_message_count%PS == 0) {
 		LOG_MESSAGE("[PS] Periodic status review:\n");
 		LOG_MESSAGE("[PS] Control: %d, Data: %d, Data fwd: %d\n", 
 				tcp_output_count-data_message_count-data_fwd_count, data_message_count, data_fwd_count);
@@ -157,7 +159,9 @@ send_packet(void *ptr)
 		LOG_MESSAGE("[PS] DAO_ACK:%d, DAO_FWD: %d, DAO_ACK_FWD: %d, LSA: %d, Total: %d\n",
 				dao_ack_count, dao_fwd_count,dao_ack_fwd_count, LSA_count, total_count2 );
 		LOG_MESSAGE("[PS] CSMA_Transmission: %d, CXMAC_Transmission: %d, CXMAC_Collision: %d\n", 
-				csma_transmission_count, cxmac_transmission_count, cxmac_collision_count);
+				csma_transmission_count, cxmac_transmission_count, cxmac_collision_count);		
+		LOG_MESSAGE("[PS] CSMA_Drop: %d, CXMAC_Retransmission: %d\n",
+				csma_drop_count, cxmac_retransmission_count - csma_drop_count);
 		LOG_MESSAGE("[PS] Remaining energy: %d\n", (int) get_residual_energy());
 
 		rpl_parent_t *p = nbr_table_head(rpl_parents);

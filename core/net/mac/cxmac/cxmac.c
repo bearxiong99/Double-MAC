@@ -1107,7 +1107,6 @@ send_packet(void)
     }
   } else {
     someone_is_sending++;
-    cxmac_collision_count++;
     return MAC_TX_COLLISION;
   }
 }
@@ -1120,7 +1119,6 @@ qsend_packet(mac_callback_t sent, void *ptr)
     PRINTF("cxmac: should queue packet, now just dropping %d %d %d %d.\n",
 	   waiting_for_packet, someone_is_sending, we_are_sending, radio_is_on);
     RIMESTATS_ADD(sendingdrop);
-		cxmac_collision_count ++;
     ret = MAC_TX_COLLISION;
   } else {
     PRINTF("cxmac: send immediately.\n");
