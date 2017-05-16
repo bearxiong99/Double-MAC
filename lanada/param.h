@@ -21,7 +21,7 @@
 #define SINK_INFINITE_ENERGY	1
 
 /* Using strobe cnt, reducing idle listening while Tx preamble */
-#define STROBE_CNT_MODE		0
+#define STROBE_CNT_MODE		1
 
 /* Energy log */
 #define RPL_ICMP_ENERGY_LOG		0
@@ -37,7 +37,7 @@
  * Only long duty cylce, long preamble */
 #if DUAL_RADIO
 #define LSA_MAC	1
-#define LSA_R	0
+#define LSA_R	1
 #else	/* DUAL_RADIO */
 #define LSA_MAC 0
 #define LSA_R 0

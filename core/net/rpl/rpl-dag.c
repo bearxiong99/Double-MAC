@@ -517,7 +517,6 @@ rpl_set_root(uint8_t instance_id, uip_ipaddr_t *dag_id)
   dag->preference = RPL_PREFERENCE;
   instance->mop = RPL_MOP_DEFAULT;
   instance->of = &RPL_OF;
-	printf("jk1\n");
   rpl_set_preferred_parent(dag, NULL);
 
   memcpy(&dag->dag_id, dag_id, sizeof(dag->dag_id));
@@ -1001,7 +1000,6 @@ rpl_select_dag(rpl_instance_t *instance, rpl_parent_t *p)
     best_dag->min_rank = best_dag->rank;
   } else if(!acceptable_rank(best_dag, best_dag->rank)) {
     PRINTF("RPL: New rank unacceptable!\n");
-		printf("jk2\n");
     rpl_set_preferred_parent(instance->current_dag, NULL);
     if(instance->mop != RPL_MOP_NO_DOWNWARD_ROUTES && last_parent != NULL) {
       /* Send a No-Path DAO to the removed preferred parent. */
@@ -1134,7 +1132,6 @@ rpl_select_parent(rpl_dag_t *dag)
   rpl_parent_t *best = best_parent(dag);
   if(best != NULL) {
 
-		printf("jk3\n");
     rpl_set_preferred_parent(dag, best);
     dag->rank = dag->instance->of->calculate_rank(dag->preferred_parent, 0);
   } else {
@@ -1193,7 +1190,6 @@ rpl_nullify_parent(rpl_parent_t *parent)
       /* Send No-Path DAO only to preferred parent, if any */
       if(parent == dag->preferred_parent) {
         dao_output(parent, RPL_ZERO_LIFETIME);
-				printf("jk4\n");
         rpl_set_preferred_parent(dag, NULL);
       }
     }
@@ -1209,7 +1205,6 @@ rpl_move_parent(rpl_dag_t *dag_src, rpl_dag_t *dag_dst, rpl_parent_t *parent)
 {
   if(parent == dag_src->preferred_parent) {
 
-			printf("jk5\n");
       rpl_set_preferred_parent(dag_src, NULL);
       dag_src->rank = INFINITE_RANK;
     if(dag_src->joined && dag_src->instance->def_route != NULL) {
@@ -1361,7 +1356,6 @@ rpl_join_instance(uip_ipaddr_t *from, rpl_dio_t *dio)
   memcpy(&dag->prefix_info, &dio->prefix_info, sizeof(rpl_prefix_t));
 
 
-	printf("jk6\n");
   rpl_set_preferred_parent(dag, p);
   instance->of->update_metric_container(instance);
   dag->rank = instance->of->calculate_rank(p, 0);
@@ -1457,7 +1451,6 @@ rpl_add_dag(uip_ipaddr_t *from, rpl_dio_t *dio)
   /* copy prefix information into the dag */
   memcpy(&dag->prefix_info, &dio->prefix_info, sizeof(rpl_prefix_t));
 
-	printf("jk7\n");
   rpl_set_preferred_parent(dag, p);
   dag->rank = instance->of->calculate_rank(p, 0);
   dag->min_rank = dag->rank; /* So far this is the lowest rank we know of. */
