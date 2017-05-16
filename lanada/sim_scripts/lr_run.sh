@@ -17,20 +17,20 @@ LR_range=$9
 
 if [ $TRAFFIC_MODEL -eq 0 ]
 then
-    mkdir 0516\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA\_strobe$STROBE_CNT
-    cd 0516\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA\_strobe$STROBE_CNT
+    mkdir 0516\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
+    cd 0516\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
 else
-    mkdir 0516\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA\_strobe$STROBE_CNT
-    cd 0516\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA\_strobe$STROBE_CNT
+    mkdir 0516\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
+    cd 0516\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
 fi
 
 ../param.sh $LONG_WEIGHT $ALPHA $STROBE_CNT $LSA_R $TRAFFIC_MODEL $PERIOD $ARRIVAL_RATE
 
-if [ ! -e sr\_$topology ]
+if [ ! -e lr\_$topology\_weight$LONG_WEIGHT\_LR_range$LR_range\_strobe$STROBE_CNT\_lsa$LSA_R ]
 then
-    mkdir lr\_$topology\_weight$LONG_WEIGHT\_LR_range$LR_range
+    mkdir lr\_$topology\_weight$LONG_WEIGHT\_LR_range$LR_range\_strobe$STROBE_CNT\_lsa$LSA_R
 fi
-cd lr\_$topology\_weight$LONG_WEIGHT\_LR_range$LR_range
+cd lr\_$topology\_weight$LONG_WEIGHT\_LR_range$LR_range\_strobe$STROBE_CNT\_lsa$LSA_R
 echo "#########################  We are in $PWD  ########################"
 
 if [ ! -e COOJA.testlog ]
