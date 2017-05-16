@@ -60,7 +60,14 @@
 //#define PERIOD 0	// defined in lanada/param.h
 //#endif
 
+#ifdef PERIOD
 #define PS (600 / PERIOD)
+#endif
+
+#ifdef ARRIVAL_RATE
+#define PS (600 / ARRIVAL_RATE)
+#endif
+
 #include "param.h"
 
 #define START_INTERVAL		(15 * CLOCK_SECOND)
