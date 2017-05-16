@@ -24,6 +24,10 @@ echo "#define RPL_ENERGY_MODE 0
 /* Using strobe cnt, reducing idle listening while Tx preamble */
 #define STROBE_CNT_MODE		$3
 
+/* To determine valid parent set, only valid parents are considered as a parent set */
+#define PARENT_REDUCTION_MODE	0
+#define VALID_PARENT_RATIO	0.5
+
 /* Energy log */
 #define RPL_ICMP_ENERGY_LOG		0
 
@@ -98,6 +102,9 @@ uint8_t alpha;
 uint8_t my_weight;
 uint8_t my_sink_reachability;
 uint8_t my_parent_number;
+#if PARENT_REDUCTION_MODE
+uint8_t my_valid_parent_number;
+#endif
 #define DATA_PKT_SIZE 10 // 'B' in theory
 #define SHORT_TX_COST 1
 #define SHORT_RX_COST 1

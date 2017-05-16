@@ -517,6 +517,7 @@ rpl_set_root(uint8_t instance_id, uip_ipaddr_t *dag_id)
   dag->preference = RPL_PREFERENCE;
   instance->mop = RPL_MOP_DEFAULT;
   instance->of = &RPL_OF;
+
   rpl_set_preferred_parent(dag, NULL);
 
   memcpy(&dag->dag_id, dag_id, sizeof(dag->dag_id));
@@ -832,7 +833,7 @@ rpl_add_parent(rpl_dag_t *dag, rpl_dio_t *dio, uip_ipaddr_t *addr)
     	  my_valid_parent_number++;
     	  p->valid_flag = 1;
       }
-      printf("PARENT_REDUCTION #parent: %d, #valid_parent: %d\n",my_parent_number,my_valid_parent_number);
+//      printf("PARENT_REDUCTION #parent: %d, #valid_parent: %d\n",my_parent_number,my_valid_parent_number);
 #endif
 
 #endif
@@ -1081,12 +1082,12 @@ best_parent(rpl_dag_t *dag)
 	}
 #elif CONVERGE_MODE == 2
 	if (simple_convergence == 1){ // Temp convergence
-		printf("Best parent is %d\n",rpl_get_nbr(dag->preferred_parent)->ipaddr.u8[15]);
+//		printf("Best parent is %d\n",rpl_get_nbr(dag->preferred_parent)->ipaddr.u8[15]);
 		return dag->preferred_parent;
 	}
 #endif /* CONVERGENCE_MODE */
 	
-	printf ("strange, simple_convergence: %d\n",simple_convergence);
+//	printf ("strange, simple_convergence: %d\n",simple_convergence);
 
 #endif
 	
