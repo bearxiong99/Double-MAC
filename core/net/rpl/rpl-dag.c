@@ -820,7 +820,6 @@ rpl_add_parent(rpl_dag_t *dag, rpl_dio_t *dio, uip_ipaddr_t *addr)
     } else {
       uip_ds6_nbr_t *nbr;
       nbr = rpl_get_nbr(p);
-
       p->dag = dag;
       p->rank = dio->rank;
       p->dtsn = dio->dtsn;
