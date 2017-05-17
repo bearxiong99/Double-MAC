@@ -661,7 +661,9 @@ send_packet(void)
   int is_already_streaming = 0;
   uint8_t collisions;
 
+#if PS_COUNT
   cxmac_transmission_count++;
+#endif
 #if DUAL_RADIO
   char target = SHORT_RADIO;
   rtimer_clock_t strobe_time;
@@ -1153,7 +1155,7 @@ input_packet(void)
   uint8_t *original_dataptr;
 #endif
 #if LSA_MAC
-	uint8_t for_short;
+	uint8_t for_short = 1;
 #endif 
 
   if(NETSTACK_FRAMER.parse() >= 0) {

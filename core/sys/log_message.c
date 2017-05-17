@@ -12,6 +12,7 @@ int log_file;
 
 
 void log_initialization(void){
+#if PS_COUNT
 	csma_drop_count = 0;
 	cxmac_collision_count = 0;
 	cxmac_retransmission_count = 0;
@@ -30,6 +31,7 @@ void log_initialization(void){
 	dio_ack_count = 0;
 	icmp_count = 0;
 	tcp_output_count = 0;
+#endif
 
 #if SIMULATION_SETTING
 	printf("\n\nDUAL_RADIO: %d\nADDR_MAP: %d\nRPL_LIFETIME_MAX_MODE: %d\nLONG_WEIGHT_RATIO: %d\nSTROBE_CNT_MODE: %d\nDUAL_ROUTING_CONVERGE: %d\nLSA_MAC: %d\n", \

@@ -105,7 +105,7 @@ extern uip_ds6_lr_addrmap_t ds6_lr_addrmap[NBR_TABLE_MAX_NEIGHBORS];
 char
 long_ip_from_lladdr_map(uip_ipaddr_t * ipaddr)
 {
-	char is_long_ip;
+	char is_long_ip = 1;
 	int i;
 	uip_ds6_nbr_t *nbr = NULL;
 	nbr = uip_ds6_nbr_lookup(ipaddr);	

@@ -56,6 +56,7 @@
 
 #include <limits.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "rpl_debug.h"
 #define DEBUG DEBUG_RPL_DAG
@@ -202,13 +203,17 @@ rpl_print_neighbor_list(void)
 {
   if(default_instance != NULL && default_instance->current_dag != NULL &&
       default_instance->of != NULL && default_instance->of->calculate_rank != NULL) {
-    int curr_dio_interval = default_instance->dio_intcurrent;
+       rpl_parent_t *p = nbr_table_head(rpl_parents);
+#if DEBUG 
+		int curr_dio_interval = default_instance->dio_intcurrent;
     int curr_rank = default_instance->current_dag->rank;
-    rpl_parent_t *p = nbr_table_head(rpl_parents);
     clock_time_t now = clock_time();
+#endif
     PRINTF("RPL: rank %u dioint %u, %u nbr(s)\n", curr_rank, curr_dio_interval, uip_ds6_nbr_num());
     while(p != NULL) {
+#if DEBUG
       uip_ds6_nbr_t *nbr = rpl_get_nbr(p);
+#endif
       PRINTF("RPL: nbr %3u %c %5u, %5u => %5u %c%c (last tx %u min ago)\n",
           nbr_table_get_lladdr(rpl_parents, p)->u8[7],
 		  nbr->ipaddr.u8[8] == 0x82 ? 'L' : 'S',
@@ -232,7 +237,9 @@ rpl_print_child_neighbor_list(void)
     rpl_child_t *c = nbr_table_head(rpl_children);
 
     while(c != NULL) {
+#if DEBUG
       uip_ds6_nbr_t *nbr = rpl_get_nbr_child(c);
+#endif
 //      printf("RPL: nbr %3u %5u, %5u => %5u %c%c (last tx %u min ago)\n",
 //      	PRINTF("RPL_child: nbr %3u\n",
       	PRINTF("RPL_child: nbr %3u\n",
@@ -371,13 +378,13 @@ rpl_set_preferred_parent(rpl_dag_t *dag, rpl_parent_t *p)
     nbr_table_unlock(rpl_parents, dag->preferred_parent);
     nbr_table_lock(rpl_parents, p);
     dag->preferred_parent = p;
-    uip_ds6_nbr_t *nbr = rpl_get_nbr(dag->preferred_parent);
-    if(dag->preferred_parent != NULL)
-    {
+//    uip_ds6_nbr_t *nbr = rpl_get_nbr(dag->preferred_parent);
+//    if(dag->preferred_parent != NULL)
+//    {
 //    	fprintf(debugfp,"rpl-dag set_preferred_p ip:%d weight:%d\n",
 //    			nbr->ipaddr.u8[15],dag->preferred_parent->parent_sum_weight);
 //    	fflush(debugfp);
-    }
+//    }
   }
 }
 /*---------------------------------------------------------------------------*/

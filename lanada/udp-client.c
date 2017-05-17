@@ -141,7 +141,6 @@ send_packet(void *ptr)
   }
 #endif /* SERVER_REPLY */
 
-  data_message_count = seq_id;
 
 #if RPL_ICMP_ENERGY_LOG
 	char *log_buf = (char*) malloc(sizeof(char)*100);
@@ -151,10 +150,11 @@ send_packet(void *ptr)
 #endif
 	seq_id++;
 
+#if PS_COUNT
+  data_message_count = seq_id-1;
 	int total_count1, total_count2;
 	total_count1 = dio_count + dao_count + dis_count + dio_ack_count;
 	total_count2 = dao_ack_count + dao_fwd_count + dao_ack_fwd_count + LSA_count;
-
 	if (data_message_count%PS == 0) {
 		LOG_MESSAGE("[PS] Periodic status review:\n");
 		LOG_MESSAGE("[PS] Control: %d, Data: %d, Data fwd: %d\n", 
@@ -198,6 +198,7 @@ send_packet(void *ptr)
 					}
 	}
 	lifetime = get_residual_energy();
+#endif
 
   PRINTF("app: DATA id:%03d from:%03d\n",
          seq_id,myaddr);

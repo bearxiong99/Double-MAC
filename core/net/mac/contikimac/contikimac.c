@@ -577,10 +577,12 @@ send_packet(mac_callback_t mac_callback, void *mac_callback_ptr,
   int len;
   uint8_t seqno;
 #endif
+#if RPL_ENERGY_MODE
 	// JJH
   int original_datalen;
   uint8_t *original_dataptr;
-  
+#endif
+
   /* Exit if RDC and radio were explicitly turned off */
    if(!contikimac_is_on && !contikimac_keep_radio_on) {
     PRINTF("contikimac: radio is turned off\n");

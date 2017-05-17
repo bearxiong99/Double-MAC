@@ -365,7 +365,9 @@ dis_output(uip_ipaddr_t *addr)
    *     |     Flags     |   Reserved    |   Option(s)...
    *     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    */
+#if PS_COUNT
 	dis_count ++;
+#endif
 #if RPL_ICMP_ENERGY_LOG
 	char *log_buf = (char*) malloc(sizeof(char)*100);
 	sprintf(log_buf,"DIS_OUTPUT, Energy: %d\n",(int)get_residual_energy()); 
@@ -715,7 +717,9 @@ dio_output(rpl_instance_t *instance, uip_ipaddr_t *uc_addr)
   uip_ipaddr_t addr;
 #endif /* !RPL_LEAF_ONLY */
 
+#if PS_COUNT
 	dio_count ++;
+#endif
 #if RPL_ICMP_ENERGY_LOG
 	char *log_buf = (char*) malloc(sizeof(char)*100);
 	sprintf(log_buf,"DIO_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
@@ -1132,7 +1136,9 @@ dio_ack_output(rpl_instance_t *instance, uip_ipaddr_t *uc_addr)
 	rpl_dag_t *dag = instance->current_dag;
 	rpl_parent_t *p = dag->preferred_parent;
 
+#if PS_COUNT
 	dio_ack_count ++;
+#endif
 #if RPL_ICMP_ENERGY_LOG
 	char *log_buf = (char*) malloc(sizeof(char)*100);
 	sprintf(log_buf,"DIO_ACK_OUTPUT, Energy: %d\n",(int) get_residual_energy());
@@ -1268,7 +1274,9 @@ LSA_converge_output(uint8_t lr_child)
   unsigned char *buffer;
   int pos;
 	uip_ipaddr_t addr;
+#if PS_COUNT
 	LSA_count ++;
+#endif
 #if RPL_ICMP_ENERGY_LOG
 	char *log_buf = (char*) malloc(sizeof(char)*100);
 	sprintf(log_buf,"LSA_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
@@ -1503,7 +1511,9 @@ dao_input(void)
         buffer = UIP_ICMP_PAYLOAD;
         buffer[3] = out_seq; /* add an outgoing seq no before fwd */
 				
+#if PS_COUNT
 				dao_fwd_count ++;
+#endif
 #if RPL_ICMP_ENERGY_LOG
 				char *log_buf = (char*) malloc(sizeof(char)*100);
 				sprintf(log_buf,"DAO_FWD_OUTPUT NO PATH, Energy: %d\n",(int) get_residual_energy()); 
@@ -1673,7 +1683,9 @@ fwd_dao:
       buffer = UIP_ICMP_PAYLOAD;
       buffer[3] = out_seq; /* add an outgoing seq no before fwd */
 
+#if PS_COUNT
 			dao_fwd_count ++;
+#endif
 #if RPL_ICMP_ENERGY_LOG
 			char *log_buf = (char*) malloc(sizeof(char)*100);
 			sprintf(log_buf,"DAO_FWD_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
@@ -1764,7 +1776,10 @@ dao_output(rpl_parent_t *parent, uint8_t lifetime)
   /* Destination Advertisement Object */
   uip_ipaddr_t prefix;
 
+#if PS_COUNT
 	dao_count ++;
+#endif
+
 #if RPL_ICMP_ENERGY_LOG
 	char *log_buf = (char*) malloc(sizeof(char)*100);
 	sprintf(log_buf,"DAO_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
@@ -2054,7 +2069,9 @@ dao_ack_input(void)
         PRINT6ADDR(nexthop);
         PRINTF("\n");
         buffer[2] = re->state.dao_seqno_in;
+#if PS_COUNT
 				dao_ack_fwd_count ++;
+#endif
 #if RPL_ICMP_ENERGY_LOG
 				char *log_buf = (char*) malloc(sizeof(char)*100);
 				sprintf(log_buf,"DAO_ACK_FWD_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
@@ -2083,7 +2100,10 @@ dao_ack_output(rpl_instance_t *instance, uip_ipaddr_t *dest, uint8_t sequence,
 #if RPL_WITH_DAO_ACK
   unsigned char *buffer;
 	
+#if PS_COUNT
 	dao_ack_count ++;
+#endif
+
 #if RPL_ICMP_ENERGY_LOG
 	char *log_buf = (char*) malloc(sizeof(char)*100);
 	sprintf(log_buf,"DAO_ACK_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 

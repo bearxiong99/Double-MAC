@@ -332,14 +332,14 @@ best_parent(rpl_parent_t *p1, rpl_parent_t *p2)
   rpl_path_metric_t p1_metric;
   rpl_path_metric_t p2_metric;
 #if RPL_LIFETIME_MAX_MODE
-  uip_ds6_nbr_t *nbr1 = NULL;
-  uip_ds6_nbr_t *nbr2 = NULL;
-  nbr1 = rpl_get_nbr(p1);
-  nbr2 = rpl_get_nbr(p2);
+//  uip_ds6_nbr_t *nbr1 = NULL;
+//  uip_ds6_nbr_t *nbr2 = NULL;
+//  nbr1 = rpl_get_nbr(p1);
+//  nbr2 = rpl_get_nbr(p2);
 #endif
 #if DUAL_RADIO
-  uint8_t is_longrange1;
-  uint8_t is_longrange2;
+//  uint8_t is_longrange1;
+//  uint8_t is_longrange2;
 #endif
 
   dag = p1->dag; /* Both parents are in the same DAG. */

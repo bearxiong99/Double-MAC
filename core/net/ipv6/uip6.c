@@ -1279,7 +1279,9 @@ uip_process(uint8_t flag)
 			packet_forwarding = 1;
 #endif
 
+#if PS_COUNT
 			data_fwd_count ++;
+#endif
 #if RPL_ICMP_ENERGY_LOG
 			char *log_buf = (char*) malloc(sizeof(char)*100);
 			sprintf(log_buf,"DATA_FWD_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 

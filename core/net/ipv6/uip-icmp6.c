@@ -308,7 +308,10 @@ uip_icmp6_error_output(uint8_t type, uint8_t code, uint32_t param) {
 void
 uip_icmp6_send(const uip_ipaddr_t *dest, int type, int code, int payload_len)
 {
+#if PS_COUNT
 	icmp_count ++;
+#endif
+
 #if RPL_ICMP_ENERGY_LOG
 	char *log_buf = (char*) malloc(sizeof(char)*100);
 	sprintf(log_buf,"ICMP_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 

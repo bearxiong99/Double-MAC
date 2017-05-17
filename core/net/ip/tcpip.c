@@ -145,7 +145,9 @@ uint8_t
 tcpip_output(const uip_lladdr_t *a)
 {
   int ret;
+#if PS_COUNT
 	tcp_output_count ++;
+#endif
 #if RPL_ICMP_ENERGY_LOG
 	char *log_buf = (char*) malloc(sizeof(char)*100);
 	sprintf(log_buf,"TCP_OUTPUT, Energy: %d\n",(int)get_residual_energy()); 

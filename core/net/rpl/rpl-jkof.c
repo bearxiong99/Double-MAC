@@ -183,7 +183,6 @@ neighbor_link_callback(rpl_parent_t *p, int status, int numtx)
   uint16_t packet_ett = numtx * RPL_DAG_MC_ETX_DIVISOR;
   uint16_t new_ett;
   uip_ds6_nbr_t *nbr = NULL;
-  uint8_t is_longrange;
 
   nbr = rpl_get_nbr(p);
   if(nbr == NULL) {
