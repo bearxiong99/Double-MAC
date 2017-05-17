@@ -127,7 +127,7 @@
 /* remaining energy JJH */
 #include "../lanada/param.h"
 #include "sys/log_message.h"
-extern int collision_count, transmission_count;
+//extern int collision_count, transmission_count;
 
 #if RPL_ENERGY_MODE
 extern uint8_t remaining_energy;
@@ -148,7 +148,7 @@ send_one_packet(mac_callback_t sent, void *ptr)
 	// fprintf(debugfp,"nullrdc/send_one_packet/sent : %x\n\n",sent);
 	// fflush(debugfp); 
 	
-	transmission_count ++;
+//	transmission_count ++;
 	// LOG_MESSAGE("Transmission\n");
 
 	/* JOONKI */
@@ -294,7 +294,7 @@ send_one_packet(mac_callback_t sent, void *ptr)
           } else {
 	    PRINTF("nullrdc tx noack\n");
 			// LOG_MESSAGE("TX noack\n");
-			collision_count ++;
+//			collision_count ++;
 	  }
         }
         break;

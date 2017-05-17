@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONTIKI=/media/user/Harddisk/Double-MAC/
+CONTIKI=/media/user/Harddisk/Double-MAC
 
 echo "Long range simulation"
 sed -i 's/\#define DUAL_RADIO 0/\#define DUAL_RADIO 1/g' $CONTIKI/platform/cooja/contiki-conf.h
@@ -14,23 +14,25 @@ STROBE_CNT=$6
 LONG_WEIGHT=$7
 LSA_R=$8
 LR_range=$9
+PARENT_REDUCTION=${10}
+REDUCTION_RATIO=${11}
 
 if [ $TRAFFIC_MODEL -eq 0 ]
 then
-    mkdir 0516\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
-    cd 0516\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
+    mkdir 0517\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
+    cd 0517\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
 else
-    mkdir 0516\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
-    cd 0516\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
+    mkdir 0517\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
+    cd 0517\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
 fi
 
-../param.sh $LONG_WEIGHT $ALPHA $STROBE_CNT $LSA_R $TRAFFIC_MODEL $PERIOD $ARRIVAL_RATE
+../param.sh $LONG_WEIGHT $ALPHA $STROBE_CNT $LSA_R $TRAFFIC_MODEL $PERIOD $ARRIVAL_RATE $PARENT_REDUCTION $REDUCTION_RATIO
 
-if [ ! -e lr\_$topology\_weight$LONG_WEIGHT\_LR_range$LR_range\_strobe$STROBE_CNT\_lsa$LSA_R ]
+if [ ! -e lr\_$topology\_weight$LONG_WEIGHT\_LR_range$LR_range\_strobe$STROBE_CNT\_lsa$LSA_R\_ratio$REDUCTION_RATIO ]
 then
-    mkdir lr\_$topology\_weight$LONG_WEIGHT\_LR_range$LR_range\_strobe$STROBE_CNT\_lsa$LSA_R
+    mkdir lr\_$topology\_weight$LONG_WEIGHT\_LR_range$LR_range\_strobe$STROBE_CNT\_lsa$LSA_R\_ratio$REDUCTION_RATIO
 fi
-cd lr\_$topology\_weight$LONG_WEIGHT\_LR_range$LR_range\_strobe$STROBE_CNT\_lsa$LSA_R
+cd lr\_$topology\_weight$LONG_WEIGHT\_LR_range$LR_range\_strobe$STROBE_CNT\_lsa$LSA_R\_ratio$REDUCTION_RATIO
 echo "#########################  We are in $PWD  ########################"
 
 if [ ! -e COOJA.testlog ]

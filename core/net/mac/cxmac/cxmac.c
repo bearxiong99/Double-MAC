@@ -862,7 +862,9 @@ send_packet(void)
 
   collisions = 0;
   if(!is_already_streaming) {
+#ifndef ZOUL_MOTE
 	  watchdog_stop();
+#endif
 	  got_strobe_ack = 0;
 	  t = RTIMER_NOW();
 

@@ -60,7 +60,14 @@
 //#define PERIOD 0	// defined in lanada/param.h
 //#endif
 
+#ifdef PERIOD
 #define PS (600 / PERIOD)
+#endif
+
+#ifdef ARRIVAL_RATE
+#define PS (600 / ARRIVAL_RATE)
+#endif
+
 #include "param.h"
 
 #define START_INTERVAL		(15 * CLOCK_SECOND)
@@ -300,8 +307,10 @@ PROCESS_THREAD(udp_client_process, ev, data)
 
 #if TRAFFIC_MODEL == 0 // Periodic
   etimer_set(&arrival, SEND_INTERVAL);
-#else if TRAFFIC_MODEL == 1 // Poisson traffic
+#elif TRAFFIC_MODEL == 1 // Poisson traffic
   poisson_int = (-ARRIVAL_RATE) * logf(random_rand()/(float)RANDOM_RAND_MAX) * CLOCK_SECOND;
+  if(poisson_int == 0)
+	  poisson_int = 1;
 //  printf("poisson %d\n",poisson_int);
   etimer_set(&arrival, poisson_int);
 #endif
@@ -353,6 +362,8 @@ PROCESS_THREAD(udp_client_process, ev, data)
         ctimer_set(&backoff_timer, random_rand() % (poisson_int  * CLOCK_SECOND), send_packet, NULL);
         poisson_int = (-ARRIVAL_RATE) * logf(random_rand()/(float)RANDOM_RAND_MAX) * CLOCK_SECOND;
 //    	printf("poisson %d\n",poisson_int);
+        if(poisson_int == 0)
+      	  poisson_int = 1;
     	etimer_set(&arrival, poisson_int);
 #endif
 

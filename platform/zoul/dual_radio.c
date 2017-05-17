@@ -1,4 +1,5 @@
 #include "dual_radio.h"
+#if DUAL_RADIO
 #define DEBUG_DUAL	0
 
 #include "net/rpl/rpl-icmp6.h"
@@ -91,6 +92,40 @@ int radio_received_is_longrange(void)
 	}
 }
 
+int dual_radio_turn_on(char targetRadio)
+{
+	if (targetRadio == LONG_RADIO) {
+		dual_radio_switch(LONG_RADIO);
+		NETSTACK_RADIO.on();
+	}	else if (targetRadio == SHORT_RADIO) {
+		dual_radio_switch(SHORT_RADIO);
+		NETSTACK_RADIO.on();
+	}	else {
+		dual_radio_switch(LONG_RADIO);
+		NETSTACK_RADIO.on();
+		dual_radio_switch(SHORT_RADIO);
+		NETSTACK_RADIO.on();
+	}
+	return 1;
+}
+
+int dual_radio_turn_off(char targetRadio)
+{
+	if (targetRadio == LONG_RADIO) {
+		dual_radio_switch(LONG_RADIO);
+		NETSTACK_RADIO.off();
+	}	else if (targetRadio == SHORT_RADIO) {
+		dual_radio_switch(SHORT_RADIO);
+		NETSTACK_RADIO.off();
+	}	else {
+		dual_radio_switch(LONG_RADIO);
+		NETSTACK_RADIO.off();
+		dual_radio_switch(SHORT_RADIO);
+		NETSTACK_RADIO.off();
+	}
+	return 1;
+}
+
 PROCESS_THREAD(dual_dio_broadcast, ev, data)
 {
 	static struct etimer et;
@@ -161,3 +196,4 @@ int dio_ack_broadcast(rpl_instance_t * instance)
 	return 1;
 }
 #endif
+#endif /* DUAL_RADIO */

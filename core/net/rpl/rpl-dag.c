@@ -517,6 +517,7 @@ rpl_set_root(uint8_t instance_id, uip_ipaddr_t *dag_id)
   dag->preference = RPL_PREFERENCE;
   instance->mop = RPL_MOP_DEFAULT;
   instance->of = &RPL_OF;
+
   rpl_set_preferred_parent(dag, NULL);
 
   memcpy(&dag->dag_id, dag_id, sizeof(dag->dag_id));
@@ -825,6 +826,16 @@ rpl_add_parent(rpl_dag_t *dag, rpl_dio_t *dio, uip_ipaddr_t *addr)
       p->dtsn = dio->dtsn;
 #if RPL_LIFETIME_MAX_MODE
       my_parent_number++;
+#if PARENT_REDUCTION_MODE
+      if(my_valid_parent_number == 0
+    		  || random_rand() % 100 <= (VALID_PARENT_RATIO * 100))
+      {
+    	  my_valid_parent_number++;
+    	  p->valid_flag = 1;
+      }
+//      printf("PARENT_REDUCTION #parent: %d, #valid_parent: %d\n",my_parent_number,my_valid_parent_number);
+#endif
+
 #endif
 //      printf("my_parent_number inc: %d\n",my_parent_number);
       /* Check whether we have a neighbor that has not gotten a link metric yet */
@@ -1071,12 +1082,12 @@ best_parent(rpl_dag_t *dag)
 	}
 #elif CONVERGE_MODE == 2
 	if (simple_convergence == 1){ // Temp convergence
-		printf("Best parent is %d\n",rpl_get_nbr(dag->preferred_parent)->ipaddr.u8[15]);
+//		printf("Best parent is %d\n",rpl_get_nbr(dag->preferred_parent)->ipaddr.u8[15]);
 		return dag->preferred_parent;
 	}
 #endif /* CONVERGENCE_MODE */
 	
-	printf ("strange, simple_convergence: %d\n",simple_convergence);
+//	printf ("strange, simple_convergence: %d\n",simple_convergence);
 
 #endif
 	
@@ -1102,7 +1113,11 @@ best_parent(rpl_dag_t *dag)
 		  dag->base_rank = p->rank;
 	  }
 #endif
+#if PARENT_REDUCTION_MODE
+    if(p->dag != dag || p->rank == INFINITE_RANK || p->valid_flag == 0) {
+#else
     if(p->dag != dag || p->rank == INFINITE_RANK) {
+#endif
       /* ignore this neighbor */
     } else if(best == NULL) {
       best = p;
@@ -1115,10 +1130,17 @@ best_parent(rpl_dag_t *dag)
   if(best != prev && best != NULL && prev != NULL)
   {
 //	  printf("among my_parent_number^2: %d weight diff: %d\n",my_parent_number, prev->parent_sum_weight - best->parent_sum_weight);
+#if PARENT_REDUCTION_MODE
+	  if(rand() % (my_valid_parent_number * my_valid_parent_number) > (prev->parent_sum_weight - best->parent_sum_weight))
+	  {
+		  return prev;
+	  }
+#else
 	  if(rand() % (my_parent_number * my_parent_number) > (prev->parent_sum_weight - best->parent_sum_weight))
 	  {
 		  return prev;
 	  }
+#endif
   }
 #endif
 
@@ -1147,7 +1169,10 @@ rpl_remove_parent(rpl_parent_t *parent)
   PRINTF("RPL: Removing parent ");
   PRINT6ADDR(rpl_get_parent_ipaddr(parent));
   PRINTF("\n");
-
+#if PARENT_REDUCTION_MODE
+  if(parent->valid_flag == 1)
+	  my_valid_parent_number--;
+#endif
   rpl_nullify_parent(parent);
 #if RPL_LIFETIME_MAX_MODE
   my_parent_number--;
