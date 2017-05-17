@@ -223,7 +223,7 @@ class CommandInterface(object):
         set_reset_pin(0)
         set_reset_pin(1)
         set_reset_pin(0)
-        time.sleep(0.002)  # Make sure the pin is still asserted when the chip
+        time.sleep(0.1)  # Make sure the pin is still asserted when the chip
                            # comes out of reset. This fixes an issue where there
                            # wasn't enough delay here on Mac.
         set_bootloader_pin(0 if not dtr_active_high else 1)

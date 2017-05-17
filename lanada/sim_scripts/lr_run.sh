@@ -1,10 +1,6 @@
 #!/bin/bash
 
-<<<<<<< HEAD
-CONTIKI=~/Desktop/Double-MAC
-=======
 CONTIKI=/media/user/Harddisk/Double-MAC
->>>>>>> e6281a1d6f63bde16ab04317a581064ec0c0a9a8
 
 echo "Long range simulation"
 sed -i 's/\#define DUAL_RADIO 0/\#define DUAL_RADIO 1/g' $CONTIKI/platform/cooja/contiki-conf.h
