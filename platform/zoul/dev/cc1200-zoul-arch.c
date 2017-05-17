@@ -53,6 +53,7 @@
 #include "dev/ssi.h"
 #include "dev/gpio.h"
 #include <stdio.h>
+
 /*---------------------------------------------------------------------------*/
 #define CC1200_SPI_CLK_PORT_BASE   GPIO_PORT_TO_BASE(SPI0_CLK_PORT)
 #define CC1200_SPI_CLK_PIN_MASK    GPIO_PIN_MASK(SPI0_CLK_PIN)

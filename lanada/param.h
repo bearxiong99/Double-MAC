@@ -41,7 +41,7 @@
  * Only long duty cylce, long preamble */
 #if DUAL_RADIO
 #define LSA_MAC	1
-#define LSA_R	0
+#define LSA_R	1
 #else	/* DUAL_RADIO */
 #define LSA_MAC 0
 #define LSA_R 0
@@ -51,13 +51,9 @@
 
 #define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 30
+#define PERIOD 10
 #elif TRAFFIC_MODEL == 1
-<<<<<<< HEAD
 #define ARRIVAL_RATE 30 // Mean value, 1/lambda
-=======
-#define ARRIVAL_RATE 0 // Mean value, 1/lambda
->>>>>>> e6281a1d6f63bde16ab04317a581064ec0c0a9a8
 #endif
 
 

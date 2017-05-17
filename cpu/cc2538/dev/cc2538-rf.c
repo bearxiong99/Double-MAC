@@ -50,6 +50,17 @@
 #include "dev/udma.h"
 #include "reg.h"
 
+#if DUAL_RADIO
+#ifdef ZOLERTIA_Z1
+#include  "../platform/z1/dual_radio.h"
+#elif COOJA /* ZOLERTIA_Z1 */
+#include  "../platform/cooja/dual_conf.h"
+#else /* ZOLERTIA_Z1 */
+#include "../platform/zoul/dual_radio.h"
+#endif /* ZOLERTIA_Z1 */
+#endif /* DUAL_RADIO */
+
+
 #include <string.h>
 /*---------------------------------------------------------------------------*/
 #define CHECKSUM_LEN 2
@@ -956,6 +967,10 @@ PROCESS_THREAD(cc2538_rf_process, ev, data)
     len = read(packetbuf_dataptr(), PACKETBUF_SIZE);
 
     if(len > 0) {
+#if DUAL_RADIO
+			dual_radio_received(SHORT_RADIO);
+#endif
+//			printf("########################### CC2538_INTERRUPT ##############################\n");
       packetbuf_set_datalen(len);
 
       NETSTACK_RDC.input();
