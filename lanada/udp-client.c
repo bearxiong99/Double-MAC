@@ -307,7 +307,7 @@ PROCESS_THREAD(udp_client_process, ev, data)
 
 #if TRAFFIC_MODEL == 0 // Periodic
   etimer_set(&arrival, SEND_INTERVAL);
-#else if TRAFFIC_MODEL == 1 // Poisson traffic
+#elif TRAFFIC_MODEL == 1 // Poisson traffic
   poisson_int = (-ARRIVAL_RATE) * logf(random_rand()/(float)RANDOM_RAND_MAX) * CLOCK_SECOND;
   if(poisson_int == 0)
 	  poisson_int = 1;
