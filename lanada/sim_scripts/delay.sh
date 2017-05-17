@@ -10,14 +10,16 @@ do
 		for dir in *
 		do
 			cd $dir
-			part1=`grep -r ":Lifetime"`
-			lifetime=`echo "$part1" | cut -d':' -f2`
-			if [ -n "$lifetime" ]
-			then
-				let "lifetime=$lifetime / 1000000"
-			fi
-			node=`echo "$part1" | cut -d':' -f3`
-			echo $traffic $dir : node$node $lifetime
+			tot_delay=0
+			node_count=0
+			while read line
+			do
+				delay=`echo "$line" | cut -d' ' -f3`
+				let "tot_delay=$tot_delay + $delay"
+				let "node_count=$node_count + 1"
+			done < delay/avg_packet_delay.txt
+			let "avg_delay=$tot_delay / $node_count /100"
+			echo $traffic $dir : $avg_delay ms
 			cd ..
 		done
 		echo 

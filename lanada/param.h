@@ -25,7 +25,7 @@
 
 /* To determine valid parent set, only valid parents are considered as a parent set */
 #define PARENT_REDUCTION_MODE	0
-#define VALID_PARENT_RATIO	0.5
+#define VALID_PARENT_RATIO	0
 
 /* Energy log */
 #define RPL_ICMP_ENERGY_LOG		0
@@ -49,11 +49,11 @@
 
 #define SERVER_NODE 1
 
-#define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
+#define TRAFFIC_MODEL 1 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 60
+#define PERIOD 0
 #elif TRAFFIC_MODEL == 1
-#define ARRIVAL_RATE 0 // Mean value, 1/lambda
+#define ARRIVAL_RATE 30 // Mean value, 1/lambda
 #endif
 
 
