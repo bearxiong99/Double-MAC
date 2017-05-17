@@ -2,14 +2,16 @@
 
 SR=0 # Decide whether SR simulation runs or not
 LR=1 # For LR case
-TRAFFIC=1 # 0 = periodic, 1 = poisson
-VAR_PERIOD=(30)
-VAR_ARRIVAL=(50)
-VAR_TOPOLOGY=("50random")
-VAR_LR_RANGE=(4X)
+TRAFFIC=0 # 0 = periodic, 1 = poisson
+VAR_PERIOD=(60)
+VAR_ARRIVAL=(100)
+VAR_TOPOLOGY=("36grid")
+VAR_LR_RANGE=("4X")
 VAR_LR_WEIGHT=(2)
-VAR_LSA_R=1
+VAR_LSA_R=0
 VAR_STROBE_CNT=1
+VAR_PARENT_REDUCTION=0
+VAR_REDUCTION_RATIO=0.5
 
 # SR_RANGE simulation
 
@@ -48,7 +50,10 @@ then
 		do
 		    for weight in $VAR_LR_WEIGHT
 		    do
-			./lr_run.sh $topology $TRAFFIC $period 0 1 $VAR_STROBE_CNT $weight $VAR_LSA_R $range
+			for ratio in $VAR_REDUCTION_RATIO
+			do
+			./lr_run.sh $topology $TRAFFIC $period 0 1 $VAR_STROBE_CNT $weight $VAR_LSA_R $range $VAR_PARENT_REDUCTION $ratio
+			done
 		    done
 		done
 	    done
@@ -62,7 +67,10 @@ then
 		do
 		    for weight in $VAR_LR_WEIGHT
 		    do
-			./lr_run.sh $topology $TRAFFIC 0 $arrival 1 $VAR_STROBE_CNT $weight $VAR_LSA_R $range
+			for ratio in $VAR_REDUCTION_RATIO
+			do
+			./lr_run.sh $topology $TRAFFIC 0 $arrival 1 $VAR_STROBE_CNT $weight $VAR_LSA_R $range $VAR_PARENT_REDUCTION $ratio
+			done
 		    done
 		done
 	    done

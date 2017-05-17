@@ -23,6 +23,10 @@
 /* Using strobe cnt, reducing idle listening while Tx preamble */
 #define STROBE_CNT_MODE		1
 
+/* To determine valid parent set, only valid parents are considered as a parent set */
+#define PARENT_REDUCTION_MODE	0
+#define VALID_PARENT_RATIO	0.5
+
 /* Energy log */
 #define RPL_ICMP_ENERGY_LOG		0
 
@@ -37,7 +41,7 @@
  * Only long duty cylce, long preamble */
 #if DUAL_RADIO
 #define LSA_MAC	1
-#define LSA_R	1
+#define LSA_R	0
 #else	/* DUAL_RADIO */
 #define LSA_MAC 0
 #define LSA_R 0
@@ -45,11 +49,11 @@
 
 #define SERVER_NODE 1
 
-#define TRAFFIC_MODEL 1 // 0: Periodic, 1: Poisson
+#define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 0
+#define PERIOD 60
 #elif TRAFFIC_MODEL == 1
-#define ARRIVAL_RATE 50 // Mean value, 1/lambda
+#define ARRIVAL_RATE 0 // Mean value, 1/lambda
 #endif
 
 
@@ -97,6 +101,9 @@ uint8_t alpha;
 uint8_t my_weight;
 uint8_t my_sink_reachability;
 uint8_t my_parent_number;
+#if PARENT_REDUCTION_MODE
+uint8_t my_valid_parent_number;
+#endif
 #define DATA_PKT_SIZE 10 // 'B' in theory
 #define SHORT_TX_COST 1
 #define SHORT_RX_COST 1
