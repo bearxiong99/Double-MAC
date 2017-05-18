@@ -183,7 +183,7 @@ static volatile unsigned char radio_is_on = 0;
 #define LEDS_ON(x) leds_on(x)
 #define LEDS_OFF(x) leds_off(x)
 #define LEDS_TOGGLE(x) leds_toggle(x)
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG
 #include <stdio.h>
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -1461,6 +1461,10 @@ cxmac_set_announcement_radio_txpower(int txpower)
 void
 cxmac_init(void)
 {
+	printf("cxmac on_time %d\n",DEFAULT_ON_TIME);
+	printf("cxmac off_time %d\n",DEFAULT_OFF_TIME);
+	printf("cxmac strobe_wait_time %d\n",cxmac_config.strobe_wait_time);
+	printf("cxmac strobe %d\n",cxmac_config.strobe_time);
 #if DUAL_RADIO
   dual_duty_cycle_count = 0;
 #if DUAL_ROUTING_CONVERGE

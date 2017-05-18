@@ -68,7 +68,7 @@
  * - 2: Print errors + warnings (recoverable errors)
  * - 3: Print errors + warnings + information (what's going on...)
  */
-#define DEBUG_LEVEL                     1
+#define DEBUG_LEVEL                     0
 /*
  * RF test mode. Blocks inside "configure()".
  * - Set this parameter to 1 in order to produce an modulated carrier (PN9)
@@ -653,6 +653,11 @@ pollhandler(void)
     len = read(packetbuf_dataptr(), PACKETBUF_SIZE);
 
     if(len > 0) {
+#if DUAL_RADIO
+			dual_radio_received(LONG_RADIO);
+#endif
+			//printf("########################### CC1200_INTERRUPT ##############################\n");
+
       packetbuf_set_datalen(len);
       NETSTACK_RDC.input();
     }
@@ -1786,7 +1791,7 @@ static void
 idle_calibrate_rx(void)
 {
   RF_ASSERT(state() == STATE_IDLE);
-  printf("cc1200 idle_calibrate state: %x\n",state());
+  // printf("cc1201 idle_calibrate state: %x\n",state());
 
 #if !CC1200_AUTOCAL
   calibrate();

@@ -86,7 +86,9 @@
 #include "core/sys/residual.h"
 #include "core/sys/log_message.h"
 
+#if PS_COUNT
 static int lifetime = 1;
+#endif
 
 /* Remaining energy init JJH*/
 #if RPL_ENERGY_MODE
@@ -288,6 +290,8 @@ PROCESS_THREAD(udp_client_process, ev, data)
 #endif
 
   print_local_addresses();
+	// for debug
+	NETSTACK_MAC.off(1);
 
   /* new connection with remote host */
   client_conn = udp_new(NULL, UIP_HTONS(UDP_SERVER_PORT), NULL); 
@@ -301,6 +305,8 @@ PROCESS_THREAD(udp_client_process, ev, data)
   PRINT6ADDR(&client_conn->ripaddr);
   PRINTF(" local/remote port %u/%u\n",
 	UIP_HTONS(client_conn->lport), UIP_HTONS(client_conn->rport));
+//  PRINTF("ON TIME %d\n",DEFAULT_ON_TIME);
+//  PRINTF("OFF TIME %d\n",DEFAULT_OFF_TIME);
 
 #if WITH_COMPOWER
   powertrace_sniff(POWERTRACE_ON);
