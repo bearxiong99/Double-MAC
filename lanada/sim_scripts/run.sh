@@ -1,19 +1,12 @@
 #!/bin/bash
 
 SR=1 # Decide whether SR simulation runs or not
-LR=0 # For LR case
+LR=1 # For LR case
 TRAFFIC=1 # 0 = periodic, 1 = poisson
-<<<<<<< HEAD
 VAR_PERIOD=(60)
-VAR_ARRIVAL=(30)
-VAR_TOPOLOGY=("50random")
-VAR_LR_RANGE=("2X" "4X")
-=======
-VAR_PERIOD=(30)
-VAR_ARRIVAL=(30)
+VAR_ARRIVAL=(100)
 VAR_TOPOLOGY=("36grid" "50random")
-VAR_LR_RANGE=(2X)
->>>>>>> e6281a1d6f63bde16ab04317a581064ec0c0a9a8
+VAR_LR_RANGE=("2X" "4X")
 VAR_LR_WEIGHT=(2)
 VAR_LSA_R=0
 VAR_STROBE_CNT=1

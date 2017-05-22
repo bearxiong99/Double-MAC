@@ -10,7 +10,7 @@ extern int log_file;
 
 #define LOG_LEVEL		0
 #define SIMULATION_SETTING	1
-#define PS_COUNT 0
+#define PS_COUNT 1
 
 #if SIMULAITON_SETTING
 extern const energy_t DISSIPATION_RATE;

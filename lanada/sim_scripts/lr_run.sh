@@ -1,10 +1,6 @@
 #!/bin/bash
 
-<<<<<<< HEAD
 CONTIKI=~/Desktop/Double-MAC
-=======
-CONTIKI=/media/user/Harddisk/Double-MAC
->>>>>>> e6281a1d6f63bde16ab04317a581064ec0c0a9a8
 
 echo "Long range simulation"
 sed -i 's/\#define DUAL_RADIO 0/\#define DUAL_RADIO 1/g' $CONTIKI/platform/cooja/contiki-conf.h
@@ -23,11 +19,11 @@ REDUCTION_RATIO=${11}
 
 if [ $TRAFFIC_MODEL -eq 0 ]
 then
-    mkdir 0517\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
-    cd 0517\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
+    mkdir 0522\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
+    cd 0522\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
 else
-    mkdir 0517\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
-    cd 0517\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
+    mkdir 0522\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
+    cd 0522\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
 fi
 
 ../param.sh $LONG_WEIGHT $ALPHA $STROBE_CNT $LSA_R $TRAFFIC_MODEL $PERIOD $ARRIVAL_RATE $PARENT_REDUCTION $REDUCTION_RATIO
