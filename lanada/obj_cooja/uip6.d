@@ -27,12 +27,9 @@ obj_cooja/uip6.o: ..//core/net/ipv6/uip6.c ..//core/./sys/cc.h \
  ..//core/./net/ipv6/multicast/smrf.h \
  ..//core/./net/ipv6/multicast/roll-tm.h \
  ..//core/./net/ipv6/multicast/uip-mcast6-stats.h \
- ../platform/cooja/dual_conf.h ../platform/cooja/dev/cooja-radio.h \
- ..//core/./net/rpl/rpl-private.h ..//core/./net/rpl/rpl.h \
- ..//core/./net/rpl/rpl-conf.h ../lanada/param.h \
  ..//core/./sys/log_message.h ..//core/./cfs/cfs.h \
  ..//core/net/ipv6/ipv6_debug.h ..//core/./net/ip/uip-debug.h \
- ..//core/net/rpl/rpl.h
+ ..//core/net/rpl/rpl.h ..//core/net/rpl/rpl-conf.h ../lanada/param.h
 ..//core/net/ipv6/uip6.c ..//core/./sys/cc.h :
  ..//platform/cooja/./contiki-conf.h project-conf.h :
  ..//core/./sys/cc-gcc.h ..//core/./net/ip/uip.h :
@@ -62,9 +59,6 @@ obj_cooja/uip6.o: ..//core/net/ipv6/uip6.c ..//core/./sys/cc.h \
  ..//core/./net/ipv6/multicast/smrf.h :
  ..//core/./net/ipv6/multicast/roll-tm.h :
  ..//core/./net/ipv6/multicast/uip-mcast6-stats.h :
- ../platform/cooja/dual_conf.h ../platform/cooja/dev/cooja-radio.h :
- ..//core/./net/rpl/rpl-private.h ..//core/./net/rpl/rpl.h :
- ..//core/./net/rpl/rpl-conf.h ../lanada/param.h :
  ..//core/./sys/log_message.h ..//core/./cfs/cfs.h :
  ..//core/net/ipv6/ipv6_debug.h ..//core/./net/ip/uip-debug.h :
- ..//core/net/rpl/rpl.h :
+ ..//core/net/rpl/rpl.h ..//core/net/rpl/rpl-conf.h ../lanada/param.h :
