@@ -16,16 +16,17 @@ LSA_R=0
 LR_range=2X
 PARENT_REDUCTION=0
 REDUCTION_RATIO=0
+DATE=$7
 
 echo "model $TRAFFIC_MODEL"
 
 if [ $TRAFFIC_MODEL -eq 0 ]
 then
-    mkdir 0517\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
-    cd 0517\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
+    mkdir $DATE\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
+    cd $DATE\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA
 else
-    mkdir 0517\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
-    cd 0517\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
+    mkdir $DATE\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
+    cd $DATE\_traffic$TRAFFIC_MODEL\_rate$ARRIVAL_RATE\_alpha$ALPHA
 fi
 
 ../param.sh $LONG_WEIGHT $ALPHA $STROBE_CNT $LSA_R $TRAFFIC_MODEL $PERIOD $ARRIVAL_RATE $PARENT_REDUCTION $REDUCTION_RATIO

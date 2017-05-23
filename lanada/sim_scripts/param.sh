@@ -28,6 +28,9 @@ echo "#define RPL_ENERGY_MODE 0
 #define PARENT_REDUCTION_MODE	$8
 #define VALID_PARENT_RATIO	$9
 
+/* Enabling Data ACK */
+#define DATA_ACK       1
+
 /* Energy log */
 #define RPL_ICMP_ENERGY_LOG		0
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for DIR in 0517*
+for DIR in 0523*
 do
 	if [ -d $DIR ]
 	then
