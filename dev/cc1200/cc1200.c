@@ -656,7 +656,7 @@ pollhandler(void)
 #if DUAL_RADIO
 			dual_radio_received(LONG_RADIO);
 #endif
-			//printf("########################### CC1200_INTERRUPT ##############################\n");
+			printf("########################### CC1200_INTERRUPT ##############################\n");
 
       packetbuf_set_datalen(len);
       NETSTACK_RDC.input();

@@ -291,7 +291,8 @@ PROCESS_THREAD(udp_client_process, ev, data)
 
   print_local_addresses();
 	// for debug
-//	NETSTACK_MAC.off(1);
+	//NETSTACK_MAC.off(1);
+
 
   /* new connection with remote host */
   client_conn = udp_new(NULL, UIP_HTONS(UDP_SERVER_PORT), NULL); 

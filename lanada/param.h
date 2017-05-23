@@ -12,7 +12,11 @@
 /* Metric ratio between weight and rank */
 //#define ALPHA 2
 /* Weight ratio between long and short*/
+<<<<<<< HEAD
 #define LONG_WEIGHT_RATIO 1
+=======
+#define LONG_WEIGHT_RATIO 2
+>>>>>>> 981d62351de15b5fa230dc52d3f6941624688e1e
 
 /* Weight ratio between rank and parent's degree */
 #define ALPHA	1
@@ -54,9 +58,15 @@
 
 #define TRAFFIC_MODEL 1 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
+<<<<<<< HEAD
 #define PERIOD 0
 #elif TRAFFIC_MODEL == 1
 #define ARRIVAL_RATE 50 // Mean value, 1/lambda
+=======
+#define PERIOD 30
+#elif TRAFFIC_MODEL == 1
+#define ARRIVAL_RATE 0 // Mean value, 1/lambda
+>>>>>>> 981d62351de15b5fa230dc52d3f6941624688e1e
 #endif
 
 

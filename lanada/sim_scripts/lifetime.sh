@@ -5,7 +5,7 @@ do
 	if [ -d $DIR ]
 	then
 		traffic=`echo $DIR | cut -d'_' -f3`
-		echo "############# $traffic ###############"
+		echo "############# $DIR ###############"
 		cd $DIR
 		for dir in *
 		do
@@ -17,7 +17,7 @@ do
 				let "lifetime=$lifetime / 1000000"
 			fi
 			node=`echo "$part1" | cut -d':' -f3`
-			echo $traffic $dir : node$node $lifetime
+			echo $DIR $dir : node$node $lifetime
 			cd ..
 		done
 		echo 
