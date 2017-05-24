@@ -1,5 +1,4 @@
 #!/bin/bash
-
 SKIP=0
 UPLOAD=1
 PORT=0
@@ -16,10 +15,10 @@ if [ $UPLOAD -eq 1 ]
 then
 	if [ $SKIP -eq 0 ]
 	then
-		sudo make clean TARGET=zoul
+		sudo make clean TARGET=zoul BOARD=firefly
 		sudo make udp-server TARGET=zoul BOARD=firefly
 	fi
-	sudo make udp-server.upload TARGET=zoul PORT=/dev/ttyUSB$PORT
+	sudo make udp-server.upload TARGET=zoul PORT=/dev/ttyUSB$PORT BOARD=firefly
 fi
-sudo make login TARGET=zoul PORT=/dev/ttyUSB$PORT
+sudo make login TARGET=zoul PORT=/dev/ttyUSB$PORT BOARD=firefly
 

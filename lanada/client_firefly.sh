@@ -1,5 +1,4 @@
 #!/bin/bash
-
 SKIP=0
 UPLOAD=1
 PORT=1
@@ -23,4 +22,5 @@ then
 	sudo make udp-client.upload TARGET=zoul PORT=/dev/ttyUSB$PORT BOARD=firefly
 fi
 sudo make login TARGET=zoul PORT=/dev/ttyUSB$PORT BOARD=firefly
+
 
