@@ -76,7 +76,7 @@ tcpip_handler(void)
     appdata = (char *)uip_appdata;
     appdata[uip_datalen()] = 0;
     recv_id = (appdata[10] - '0') + (appdata[9] - '0')*10 + (appdata[8]- '0')*100;
-    printf("id! %d\n",recv_id);
+//    printf("id! %d\n",recv_id);
 //    if(id_array[UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]] < appdata[])
     PRINTF("recv DATA '%s' from ", appdata);
     PRINTF("%d",

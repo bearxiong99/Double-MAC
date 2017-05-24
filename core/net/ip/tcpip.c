@@ -60,7 +60,7 @@
 /* JOONKI */
 #if DUAL_RADIO
 #if ADDR_MAP
-
+#define UIP_UDP_BUF                        ((struct uip_udp_hdr *)&uip_buf[UIP_LLH_LEN + UIP_IPH_LEN])
 extern uip_ds6_lr_addrmap_t ds6_lr_addrmap[NBR_TABLE_MAX_NEIGHBORS];
 
 #endif	/* ADDR_MAP */
@@ -780,6 +780,13 @@ tcpip_ipv6_output(void)
 			uip_ds6_select_src(&UIP_IP_BUF->srcipaddr, &UIP_IP_BUF->destipaddr);
 			packet_forwarding = 0;
 		}
+#if UIP_UDP_CHECKSUMS
+  /* Calculate UDP checksum again due to adjusting source address */
+  UIP_UDP_BUF->udpchksum = ~(uip_udpchksum());
+  if(UIP_UDP_BUF->udpchksum == 0) {
+    UIP_UDP_BUF->udpchksum = 0xffff;
+  }
+#endif /* UIP_UDP_CHECKSUMS */
 #endif /* DUAL_RADIO */
 
 		PRINTF("route nexthop addr send:");

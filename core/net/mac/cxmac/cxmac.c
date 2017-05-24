@@ -186,7 +186,7 @@ static volatile unsigned char radio_is_on = 0;
 #define LEDS_ON(x) leds_on(x)
 #define LEDS_OFF(x) leds_off(x)
 #define LEDS_TOGGLE(x) leds_toggle(x)
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG
 #include <stdio.h>
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -1375,8 +1375,7 @@ input_packet(void)
 #endif /* RPL_ENERGY_MODE */
 
 #if DATA_ACK
-	if(!linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),
-			&linkaddr_null)) // Only when it is not broadcast data
+	if(!linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),&linkaddr_null)) // Only when it is not broadcast data
 	{
 		struct cxmac_hdr *hdr;
 		uint8_t ack[MAX_STROBE_SIZE];
@@ -1393,28 +1392,12 @@ input_packet(void)
 		}	else if (radio_received_is_longrange() == SHORT_RADIO){
 			dual_radio_switch(SHORT_RADIO);
 		}
-/*		if(linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),&linkaddr_node_addr) == 1){
-			for_short = 1;
-			dual_radio_switch(SHORT_RADIO);
-		} else if(linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),&long_linkaddr_node_addr) == 1) {
-			for_short = 0;
-			dual_radio_switch(LONG_RADIO);
-		}*/
 #endif
 #endif
 		linkaddr_copy(&temp,packetbuf_addr(PACKETBUF_ADDR_SENDER));
 		packetbuf_clear();
 		packetbuf_set_addr(PACKETBUF_ADDR_RECEIVER,&temp);
 #if DUAL_RADIO
-/*		if(for_short == 0){
-			target = LONG_RADIO;
-			dual_radio_switch(target);
-			packetbuf_set_addr(PACKETBUF_ADDR_SENDER, &long_linkaddr_node_addr);
-		}	else	{
-			target = SHORT_RADIO;
-			dual_radio_switch(target);
-			packetbuf_set_addr(PACKETBUF_ADDR_SENDER, &linkaddr_node_addr);
-		}*/
 		if(sending_in_LR() == LONG_RADIO)
 		{
 			packetbuf_set_addr(PACKETBUF_ADDR_SENDER, &long_linkaddr_node_addr);
@@ -1427,40 +1410,17 @@ input_packet(void)
 		packetbuf_set_addr(PACKETBUF_ADDR_SENDER, &linkaddr_node_addr);
 #endif
 		len = NETSTACK_FRAMER.create();
+		if(len < 0)
+		{
+			PRINTF("cxmac: failed to send data ack\n");
+			return;
+		}
 		ack_len = len + sizeof(struct cxmac_hdr);
 		memcpy(ack,packetbuf_hdrptr(),len);
 		ack[len] = DISPATCH;
 		ack[len + 1] = TYPE_DATA_ACK;
-//		hdr->dispatch = DISPATCH;
-//		hdr->type = TYPE_DATA_ACK;
-//		printf("cxmac: seqno %d\n",packetbuf_attr(PACKETBUF_ATTR_MAC_SEQNO));
-//		packetbuf_set_attr(PACKETBUF_ATTR_MAC_SEQNO, packetbuf_attr(PACKETBUF_ATTR_MAC_SEQNO));
-//		packetbuf_compact();
-//		if(NETSTACK_FRAMER.create() >= 0) {
-
-/*
-#if DUAL_RADIO
-#if LSA_MAC
-			dual_radio_off(BOTH_RADIO);
-			if (for_short == 1) {
-				target = SHORT_RADIO;
-			} else if (for_short == 0) {
-				target = LONG_RADIO;
-			}
-#endif
-#endif
-
-#if DUAL_RADIO
-			dual_radio_on(target);
-#else
-			on();
-#endif
-*/
-			NETSTACK_RADIO.send(ack, ack_len);
-			PRINTDEBUG("cxmac: send data ack %u\n", ack_len);
-//		} else {
-//			PRINTF("cxmac: failed to send data ack\n");
-//		}
+		NETSTACK_RADIO.send(ack, ack_len);
+		PRINTDEBUG("cxmac: send data ack %u\n", ack_len);
 	}
 	queuebuf_to_packetbuf(packet);
 	queuebuf_free(packet);
