@@ -666,6 +666,9 @@ send_packet(void)
   struct queuebuf *packet;
   int is_already_streaming = 0;
   uint8_t collisions;
+	
+	/* for debug */
+  static rtimer_clock_t mark_time=0;
 
 #if PS_COUNT
   cxmac_transmission_count++;
@@ -875,8 +878,7 @@ send_packet(void)
 #endif
 	  got_strobe_ack = 0;
 	  t = RTIMER_NOW();
-
-	  for(strobes = 0, collisions = 0;
+		for(strobes = 0, collisions = 0;
 			  got_strobe_ack == 0 && collisions == 0 &&
 #if DUAL_RADIO
 					  RTIMER_CLOCK_LT(RTIMER_NOW(), t0 + strobe_time);
@@ -893,9 +895,18 @@ send_packet(void)
 			} 
 #endif /* LSA_MAC */ 
 #endif
+			/* for debug */
+			mark_time=RTIMER_NOW();
+			
+				// printf("OUT\n");
+				// printf("got_strobe_ack: %d\n", got_strobe_ack);
+				/* Strobe wait start time fixed */
+				t=RTIMER_NOW();
 			while(got_strobe_ack == 0 &&
 					RTIMER_CLOCK_LT(RTIMER_NOW(), t + cxmac_config.strobe_wait_time)) {
-				rtimer_clock_t now = RTIMER_NOW();
+				// printf("IN\n");
+				// printf("cxmac_config.strobe_wait_time: %d\n", cxmac_config.strobe_wait_time*10000/RTIMER_ARCH_SECOND);
+								rtimer_clock_t now = RTIMER_NOW();
 				/* See if we got an ACK */
 				packetbuf_clear();
 				len = NETSTACK_RADIO.read(packetbuf_dataptr(), PACKETBUF_SIZE);
@@ -906,6 +917,7 @@ send_packet(void)
 						hdr = packetbuf_dataptr();
 #if STROBE_CNT_MODE
 						char dispatch_ext = hdr->dispatch << 6;
+						
 						is_dispatch = dispatch_ext == DISPATCH;
 #else
 						is_dispatch = hdr->dispatch == DISPATCH;
@@ -941,11 +953,14 @@ send_packet(void)
 					}
 				}
 				t = RTIMER_NOW();
+//				printf("STROBE WAIT TIME is %d\n", (t - mark_time)*10000/RTIMER_ARCH_SECOND);
 				/* Send the strobe packet. */
 				if(got_strobe_ack == 0 && collisions == 0) {
 					if(is_broadcast) {
 #if WITH_STROBE_BROADCAST
+						mark_time = RTIMER_NOW();
 						NETSTACK_RADIO.send(strobe, strobe_len);
+//						printf("STROBE TIME is %d\nSTROBE LEN is%d\n", (RTIMER_NOW() - mark_time)*10000/RTIMER_ARCH_SECOND, strobe_len);
 #if STROBE_CNT_MODE
 						strobe[cnt_pos] += (1 << 2);
 						//	  printf("cxmac tx strobe_cnt %d t: %d\n",strobe_cnt,RTIMER_NOW());
@@ -1077,61 +1092,65 @@ send_packet(void)
 			}
 		}
 #endif
+		mark_time=RTIMER_NOW();
+//		printf("cxmac: send data here\n");
     NETSTACK_RADIO.send(packetbuf_hdrptr(), packetbuf_totlen());
+//		printf("DATA TIME is %d\nDATA LEN is %d\n", (RTIMER_NOW() - mark_time)*10000/RTIMER_ARCH_SECOND, packetbuf_totlen());
 
 #if DATA_ACK
+		if(!is_broadcast)
+		{
+			packetbuf_compact();
+			packet = queuebuf_new_from_packetbuf();
+#if DUAL_RADIO
+			dual_radio_on(target);
+#else
+			on();
+#endif
+			t = RTIMER_NOW();
+			while(got_data_ack == 0 &&
+					RTIMER_CLOCK_LT(RTIMER_NOW(), t + cxmac_config.strobe_wait_time * 2)) {
+				//    		printf("wait for data ack %d\n",got_data_ack);
+				packetbuf_clear();
+				len = NETSTACK_RADIO.read(packetbuf_dataptr(), PACKETBUF_SIZE);
+				if(len > 0) {
+					packetbuf_set_datalen(len);
+					if(NETSTACK_FRAMER.parse() >= 0) {
+						hdr = packetbuf_dataptr();
+//						printf("after parsing type %x\n",hdr->type);
+						if(hdr->type == TYPE_DATA_ACK) {
+#if DUAL_RADIO
+							if(linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),
+									&linkaddr_node_addr) ||
+									linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),
+											&long_linkaddr_node_addr))
+#else
+								if(linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),
+										&linkaddr_node_addr))
+#endif
+								{
+									got_data_ack = 1;
+//									PRINTDEBUG("cxmac: got data ack\n");
+								} else {
+									PRINTDEBUG("cxmac: data ack for someone else\n");
+								}
+						}
+					} else {
+						PRINTF("cxmac: send failed to parse %u\n", len);
+					}
+				}
+			}
+			/* restore the packet to send */
+			queuebuf_to_packetbuf(packet);
+			queuebuf_free(packet);
+#if DUAL_RADIO
+			dual_radio_off(target);
+#else
+			off();
+#endif
+		}
+#endif
 
-    if(!is_broadcast)
-    {
-    	packetbuf_compact();
-    	packet = queuebuf_new_from_packetbuf();
-#if DUAL_RADIO
-    	dual_radio_on(target);
-#else
-    	on();
-#endif
-		t = RTIMER_NOW();
-    	while(got_data_ack == 0 &&
-    			RTIMER_CLOCK_LT(RTIMER_NOW(), t + cxmac_config.strobe_wait_time * 2)) {
-//    		printf("wait for data ack %d\n",got_data_ack);
-    		packetbuf_clear();
-    		len = NETSTACK_RADIO.read(packetbuf_dataptr(), PACKETBUF_SIZE);
-    		if(len > 0) {
-    			packetbuf_set_datalen(len);
-    			if(NETSTACK_FRAMER.parse() >= 0) {
-    				hdr = packetbuf_dataptr();
-//    				printf("after parsing type %x\n",hdr->type);
-    				if(hdr->type == TYPE_DATA_ACK) {
-#if DUAL_RADIO
-    					if(linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),
-    							&linkaddr_node_addr) ||
-    							linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),
-    									&long_linkaddr_node_addr))
-#else
-    						if(linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),
-    								&linkaddr_node_addr))
-#endif
-    						{
-    							got_data_ack = 1;
-    						} else {
-    							PRINTDEBUG("cxmac: data ack for someone else\n");
-    						}
-    				}
-    			} else {
-    				PRINTF("cxmac: send failed to parse %u\n", len);
-    			}
-    		}
-    	}
-    	/* restore the packet to send */
-    	queuebuf_to_packetbuf(packet);
-    	queuebuf_free(packet);
-#if DUAL_RADIO
-    	dual_radio_off(target);
-#else
-    	off();
-#endif
-    }
-#endif
   }
 
 #if WITH_ENCOUNTER_OPTIMIZATION
@@ -1144,7 +1163,7 @@ send_packet(void)
   PRINTF("cxmac: send (strobes=%u,len=%u,%s), done\n", strobes,
 	 packetbuf_totlen(), got_strobe_ack ? "ack" : "no ack");
 #if DATA_ACK
-  if(!is_broadcast)
+  if(!is_broadcast && got_strobe_ack)
   {
 	  PRINTF("cxmac: recv %s\n",got_data_ack ? "data_ack" : "data_noack");
   }
@@ -1172,7 +1191,8 @@ send_packet(void)
 
   if(collisions == 0) {
 #if DATA_ACK
-    if(!is_broadcast && !got_strobe_ack && !got_data_ack) {
+//	  printf("cxmac status %d %d %d\n",is_broadcast,got_strobe_ack,got_data_ack);
+    if(!is_broadcast && (!got_strobe_ack || !got_data_ack)) {
 #else
     if(!is_broadcast && !got_strobe_ack) {
 #endif
@@ -1358,6 +1378,10 @@ input_packet(void)
 	if(!linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),
 			&linkaddr_null)) // Only when it is not broadcast data
 	{
+		struct cxmac_hdr *hdr;
+		uint8_t ack[MAX_STROBE_SIZE];
+		uint8_t ack_len, len;
+		linkaddr_t temp;
 		// Copying original packetbuf
 		  packet = queuebuf_new_from_packetbuf();
 
@@ -1372,12 +1396,10 @@ input_packet(void)
 		}
 #endif
 #endif
-		hdr->dispatch = DISPATCH;
-		hdr->type = TYPE_DATA_ACK;
+		linkaddr_copy(&temp,packetbuf_addr(PACKETBUF_ADDR_SENDER));
+		packetbuf_clear();
 		packetbuf_set_addr(PACKETBUF_ADDR_RECEIVER,
-				packetbuf_addr(PACKETBUF_ADDR_SENDER));
-//		printf("cxmac: seqno %d\n",packetbuf_attr(PACKETBUF_ATTR_MAC_SEQNO));
-//		packetbuf_set_attr(PACKETBUF_ATTR_MAC_SEQNO, packetbuf_attr(PACKETBUF_ATTR_MAC_SEQNO));
+				&temp);
 #if DUAL_RADIO
 		if(sending_in_LR() == LONG_RADIO){
 			target = LONG_RADIO;
@@ -1389,8 +1411,17 @@ input_packet(void)
 #else
 		packetbuf_set_addr(PACKETBUF_ADDR_SENDER, &linkaddr_node_addr);
 #endif
-		packetbuf_compact();
-		if(NETSTACK_FRAMER.create() >= 0) {
+		len = NETSTACK_FRAMER.create();
+		ack_len = len + sizeof(struct cxmac_hdr);
+		memcpy(ack,packetbuf_hdrptr(),len);
+		ack[len] = DISPATCH;
+		ack[len + 1] = TYPE_DATA_ACK;
+//		hdr->dispatch = DISPATCH;
+//		hdr->type = TYPE_DATA_ACK;
+//		printf("cxmac: seqno %d\n",packetbuf_attr(PACKETBUF_ATTR_MAC_SEQNO));
+//		packetbuf_set_attr(PACKETBUF_ATTR_MAC_SEQNO, packetbuf_attr(PACKETBUF_ATTR_MAC_SEQNO));
+//		packetbuf_compact();
+//		if(NETSTACK_FRAMER.create() >= 0) {
 
 #if DUAL_RADIO
 #if LSA_MAC
@@ -1408,11 +1439,11 @@ input_packet(void)
 #else
 			on();
 #endif
-			NETSTACK_RADIO.send(packetbuf_hdrptr(), packetbuf_totlen());
-			PRINTDEBUG("cxmac: send data ack %u\n", packetbuf_totlen());
-		} else {
-			PRINTF("cxmac: failed to send data ack\n");
-		}
+			NETSTACK_RADIO.send(ack, ack_len);
+			PRINTDEBUG("cxmac: send data ack %u\n", ack_len);
+//		} else {
+//			PRINTF("cxmac: failed to send data ack\n");
+//		}
 	}
 	queuebuf_to_packetbuf(packet);
 	queuebuf_free(packet);
@@ -1537,7 +1568,13 @@ input_packet(void)
 #endif /* CXMAC_CONF_ANNOUNCEMENTS */
     } else if(hdr->type == TYPE_STROBE_ACK) {
       PRINTDEBUG("cxmac: stray strobe ack\n");
-    } else {
+    }
+#if DATA_ACK
+    else if(hdr->type == TYPE_DATA_ACK) {
+    	PRINTDEBUG("cxmac: stray data_ack\n");
+    }
+#endif
+    else {
       PRINTF("cxmac: unknown type %u (%u)\n", hdr->type,
              packetbuf_datalen());
     }
