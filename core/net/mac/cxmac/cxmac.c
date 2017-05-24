@@ -952,7 +952,7 @@ send_packet(void)
 				if(got_strobe_ack == 0 && collisions == 0) {
 					if(is_broadcast) {
 #if WITH_STROBE_BROADCAST
-						mark_time = t;
+						mark_time = RTIMER_NOW();
 						NETSTACK_RADIO.send(strobe, strobe_len);
 						printf("STROBE TIME is %d\nSTROBE LEN is%d\n", (RTIMER_NOW() - mark_time)*10000/RTIMER_ARCH_SECOND, strobe_len);
 #if STROBE_CNT_MODE
