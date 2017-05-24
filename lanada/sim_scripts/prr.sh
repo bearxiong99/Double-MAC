@@ -10,16 +10,17 @@ do
 		for dir in *
 		do
 			cd $dir
-			tot_delay=0
+			tot_prr=0
 			node_count=0
 			while read line
 			do
-				delay=`echo "$line" | cut -d' ' -f3`
-				let "tot_delay=$tot_delay + $delay"
+				prr=`echo "$line" | cut -d' ' -f2`
+				tot_prr=`echo "$tot_prr+$prr"|bc`
 				let "node_count=$node_count + 1"
-			done < delay/avg_packet_delay.txt
-			let "avg_delay=$tot_delay / $node_count /100"
-			echo $traffic $dir : $avg_delay ms
+			done < PRR/PRR.txt
+#			let "avg_prr=$tot_prr / $node_count"
+			avg_prr=`echo "$tot_prr / $node_count"|bc`
+			echo $traffic $dir : $avg_prr %
 			cd ..
 		done
 		echo 

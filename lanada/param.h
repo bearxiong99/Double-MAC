@@ -27,6 +27,9 @@
 #define PARENT_REDUCTION_MODE	0
 #define VALID_PARENT_RATIO	0
 
+/* Enabling Data ACK */
+#define DATA_ACK       1
+
 /* Energy log */
 #define RPL_ICMP_ENERGY_LOG		0
 
@@ -49,7 +52,7 @@
 
 #define SERVER_NODE 1
 
-#define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
+#define TRAFFIC_MODEL 1 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
 #define PERIOD 30
 #elif TRAFFIC_MODEL == 1

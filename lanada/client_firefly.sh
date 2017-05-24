@@ -1,4 +1,5 @@
 #!/bin/bash
+<<<<<<< HEAD
 
 SKIP=0
 UPLOAD=1
@@ -23,3 +24,10 @@ then
 	sudo make udp-client.upload TARGET=zoul PORT=/dev/ttyUSB$PORT
 fi
 sudo make login TARGET=zoul PORT=/dev/ttyUSB$PORT
+=======
+make clean TARGET=zoul
+make udp-client TARGET=zoul 
+sudo make udp-client.upload TARGET=zoul PORT=/dev/ttyUSB$1
+sudo make login TARGET=zoul PORT=/dev/ttyUSB$1
+
+>>>>>>> cfb03c94646757ad1c576f05b2f24233ab58bb1d

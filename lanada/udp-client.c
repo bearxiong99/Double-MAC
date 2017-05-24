@@ -293,6 +293,7 @@ PROCESS_THREAD(udp_client_process, ev, data)
 	// for debug
 	NETSTACK_MAC.off(1);
 
+
   /* new connection with remote host */
   client_conn = udp_new(NULL, UIP_HTONS(UDP_SERVER_PORT), NULL); 
   if(client_conn == NULL) {
@@ -305,6 +306,8 @@ PROCESS_THREAD(udp_client_process, ev, data)
   PRINT6ADDR(&client_conn->ripaddr);
   PRINTF(" local/remote port %u/%u\n",
 	UIP_HTONS(client_conn->lport), UIP_HTONS(client_conn->rport));
+//  PRINTF("ON TIME %d\n",DEFAULT_ON_TIME);
+//  PRINTF("OFF TIME %d\n",DEFAULT_OFF_TIME);
 
 #if WITH_COMPOWER
   powertrace_sniff(POWERTRACE_ON);

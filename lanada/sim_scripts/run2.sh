@@ -1,10 +1,10 @@
 #!/bin/bash
 
-SR=1 # Decide whether SR simulation runs or not
-LR=0 # For LR case
+SR=0 # Decide whether SR simulation runs or not
+LR=1 # For LR case
 TRAFFIC=0 # 0 = periodic, 1 = poisson
-VAR_PERIOD=(30)
-VAR_ARRIVAL=(30)
+VAR_PERIOD=("30")
+VAR_ARRIVAL=("50")
 VAR_TOPOLOGY=("50random")
 VAR_LR_RANGE=("2X")
 VAR_LR_WEIGHT=(2)
@@ -21,7 +21,7 @@ if [ $SR -eq 1 ]
 then
     if [ $TRAFFIC -eq 0 ]
     then
-	for period in "${VAR_PERIOD[@]}"
+	for period in $VAR_PERIOD
 	do
 	    for topology in "${VAR_TOPOLOGY[@]}"
 	    do
@@ -29,7 +29,7 @@ then
 	    done
 	done
     else
-	for arrival in "${VAR_ARRIVAL[@]}"
+	for arrival in $VAR_ARRIVAL
 	do
 	    for topology in "${VAR_TOPOLOGY[@]}"
 	    do
@@ -44,7 +44,7 @@ if [ $LR -eq 1 ]
 then
     if [ $TRAFFIC -eq 0 ]
     then
-	for period in $VAR_PERIOD
+	for period in "${VAR_PERIOD[@]}"
 	do
 	    for topology in "${VAR_TOPOLOGY[@]}"
 	    do
@@ -61,7 +61,7 @@ then
 	    done
 	done
     else
-	for arrival in $VAR_ARRIVAL
+	for arrival in "${VAR_ARRIVAL[@]}"
 	do
 	    for topology in "${VAR_TOPOLOGY[@]}"
 	    do
