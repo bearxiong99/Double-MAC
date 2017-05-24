@@ -75,7 +75,14 @@ tcpip_handler(void)
     PRINTF("recv DATA '%s' from ", appdata);
     PRINTF("%d",
            UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
-		PRINTF(" %c", UIP_IP_BUF->srcipaddr.u8[8]>128 ? 'L':'S');
+		PRINTF(" %d", UIP_IP_BUF->srcipaddr.u8[8]);
+		PRINTF(" %d", UIP_IP_BUF->srcipaddr.u8[9]);
+		PRINTF(" %d", UIP_IP_BUF->srcipaddr.u8[10]);
+		PRINTF(" %d", UIP_IP_BUF->srcipaddr.u8[11]);
+		PRINTF(" %d", UIP_IP_BUF->srcipaddr.u8[12]);
+		PRINTF(" %d", UIP_IP_BUF->srcipaddr.u8[13]);
+		PRINTF(" %d", UIP_IP_BUF->srcipaddr.u8[14]);
+		PRINTF(" %d", UIP_IP_BUF->srcipaddr.u8[15]);
     PRINTF("\n");
 #if SERVER_REPLY
     PRINTF("DATA sending reply\n");

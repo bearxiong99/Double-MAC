@@ -154,7 +154,7 @@ struct cxmac_hdr {
    cycle. */
 #define ANNOUNCEMENT_TIME (random_rand() % (ANNOUNCEMENT_PERIOD))
 
-#define DEFAULT_STROBE_WAIT_TIME (7 * DEFAULT_ON_TIME / 16)
+#define DEFAULT_STROBE_WAIT_TIME (7 * DEFAULT_ON_TIME / 8)
 
 struct cxmac_config cxmac_config = {
   DEFAULT_ON_TIME,
@@ -668,7 +668,7 @@ send_packet(void)
   uint8_t collisions;
 	
 	/* for debug */
-  static rtimer_clock_t mark_time=0;
+//  static rtimer_clock_t mark_time=0;
 
 #if PS_COUNT
   cxmac_transmission_count++;
@@ -896,7 +896,7 @@ send_packet(void)
 #endif /* LSA_MAC */ 
 #endif
 			/* for debug */
-			mark_time=RTIMER_NOW();
+			//mark_time=RTIMER_NOW();
 			
 				// printf("OUT\n");
 				// printf("got_strobe_ack: %d\n", got_strobe_ack);
@@ -953,14 +953,14 @@ send_packet(void)
 					}
 				}
 				t = RTIMER_NOW();
-				printf("STROBE WAIT TIME is %d\n", (t - mark_time)*10000/RTIMER_ARCH_SECOND);
+				//printf("STROBE WAIT TIME is %d\n", (t - mark_time)*10000/RTIMER_ARCH_SECOND);
 				/* Send the strobe packet. */
 				if(got_strobe_ack == 0 && collisions == 0) {
 					if(is_broadcast) {
 #if WITH_STROBE_BROADCAST
-						mark_time = RTIMER_NOW();
+						//mark_time = RTIMER_NOW();
 						NETSTACK_RADIO.send(strobe, strobe_len);
-						printf("STROBE TIME is %d\nSTROBE LEN is%d\n", (RTIMER_NOW() - mark_time)*10000/RTIMER_ARCH_SECOND, strobe_len);
+						//printf("STROBE TIME is %d\nSTROBE LEN is %d\n", (RTIMER_NOW() - mark_time)*10000/RTIMER_ARCH_SECOND, strobe_len);
 #if STROBE_CNT_MODE
 						strobe[cnt_pos] += (1 << 2);
 						//	  printf("cxmac tx strobe_cnt %d t: %d\n",strobe_cnt,RTIMER_NOW());
@@ -1092,9 +1092,9 @@ send_packet(void)
 			}
 		}
 #endif
-		mark_time=RTIMER_NOW();
+		//mark_time=RTIMER_NOW();
     NETSTACK_RADIO.send(packetbuf_hdrptr(), packetbuf_totlen());
-		printf("DATA TIME is %d\nDATA LEN is %d\n", (RTIMER_NOW() - mark_time)*10000/RTIMER_ARCH_SECOND, packetbuf_totlen());
+		//printf("DATA TIME is %d\nDATA LEN is %d\n", (RTIMER_NOW() - mark_time)*10000/RTIMER_ARCH_SECOND, packetbuf_totlen());
   }
 
 #if WITH_ENCOUNTER_OPTIMIZATION

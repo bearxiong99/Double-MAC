@@ -1854,7 +1854,6 @@ idle_tx_rx(const uint8_t *payload, uint16_t payload_len)
   uint8_t to_write;
   const uint8_t *p;
 #endif
-
 #if CC1200_802154G
   /* Prepare PHR for 802.15.4g frames */
   struct {
@@ -1939,10 +1938,8 @@ idle_tx_rx(const uint8_t *payload, uint16_t payload_len)
 
   /* Start TX */
   strobe(CC1200_STX);
-
   /* Wait for TX to start. */
   BUSYWAIT_UNTIL((cc1200_arch_gpio0_read_pin() == 1), RTIMER_SECOND / 100);
-
   /* Turned off at the latest in idle() */
   TX_LEDS_ON();
 
