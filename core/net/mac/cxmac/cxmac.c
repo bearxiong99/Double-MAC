@@ -186,7 +186,7 @@ static volatile unsigned char radio_is_on = 0;
 #define LEDS_ON(x) leds_on(x)
 #define LEDS_OFF(x) leds_off(x)
 #define LEDS_TOGGLE(x) leds_toggle(x)
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG
 #include <stdio.h>
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -1381,12 +1381,10 @@ input_packet(void)
 		uint8_t ack[MAX_STROBE_SIZE];
 		uint8_t ack_len, len;
 		linkaddr_t temp;
+		// Copying original packetbuf
+		packet = queuebuf_new_from_packetbuf();
 #if DUAL_RADIO
 #if LSA_MAC
-		// Copying original packetbuf
-//		packetbuf_compact();
-		packet = queuebuf_new_from_packetbuf();
-
 		if (radio_received_is_longrange()==LONG_RADIO){
 			dual_radio_switch(LONG_RADIO);
 		}	else if (radio_received_is_longrange() == SHORT_RADIO){
