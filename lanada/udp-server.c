@@ -58,7 +58,7 @@ uint8_t alpha = ALPHA;
 #elif RPL_LIFETIME_MAX_MODE
 uint8_t my_weight = 0;
 #define MAX_NUM_NODE 100
-uint8_t id_array[100]={0,};
+int id_array[100]={0,};
 #endif
 
 static struct uip_udp_conn *server_conn;
@@ -71,7 +71,7 @@ tcpip_handler(void)
 {
   char *appdata;
   char *temp[4];
-  uint8_t recv_id=0;
+  int recv_id=0;
   if(uip_newdata()) {
     appdata = (char *)uip_appdata;
     appdata[uip_datalen()] = 0;
