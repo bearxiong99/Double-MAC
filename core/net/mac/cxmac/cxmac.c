@@ -154,7 +154,7 @@ struct cxmac_hdr {
    cycle. */
 #define ANNOUNCEMENT_TIME (random_rand() % (ANNOUNCEMENT_PERIOD))
 
-#define DEFAULT_STROBE_WAIT_TIME (7 * DEFAULT_ON_TIME / 8)
+#define DEFAULT_STROBE_WAIT_TIME (7 * DEFAULT_ON_TIME / 16)
 
 struct cxmac_config cxmac_config = {
   DEFAULT_ON_TIME,
@@ -186,7 +186,7 @@ static volatile unsigned char radio_is_on = 0;
 #define LEDS_ON(x) leds_on(x)
 #define LEDS_OFF(x) leds_off(x)
 #define LEDS_TOGGLE(x) leds_toggle(x)
-#define DEBUG 1
+#define DEBUG 0
 #if DEBUG
 #include <stdio.h>
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -901,7 +901,7 @@ send_packet(void)
 				// printf("OUT\n");
 				// printf("got_strobe_ack: %d\n", got_strobe_ack);
 				/* Strobe wait start time fixed */
-				t=RTIMER_NOW();
+//				t=RTIMER_NOW();
 			while(got_strobe_ack == 0 &&
 					RTIMER_CLOCK_LT(RTIMER_NOW(), t + cxmac_config.strobe_wait_time)) {
 				// printf("IN\n");
