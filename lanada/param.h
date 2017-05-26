@@ -28,7 +28,7 @@
 #define VALID_PARENT_RATIO	0
 
 /* Enabling Data ACK */
-#define DATA_ACK       1
+#define DATA_ACK       0
 
 /* Energy log */
 #define RPL_ICMP_ENERGY_LOG		0
