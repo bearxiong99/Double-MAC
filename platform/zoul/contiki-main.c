@@ -249,6 +249,42 @@ main(void)
 #if DUAL_RADIO
   memcpy(&uip_long_lladdr.addr, &long_linkaddr_node_addr, sizeof(uip_long_lladdr.addr));
 #endif
+	    if(1) {
+      uip_ipaddr_t ipaddr;
+      int i;
+      uip_ip6addr(&ipaddr, UIP_DS6_DEFAULT_PREFIX, 0, 0, 0, 0, 0, 0, 0);
+      uip_ds6_set_addr_iid(&ipaddr, &uip_lladdr);
+      uip_ds6_addr_add(&ipaddr, 0, ADDR_TENTATIVE);
+
+			/* JOONKI */
+#if DUAL_RADIO
+			uip_ipaddr_t long_ipaddr;
+			uip_ip6addr(&long_ipaddr, UIP_DS6_DEFAULT_PREFIX, 0, 0, 0, 0, 0, 0, 0);
+      uip_ds6_set_addr_iid(&long_ipaddr, &uip_long_lladdr);
+      uip_ds6_long_addr_add(&long_ipaddr, 0, ADDR_TENTATIVE);
+
+
+#endif /* DUAL_RADIO */
+
+			printf("Tentative global IPv6 address ");
+      for(i = 0; i < 7; ++i) {
+        printf("%02x%02x:",
+               ipaddr.u8[i * 2], ipaddr.u8[i * 2 + 1]);
+      }
+      printf("%02x%02x\n",
+             ipaddr.u8[7 * 2], ipaddr.u8[7 * 2 + 1]);
+
+#if DUAL_RADIO
+			printf("Tentative long range global IPv6 address ");
+      for(i = 0; i < 7; ++i) {
+        printf("%02x%02x:",
+               long_ipaddr.u8[i * 2], long_ipaddr.u8[i * 2 + 1]);
+      }
+      printf("%02x%02x\n",
+             long_ipaddr.u8[7 * 2], long_ipaddr.u8[7 * 2 + 1]);
+#endif
+    }
+
   queuebuf_init();
   process_start(&tcpip_process, NULL);
 #endif /* NETSTACK_CONF_WITH_IPV6 */

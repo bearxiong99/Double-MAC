@@ -125,12 +125,14 @@ struct cxmac_hdr {
 #ifdef CXMAC_CONF_ON_TIME
 #define DEFAULT_ON_TIME (CXMAC_CONF_ON_TIME)
 #else
-#define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 80)
+// #define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 80)
+#define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 58)
 #endif
 
 #ifdef CXMAC_CONF_OFF_TIME
 #define DEFAULT_OFF_TIME (CXMAC_CONF_OFF_TIME)
 #else
+// #define DEFAULT_OFF_TIME (RTIMER_ARCH_SECOND / NETSTACK_RDC_CHANNEL_CHECK_RATE - DEFAULT_ON_TIME)
 #define DEFAULT_OFF_TIME (RTIMER_ARCH_SECOND / NETSTACK_RDC_CHANNEL_CHECK_RATE - DEFAULT_ON_TIME)
 #endif
 
@@ -154,7 +156,8 @@ struct cxmac_hdr {
    cycle. */
 #define ANNOUNCEMENT_TIME (random_rand() % (ANNOUNCEMENT_PERIOD))
 
-#define DEFAULT_STROBE_WAIT_TIME (7 * DEFAULT_ON_TIME / 16)
+// #define DEFAULT_STROBE_WAIT_TIME (7 * DEFAULT_ON_TIME / 16)
+#define DEFAULT_STROBE_WAIT_TIME (5 * DEFAULT_ON_TIME / 6)
 
 struct cxmac_config cxmac_config = {
   DEFAULT_ON_TIME,
@@ -186,7 +189,9 @@ static volatile unsigned char radio_is_on = 0;
 #define LEDS_ON(x) leds_on(x)
 #define LEDS_OFF(x) leds_off(x)
 #define LEDS_TOGGLE(x) leds_toggle(x)
-#define DEBUG 0
+#define DEBUG 1
+#define TIMING 0
+
 #if DEBUG
 #include <stdio.h>
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -668,8 +673,9 @@ send_packet(void)
   uint8_t collisions;
 	
 	/* for debug */
-//  static rtimer_clock_t mark_time=0;
-
+#if TIMING
+  static rtimer_clock_t mark_time=0;
+#endif
 #if PS_COUNT
   cxmac_transmission_count++;
 #endif
@@ -896,15 +902,18 @@ send_packet(void)
 #endif /* LSA_MAC */ 
 #endif
 			/* for debug */
-			//mark_time=RTIMER_NOW();
-			
+#if TIMING
+			mark_time=RTIMER_NOW();
+#endif
 				// printf("OUT\n");
 				// printf("got_strobe_ack: %d\n", got_strobe_ack);
 				/* Strobe wait start time fixed */
 //				t=RTIMER_NOW();
 			while(got_strobe_ack == 0 &&
 					RTIMER_CLOCK_LT(RTIMER_NOW(), t + cxmac_config.strobe_wait_time)) {
-				// printf("IN\n");
+#if TIMING
+					printf("Waiting stobe ack\n");
+#endif
 				// printf("cxmac_config.strobe_wait_time: %d\n", cxmac_config.strobe_wait_time*10000/RTIMER_ARCH_SECOND);
 								rtimer_clock_t now = RTIMER_NOW();
 				/* See if we got an ACK */
@@ -953,14 +962,20 @@ send_packet(void)
 					}
 				}
 				t = RTIMER_NOW();
-//				printf("STROBE WAIT TIME is %d\n", (t - mark_time)*10000/RTIMER_ARCH_SECOND);
+#if TIMING
+				printf("STROBE WAIT TIME is %d\n", (t - mark_time)*10000/RTIMER_ARCH_SECOND);
+#endif
 				/* Send the strobe packet. */
 				if(got_strobe_ack == 0 && collisions == 0) {
 					if(is_broadcast) {
 #if WITH_STROBE_BROADCAST
-						//mark_time = RTIMER_NOW();
+#if TIMING
+						mark_time = RTIMER_NOW();
 						NETSTACK_RADIO.send(strobe, strobe_len);
-//						printf("STROBE TIME is %d\nSTROBE LEN is%d\n", (RTIMER_NOW() - mark_time)*10000/RTIMER_ARCH_SECOND, strobe_len);
+						printf("STROBE TIME is %d, STROBE LEN is %d\n", (RTIMER_NOW() - mark_time)*10000/RTIMER_ARCH_SECOND, strobe_len);
+#else
+						NETSTACK_RADIO.send(strobe, strobe_len);
+#endif
 #if STROBE_CNT_MODE
 						strobe[cnt_pos] += (1 << 2);
 						//	  printf("cxmac tx strobe_cnt %d t: %d\n",strobe_cnt,RTIMER_NOW());
@@ -978,7 +993,15 @@ send_packet(void)
 						off();
 #endif
 					} else {
+#if TIMING
+						mark_time = RTIMER_NOW();
 						NETSTACK_RADIO.send(strobe, strobe_len);
+						printf("STROBE TIME is %d, STROBE LEN is %d\n", (RTIMER_NOW() - mark_time)*10000/RTIMER_ARCH_SECOND, strobe_len);
+#else
+						NETSTACK_RADIO.send(strobe, strobe_len);
+#endif
+
+
 #if 0
 						/* Turn off the radio for a while to let the other side
 	     respond. We don't need to keep our radio on when we know
@@ -1092,11 +1115,14 @@ send_packet(void)
 			}
 		}
 #endif
-		// mark_time=RTIMER_NOW();
+#if TIMING
+		 mark_time=RTIMER_NOW();
 //		printf("cxmac: send data here\n");
     NETSTACK_RADIO.send(packetbuf_hdrptr(), packetbuf_totlen());
-//		printf("DATA TIME is %d\nDATA LEN is %d\n", (RTIMER_NOW() - mark_time)*10000/RTIMER_ARCH_SECOND, packetbuf_totlen());
-
+		printf("DATA TIME is %d, DATA LEN is %d\n", (RTIMER_NOW() - mark_time)*10000/RTIMER_ARCH_SECOND, packetbuf_totlen());
+#else
+    NETSTACK_RADIO.send(packetbuf_hdrptr(), packetbuf_totlen());
+#endif
 #if DATA_ACK
 		if(!is_broadcast)
 		{
@@ -1192,10 +1218,11 @@ send_packet(void)
   if(collisions == 0) {
 #if DATA_ACK
 //	  printf("cxmac status %d %d %d\n",is_broadcast,got_strobe_ack,got_data_ack);
-    if(!is_broadcast && (!got_strobe_ack || !got_data_ack)) {
+    if(!is_broadcast && (!got_strobe_ack || !got_data_ack)) 
 #else
-    if(!is_broadcast && !got_strobe_ack) {
+    if(!is_broadcast && !got_strobe_ack) 
 #endif
+		{
       return MAC_TX_NOACK;
     } else {
       return MAC_TX_OK;
@@ -1617,10 +1644,12 @@ cxmac_set_announcement_radio_txpower(int txpower)
 void
 cxmac_init(void)
 {
-//	printf("cxmac on_time %d\n",DEFAULT_ON_TIME);
-//	printf("cxmac off_time %d\n",DEFAULT_OFF_TIME);
-//	printf("cxmac strobe_wait_time %d\n",cxmac_config.strobe_wait_time);
-//	printf("cxmac strobe %d\n",cxmac_config.strobe_time);
+#if TIMING
+	printf("cxmac on_time %d\n",DEFAULT_ON_TIME*10000/RTIMER_ARCH_SECOND);
+	printf("cxmac off_time %d\n",DEFAULT_OFF_TIME*10000/RTIMER_ARCH_SECOND);
+	printf("cxmac strobe_wait_time %d\n",cxmac_config.strobe_wait_time*10000/RTIMER_ARCH_SECOND);
+	printf("cxmac strobe %d\n",cxmac_config.strobe_time*10000/RTIMER_ARCH_SECOND);
+#endif
 #if DUAL_RADIO
   dual_duty_cycle_count = 0;
 #if DUAL_ROUTING_CONVERGE
