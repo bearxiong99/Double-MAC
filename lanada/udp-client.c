@@ -241,7 +241,15 @@ set_global_address(void)
   uip_ip6addr(&ipaddr, UIP_DS6_DEFAULT_PREFIX, 0, 0, 0, 0, 0, 0, 0);
   uip_ds6_set_addr_iid(&ipaddr, &uip_lladdr);
   uip_ds6_addr_add(&ipaddr, 0, ADDR_AUTOCONF);
+#if DUAL_RADIO
+  uip_ipaddr_t long_ipaddr;
 
+  uip_ip6addr(&long_ipaddr, UIP_DS6_DEFAULT_PREFIX, 0, 0, 0, 0, 0, 0, 0);
+  uip_ds6_set_addr_iid(&long_ipaddr, &uip_long_lladdr);
+  uip_ds6_long_addr_add(&long_ipaddr, 0, ADDR_AUTOCONF);
+
+
+#endif
 /* The choice of server address determines its 6LoPAN header compression.
  * (Our address will be compressed Mode 3 since it is derived from our link-local address)
  * Obviously the choice made here must also be selected in udp-server.c.
