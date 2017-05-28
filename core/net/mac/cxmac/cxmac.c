@@ -125,8 +125,8 @@ struct cxmac_hdr {
 #ifdef CXMAC_CONF_ON_TIME
 #define DEFAULT_ON_TIME (CXMAC_CONF_ON_TIME)
 #else
-// #define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 80)
-#define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 58)
+ #define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 80)
+//#define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 58)
 #endif
 
 #ifdef CXMAC_CONF_OFF_TIME
@@ -156,8 +156,8 @@ struct cxmac_hdr {
    cycle. */
 #define ANNOUNCEMENT_TIME (random_rand() % (ANNOUNCEMENT_PERIOD))
 
-// #define DEFAULT_STROBE_WAIT_TIME (7 * DEFAULT_ON_TIME / 16)
-#define DEFAULT_STROBE_WAIT_TIME (5 * DEFAULT_ON_TIME / 6)
+ #define DEFAULT_STROBE_WAIT_TIME (7 * DEFAULT_ON_TIME / 16)
+//#define DEFAULT_STROBE_WAIT_TIME (5 * DEFAULT_ON_TIME / 6)
 
 struct cxmac_config cxmac_config = {
   DEFAULT_ON_TIME,
@@ -189,7 +189,7 @@ static volatile unsigned char radio_is_on = 0;
 #define LEDS_ON(x) leds_on(x)
 #define LEDS_OFF(x) leds_off(x)
 #define LEDS_TOGGLE(x) leds_toggle(x)
-#define DEBUG 1
+#define DEBUG 0
 #define TIMING 0
 
 #if DEBUG

@@ -15,13 +15,13 @@
 #define LONG_WEIGHT_RATIO 2
 
 /* Weight ratio between rank and parent's degree */
-#define ALPHA	5
+#define ALPHA	0.1
 
 /* Sink's infinite energy */
 #define SINK_INFINITE_ENERGY	1
 
 /* Using strobe cnt, reducing idle listening while Tx preamble */
-#define STROBE_CNT_MODE		0
+#define STROBE_CNT_MODE		1
 
 /* To determine valid parent set, only valid parents are considered as a parent set */
 #define PARENT_REDUCTION_MODE	0
@@ -43,7 +43,7 @@
  * Preamble free short broadcast after long broadcast, dual broadcast is included in LSA-MAC
  * Only long duty cylce, long preamble */
 #if DUAL_RADIO
-#define LSA_MAC	0
+#define LSA_MAC	1
 #define LSA_R	0
 #else	/* DUAL_RADIO */
 #define LSA_MAC 0
@@ -52,15 +52,11 @@
 
 #define SERVER_NODE 1
 
-#define TRAFFIC_MODEL 1 // 0: Periodic, 1: Poisson
+#define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-<<<<<<< HEAD
-#define PERIOD 0
-=======
-#define PERIOD 5
->>>>>>> 52c0182826b7ec790eec9be4999e444e2da22a92
+#define PERIOD 30
 #elif TRAFFIC_MODEL == 1
-#define ARRIVAL_RATE 30 // Mean value, 1/lambda
+#define ARRIVAL_RATE 0 // Mean value, 1/lambda
 #endif
 
 

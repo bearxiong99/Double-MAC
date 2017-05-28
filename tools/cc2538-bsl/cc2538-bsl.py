@@ -91,7 +91,9 @@ def mdebug(level, message, attr='\n'):
         print(message, end=attr, file=sys.stderr)
 
 # Takes chip IDs (obtained via Get ID command) to human-readable names
-CHIP_ID_STRS = {0xb964: 'CC2538'}
+CHIP_ID_STRS = {0xb964: 'CC2538',
+                0xb965: 'CC2538'
+                }
 
 RETURN_CMD_STRS =  {0x40: 'Success',
                     0x41: 'Unknown command',
@@ -223,7 +225,7 @@ class CommandInterface(object):
         set_reset_pin(0)
         set_reset_pin(1)
         set_reset_pin(0)
-        time.sleep(0.1)  # Make sure the pin is still asserted when the chip
+        time.sleep(0.002)  # Make sure the pin is still asserted when the chip
                            # comes out of reset. This fixes an issue where there
                            # wasn't enough delay here on Mac.
         set_bootloader_pin(0 if not dtr_active_high else 1)
@@ -1027,7 +1029,7 @@ if __name__ == "__main__":
             ports = []
 
             # Get a list of all USB-like names in /dev
-            for name in ['tty.usbserial', 'ttyUSB', 'tty.usbmodem', 'tty.SLAB_USBtoUART']:
+            for name in ['ttyACM', 'tty.usbserial', 'ttyUSB', 'tty.usbmodem', 'tty.SLAB_USBtoUART']:
                 ports.extend(glob.glob('/dev/%s*' % name))
 
             ports = sorted(ports)
