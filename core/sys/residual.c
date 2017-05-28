@@ -22,6 +22,29 @@ const energy_t ENERGEST_DISSIPATION_RATE[] = {
 };
 #endif
 
+#ifdef ZOUL_MOTE
+const energy_t ENERGEST_DISSIPATION_RATE[] = {
+  0, // ENERGEST_TYPE_CPU,
+  0, //ENERGEST_TYPE_LPM,
+  0, // ENERGEST_TYPE_IRQ,
+  2, // ENERGEST_TYPE_LED_GREEN,
+  0, // ENERGEST_TYPE_LED_YELLOW,
+  2, // ENERGEST_TYPE_LED_RED,
+  0, // ENERGEST_TYPE_TRANSMIT,
+  0, // ENERGEST_TYPE_LISTEN,
+
+  1, // ENERGEST_TYPE_TRANSMIT_LR,
+  0, // ENERGEST_TYPE_LISTEN_LR,
+
+  0, // ENERGEST_TYPE_FLASH_READ,
+  0, // ENERGEST_TYPE_FLASH_WRITE,
+
+  0, // ENERGEST_TYPE_SENSORS,
+
+  0 // ENERGEST_TYPE_SERIAL,
+};
+#endif
+
 #ifdef COOJA
 extern energy_t COOJA_radioOn;
 extern energy_t COOJA_radioTx;
@@ -46,6 +69,13 @@ energy_t
 get_residual_energy(void){
     int energy = RESIDUAL_ENERGY_MAX;
 #ifdef ZOLERTIA_Z1
+    int i;
+    for(i = 0; i < ENERGEST_TYPE_MAX; i++){
+        energy -= ENERGEST_DISSIPATION_RATE[i] * energest_total_time[i].current;
+    }
+#endif
+
+#ifdef ZOUL_MOTE
     int i;
     for(i = 0; i < ENERGEST_TYPE_MAX; i++){
         energy -= ENERGEST_DISSIPATION_RATE[i] * energest_total_time[i].current;

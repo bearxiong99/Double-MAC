@@ -1,7 +1,9 @@
 #ifndef RESIDUAL_H__
 #define RESIDUAL_H__
+#define RESIDUAL_ENERGY_MAX 1000000000
+
 // #define RESIDUAL_ENERGY_MAX 3000000
- #define RESIDUAL_ENERGY_MAX 2000000
+// #define RESIDUAL_ENERGY_MAX 2000000
 // #define RESIDUAL_ENERGY_MAX 1000000
 // #define RESIDUAL_ENERGY_MAX 100000
 // #define RESIDUAL_ENERGY_MAX 1000
@@ -26,6 +28,10 @@ energy_t COOJA_duration;
 #endif
 
 #ifdef ZOLERTIA_Z1
+#include "energest.h"
+#endif
+
+#ifdef ZOUL_MOTE
 #include "energest.h"
 #endif
 

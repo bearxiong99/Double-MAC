@@ -1,6 +1,10 @@
 #!/bin/bash
 
+<<<<<<< HEAD
+for DIR in 0*
+=======
 for DIR in 0528*
+>>>>>>> a597d64107aad078b01e9db5cbf6a1d2e13a4030
 do
 	if [ -d $DIR ]
 	then
