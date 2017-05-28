@@ -75,7 +75,7 @@ tcpip_handler(void)
   if(uip_newdata()) {
     appdata = (char *)uip_appdata;
     appdata[uip_datalen()] = 0;
-    recv_id = (appdata[10] - '0') + (appdata[9] - '0')*10 + (appdata[8]- '0')*100;
+    recv_id = (appdata[11] - '0') + (appdata[10] - '0')*10 + (appdata[9]- '0')*100 + (appdata[8]- '0')*1000;
 //    printf("id! %d\n",recv_id);
     if(id_array[UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]] >= recv_id)
     {

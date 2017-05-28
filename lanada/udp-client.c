@@ -202,9 +202,9 @@ send_packet(void *ptr)
 	lifetime = get_residual_energy();
 #endif
 
-  PRINTF("app: DATA id:%03d from:%03d\n",
+  PRINTF("app: DATA id:%04d from:%03d\n",
          seq_id,myaddr);
-  sprintf(buf,"DATA id:%03d from:%03dX",seq_id,myaddr);
+  sprintf(buf,"DATA id:%04d from:%03dX",seq_id,myaddr);
 //  uip_udp_packet_sendto(client_conn, buf, strlen(buf),
   uip_udp_packet_sendto(client_conn, buf, 50,
                         &server_ipaddr, UIP_HTONS(UDP_SERVER_PORT));

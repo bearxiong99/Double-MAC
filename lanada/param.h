@@ -15,7 +15,7 @@
 #define LONG_WEIGHT_RATIO 2
 
 /* Weight ratio between rank and parent's degree */
-#define ALPHA	1
+#define ALPHA	5
 
 /* Sink's infinite energy */
 #define SINK_INFINITE_ENERGY	1
@@ -28,7 +28,7 @@
 #define VALID_PARENT_RATIO	0
 
 /* Enabling Data ACK */
-#define DATA_ACK       0
+#define DATA_ACK      1
 
 /* Energy log */
 #define RPL_ICMP_ENERGY_LOG		0
@@ -56,7 +56,7 @@
 #if TRAFFIC_MODEL == 0
 #define PERIOD 0
 #elif TRAFFIC_MODEL == 1
-#define ARRIVAL_RATE 50 // Mean value, 1/lambda
+#define ARRIVAL_RATE 30 // Mean value, 1/lambda
 #endif
 
 

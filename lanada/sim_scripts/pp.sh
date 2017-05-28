@@ -262,11 +262,14 @@ do
 				part1=`echo "$line" | cut -d',' -f1`
 				part2=`echo "$part1" | cut -d':' -f4`
 				part3=`echo "$line" | cut -d' ' -f7`
+				part4=`echo "$line" | cut -d',' -f2`
+				part5=`echo "$part4" | cut -d':' -f2`
 			fi
 		done < parsing/PS$node_count.txt
+		#echo $part2 $part3 $part5
 
-		collision_ratio=`echo "scale=3;$part3/$part2*100"|bc`
-		echo "<Collision ratio: $collision_ratio %>" >> collision/collision_ratio.txt
+		transmission_overhead=`echo "scale=3;$part5/$part2*100"|bc`
+		echo "<Transmission overhead: $transmission_overhead %> <Collision: $part3 >" >> collision/collision_ratio.txt
 		
 	fi
 
@@ -291,7 +294,7 @@ node_count=2
 while [ $node_count -le $MAX_NODE_NUMBER ]
 do
 
-	if [ ! -e parsing/from$node_count.txt ]
+	if [ ! -e parsing/node_send$node_count.txt ]
 	then
 		break
 	fi
