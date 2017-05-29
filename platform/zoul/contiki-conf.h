@@ -453,7 +453,7 @@ struct radio_driver NETSTACK_RADIO;
  * 1 => Use the secondary address location
  */
 #ifndef IEEE_ADDR_CONF_USE_SECONDARY_LOCATION
-#define IEEE_ADDR_CONF_USE_SECONDARY_LOCATION 1
+#define IEEE_ADDR_CONF_USE_SECONDARY_LOCATION 0
 #endif
 /** @} */
 /*---------------------------------------------------------------------------*/

@@ -218,8 +218,8 @@ send_packet(void *ptr)
 				parent_temp = nbr2->ipaddr.u8[15];
 			}
 		}
-  sprintf(buf,"DATA id:%04d from:%03dX energy:%d parent:%c %d",seq_id,myaddr,get_residual_energy(),\
-			 radio_temp, parent_temp);
+  sprintf(buf,"DATA id:%04d from:%03dX energy:%d parent:%c %d collision:%d",seq_id,myaddr,get_residual_energy(),\
+			 radio_temp, parent_temp, cxmac_collision_count);
   uip_udp_packet_sendto(client_conn, buf, 50,
                         &server_ipaddr, UIP_HTONS(UDP_SERVER_PORT));
 #else

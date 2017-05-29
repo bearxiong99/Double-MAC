@@ -1,24 +1,31 @@
 #!/bin/bash
 SKIP=0
-UPLOAD=1
-PORT=1
+NODE=100
+PORTS=(0 1 2 3 4 5)
 
 for opt in $@
 do
 	case "$opt" in
 		"k" ) SKIP=1;;
-		"l" ) UPLOAD=0;;
-		* ) PORT=$opt;;
+	  *) NODE=$opt;;
 	esac
 done
 
-if [ $UPLOAD -eq 1 ]
-then
+
+for PORT in "${PORTS[@]}"
+do
 	if [ $SKIP -eq 0 ]
 	then
 		sudo make clean TARGET=zoul BOARD=firefly
 		sudo make udp-client TARGET=zoul BOARD=firefly
 	fi
-	sudo make udp-client.upload NODEID=0x0001 TARGET=zoul PORT=/dev/ttyUSB$PORT BOARD=firefly
-fi
-sudo make login TARGET=zoul PORT=/dev/ttyUSB$PORT BOARD=firefly
+	NODEID="0x$NODE"
+	sudo make udp-client.upload NODEID=$NODEID TARGET=zoul PORT=/dev/ttyUSB$PORT BOARD=firefly
+
+	echo
+	echo $NODEID
+	echo
+
+	let "NODE=$NODE +1"
+	SKIP=1
+done 
