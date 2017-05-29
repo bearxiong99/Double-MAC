@@ -45,9 +45,18 @@
 #include "dev/leds.h"
 
 #include <stdio.h>
-#include "platform-conf.h"
-#include "cc1200.h"
-#include "cc2420.h"
+//#include "platform-conf.h"
+
+#if DUAL_RADIO
+#ifdef ZOLERTIA_Z1
+#include	"../platform/z1/dual_radio.h"
+#elif COOJA /* ZOLERTIA_Z1 */
+#include	"../platform/cooja/dual_conf.h"
+#else /* ZOLERTIA_Z1 */
+#include "../platform/zoul/dual_radio.h"
+#endif /* ZOLERTIA_Z1 */
+#endif /* DUAL_RADIO */
+static int led_count;
 
 
 /*---------------------------------------------------------------------------*/
@@ -55,48 +64,78 @@ PROCESS(example_unicast_process, "Example unicast");
 AUTOSTART_PROCESSES(&example_unicast_process);
 /*---------------------------------------------------------------------------*/
 static void
-recv_uc(struct unicast_conn *c, const linkaddr_t *from)
+recv_uc(struct broadcast_conn *c, const linkaddr_t *from)
 {
+
   printf("unicast message received from %d.%d\n",
 	 from->u8[0], from->u8[1]);
+
+	led_count ++;
+	switch (led_count%3) {
+		case 0: 
+			leds_off(LEDS_BLUE);
+			leds_on(LEDS_RED);
+			break;
+		case 1: 
+			leds_off(LEDS_RED);
+			leds_on(LEDS_GREEN);
+			break;
+		case 2: 
+			leds_off(LEDS_GREEN);
+			leds_on(LEDS_BLUE);
+			break;
+	}
 }
-static const struct unicast_callbacks unicast_callbacks = {recv_uc};
-static struct unicast_conn uc;
+static const struct broadcast_callbacks broadcast_callbacks = {recv_uc};
+static struct broadcast_conn broadcast;
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(example_unicast_process, ev, data)
 {
-  PROCESS_EXITHANDLER(unicast_close(&uc);)
+  PROCESS_EXITHANDLER(broadcast_close(&broadcast);)
     
   PROCESS_BEGIN();
+	SENSORS_ACTIVATE(button_sensor);
+	
   static int count=0;
-	unicast_open(&uc, 146, &unicast_callbacks);
-	// dual_radio_switch(SHORT_RADIO);
-	NETSTACK_CONF_RADIO = cc1200_driver;
-	NETSTACK_RADIO = cc1200_driver;
+	led_count=0;
+	broadcast_open(&broadcast, 129, &broadcast_callbacks);
+#if DUAL_RADIO
+	dual_radio_switch(LONG_RADIO);
+#endif
+	leds_on(LEDS_RED);
+	leds_on(LEDS_BLUE);
+	leds_on(LEDS_GREEN);
+
+	PROCESS_WAIT_EVENT_UNTIL(ev == sensors_event &&
+                          data == &button_sensor);
+	leds_off(LEDS_RED);
+	leds_off(LEDS_BLUE);
+	leds_off(LEDS_GREEN);
+
   while(1) {
 		count ++;
     static struct etimer et;
     linkaddr_t addr;
-  
-    //		if(count%2 ==0){
-    //			NETSTACK_CONF_RADIO = cc2420_driver;
-    //			NETSTACK_RADIO = cc2420_driver;
-    //		} else {
-    //			NETSTACK_CONF_RADIO = cc2420_driver;
-    //			NETSTACK_RADIO = cc2420_driver;
-    //		}
+  	/*
+ 		if(count%2 ==0){
+ 			dual_radio_switch(SHORT_RADIO);			
+ 		} else {
+			dual_radio_switch(LONG_RADIO);
+ 		}*/
+
     etimer_set(&et, CLOCK_SECOND);
     
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 
     packetbuf_copyfrom("Hello", 5);
-    addr.u8[0] = 13;
-    addr.u8[1] = 0;
+    addr.u8[0] = 0;
+    addr.u8[1] = 32;
+		printf("ADDRESS: %d %d\n", linkaddr_node_addr.u8[0], linkaddr_node_addr.u8[1]);
     if(!linkaddr_cmp(&addr, &linkaddr_node_addr)) {
-      unicast_send(&uc, &addr);
+      broadcast_send(&broadcast);
+			printf("COUNT = %d\n",count);
     }
-		printf("COUNT = %d\n",count);
-		if (count == 100){
+		if (count == 1000){
 			break;
 		}
   }

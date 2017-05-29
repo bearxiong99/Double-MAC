@@ -12,7 +12,7 @@
 /* Metric ratio between weight and rank */
 //#define ALPHA 2
 /* Weight ratio between long and short*/
-#define LONG_WEIGHT_RATIO 2
+#define LONG_WEIGHT_RATIO 5
 
 /* Weight ratio between rank and parent's degree */
 #define ALPHA	1
@@ -100,7 +100,7 @@ uint8_t alpha;
 #define LONG_ETX_PENALTY 5
 
 #elif RPL_LIFETIME_MAX_MODE
-#define RPL_ETX_WEIGHT 	0
+#define RPL_ETX_WEIGHT 	1
 uint8_t my_weight;
 uint8_t my_sink_reachability;
 uint8_t my_parent_number;
