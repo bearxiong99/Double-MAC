@@ -13,7 +13,7 @@ obj_zoul/log_message.o: ..//core/sys/log_message.c \
  ..//cpu/cc2538/./dev/gptimer.h ..//core/./sys/pt.h \
  ..//core/./sys/procinit.h ..//core/./sys/loader.h ..//core/./sys/clock.h \
  ..//core/./sys/energest.h ..//core/./sys/rtimer.h ../lanada/param.h \
- ..//core/./sys/residual.h
+ ..//core/./sys/residual.h ..//core/./sys/energest.h
 ..//core/sys/log_message.c :
  ..//core/sys/log_message.h ..//core/./cfs/cfs.h ..//core/./contiki.h :
  ..//core/./contiki-version.h ..//platform/zoul/./contiki-conf.h :
@@ -29,4 +29,4 @@ obj_zoul/log_message.o: ..//core/sys/log_message.c \
  ..//cpu/cc2538/./dev/gptimer.h ..//core/./sys/pt.h :
  ..//core/./sys/procinit.h ..//core/./sys/loader.h ..//core/./sys/clock.h :
  ..//core/./sys/energest.h ..//core/./sys/rtimer.h ../lanada/param.h :
- ..//core/./sys/residual.h :
+ ..//core/./sys/residual.h ..//core/./sys/energest.h :

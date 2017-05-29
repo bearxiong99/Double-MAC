@@ -29,6 +29,10 @@ energy_t COOJA_duration;
 #include "energest.h"
 #endif
 
+#ifdef ZOUL_MOTE
+#include "energest.h"
+#endif
+
 energy_t get_residual_energy(void);
 
 

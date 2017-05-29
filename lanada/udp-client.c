@@ -126,6 +126,8 @@ static void
 send_packet(void *ptr)
 {
   char buf[MAX_PAYLOAD_LEN];
+	char radio_temp;
+	int parent_temp;
 
 #ifdef SERVER_REPLY
   uint8_t num_used = 0;
@@ -200,15 +202,36 @@ send_packet(void *ptr)
 					}
 	}
 	lifetime = get_residual_energy();
-#endif
+#endif /* PS_COUNT */
 
   PRINTF("app: DATA id:%03d from:%03d\n",
          seq_id,myaddr);
+
+#if ZOUL_MOTE
+	rpl_parent_t *p2 = nbr_table_head(rpl_parents);
+	
+	if (p2 != NULL) {
+			rpl_parent_t *preferred_parent2 = p2->dag->preferred_parent;
+			if (preferred_parent2 != NULL) {
+				uip_ds6_nbr_t *nbr2 = rpl_get_nbr(preferred_parent2);
+			 	radio_temp = nbr2->ipaddr.u8[8]>128 ? 'L':'S';
+				parent_temp = nbr2->ipaddr.u8[15];
+			}
+		}
+  sprintf(buf,"DATA id:%03d from:%03dX energy:%d parent:%c %d",seq_id,myaddr,get_residual_energy(),\
+			 radio_temp, parent_temp);
+  uip_udp_packet_sendto(client_conn, buf, 50,
+                        &server_ipaddr, UIP_HTONS(UDP_SERVER_PORT));
+#else
+
   sprintf(buf,"DATA id:%03d from:%03dX",seq_id,myaddr);
+
 //  uip_udp_packet_sendto(client_conn, buf, strlen(buf),
   uip_udp_packet_sendto(client_conn, buf, 50,
                         &server_ipaddr, UIP_HTONS(UDP_SERVER_PORT));
 	// PRINTF("Residual Energy = %d\n", get_residual_energy());
+#endif
+
 }
 /*---------------------------------------------------------------------------*/
 static void

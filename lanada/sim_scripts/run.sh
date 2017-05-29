@@ -1,19 +1,19 @@
 #!/bin/bash
 
 SR=1 # Decide whether SR simulation runs or not
-LR=0 # For LR case
+LR=1 # For LR case
 TRAFFIC=0 # 0 = periodic, 1 = poisson
-VAR_PERIOD=(30 60)
+VAR_PERIOD=(30)
 VAR_ARRIVAL=(30)
-VAR_TOPOLOGY=("36grid" "50random")
-VAR_LR_RANGE=("2X")
-VAR_LR_WEIGHT=(2)
+VAR_TOPOLOGY=("16linear" "36grid" "50random")
+VAR_LR_RANGE=("2X" "4X")
+VAR_LR_WEIGHT=("0.5" "2" "5")
 VAR_LSA_R=0
 VAR_STROBE_CNT=1
 VAR_ALPHA=1
 VAR_PARENT_REDUCTION=0
 VAR_REDUCTION_RATIO=0
-DATE="0526"
+DATE="0528"
 
 # SR_RANGE simulation
 
@@ -50,7 +50,7 @@ then
 	    do
 		for range in "${VAR_LR_RANGE[@]}"
 		do
-		    for weight in $VAR_LR_WEIGHT
+		    for weight in "${VAR_LR_WEIGHT[@]}"
 		    do
 			for ratio in $VAR_REDUCTION_RATIO
 			do
@@ -67,7 +67,7 @@ then
 	    do
 		for range in "${VAR_LR_RANGE[@]}"
 		do
-		    for weight in $VAR_LR_WEIGHT
+		    for weight in "${VAR_LR_WEIGHT[@]}"
 		    do
 			for ratio in $VAR_REDUCTION_RATIO
 			do

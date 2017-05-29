@@ -38,7 +38,7 @@ obj_zoul/rpl-icmp6.o: ..//core/net/rpl/rpl-icmp6.c \
  ..//cpu/cc2538/./dev/rfcore.h ..//cpu/cc2538/./dev/rfcore-ffsm.h \
  ..//cpu/cc2538/./dev/rfcore-xreg.h ..//cpu/cc2538/./dev/rfcore-sfr.h \
  ..//cpu/cc2538/./dev/ana-regs.h ..//core/./sys/log_message.h \
- ..//core/./cfs/cfs.h ..//core/./sys/residual.h
+ ..//core/./cfs/cfs.h ..//core/./sys/residual.h ..//core/./sys/energest.h
 ..//core/net/rpl/rpl-icmp6.c :
  ..//core/./net/ip/tcpip.h ..//core/./contiki.h :
  ..//core/./contiki-version.h ..//platform/zoul/./contiki-conf.h :
@@ -79,4 +79,4 @@ obj_zoul/rpl-icmp6.o: ..//core/net/rpl/rpl-icmp6.c \
  ..//cpu/cc2538/./dev/rfcore.h ..//cpu/cc2538/./dev/rfcore-ffsm.h :
  ..//cpu/cc2538/./dev/rfcore-xreg.h ..//cpu/cc2538/./dev/rfcore-sfr.h :
  ..//cpu/cc2538/./dev/ana-regs.h ..//core/./sys/log_message.h :
- ..//core/./cfs/cfs.h ..//core/./sys/residual.h :
+ ..//core/./cfs/cfs.h ..//core/./sys/residual.h ..//core/./sys/energest.h :
