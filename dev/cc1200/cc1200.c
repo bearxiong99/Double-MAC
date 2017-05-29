@@ -702,7 +702,8 @@ cc1200_init(void)
     tx_mode_value = (RADIO_TX_MODE_SEND_ON_CCA);
 
     /* Set output power */
-    new_txpower = CC1200_RF_CFG.max_txpower;
+    // new_txpower = CC1200_RF_CFG.max_txpower;
+    new_txpower = 0;
     update_txpower(new_txpower);
 
     /* Adjust CAA threshold */
