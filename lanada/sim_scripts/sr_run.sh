@@ -1,6 +1,13 @@
 #!/bin/bash
 
-CONTIKI=~/Desktop/Double-MAC/
+JOONKI=0
+
+if [ $JOONKI -eq 0 ]
+then
+    CONTIKI=/media/user/Harddisk/Double-MAC/
+else
+    CONTIKI=~/Desktop/Double-MAC/
+fi
 
 echo "Short range simulation"
 sed -i 's/\#define DUAL_RADIO 1/\#define DUAL_RADIO 0/g' $CONTIKI/platform/cooja/contiki-conf.h

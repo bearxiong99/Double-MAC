@@ -1,8 +1,8 @@
 #!/bin/bash
 
 SR=1 # Decide whether SR simulation runs or not
-LR=1 # For LR case
-TRAFFIC=1 # 0 = periodic, 1 = poisson
+LR=0 # For LR case
+TRAFFIC=0 # 0 = periodic, 1 = poisson
 VAR_PERIOD=(30)
 VAR_ARRIVAL=(30)
 VAR_TOPOLOGY=("16linear" "36grid" "50random")
@@ -14,7 +14,7 @@ VAR_ALPHA=(1)
 VAR_PARENT_REDUCTION=0
 VAR_REDUCTION_RATIO=0
 VAR_DATA_ACK=1
-DATE="0528"
+DATE="0529"
 
 # SR_RANGE simulation
 
