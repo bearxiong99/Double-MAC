@@ -12,7 +12,11 @@
 /* Metric ratio between weight and rank */
 //#define ALPHA 2
 /* Weight ratio between long and short*/
+<<<<<<< HEAD
+#define LONG_WEIGHT_RATIO 0.5
+=======
 #define LONG_WEIGHT_RATIO 5
+>>>>>>> 9363204ff4023d6709884b9a055aaca1b995760d
 
 /* Weight ratio between rank and parent's degree */
 #define ALPHA	1
@@ -21,7 +25,7 @@
 #define SINK_INFINITE_ENERGY	1
 
 /* Using strobe cnt, reducing idle listening while Tx preamble */
-#define STROBE_CNT_MODE		0
+#define STROBE_CNT_MODE		1
 
 /* To determine valid parent set, only valid parents are considered as a parent set */
 #define PARENT_REDUCTION_MODE	0
@@ -56,7 +60,7 @@
 #if TRAFFIC_MODEL == 0
 #define PERIOD 30
 #elif TRAFFIC_MODEL == 1
-#define ARRIVAL_RATE 30 // Mean value, 1/lambda
+#define ARRIVAL_RATE 0 // Mean value, 1/lambda
 #endif
 
 

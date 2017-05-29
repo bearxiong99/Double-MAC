@@ -169,8 +169,8 @@ struct cxmac_hdr {
 #ifdef CXMAC_CONF_ON_TIME
 #define DEFAULT_ON_TIME (CXMAC_CONF_ON_TIME)
 #else
-// #define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 80)
-#define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 58)
+ #define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 80)
+//#define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 58)
 #endif
 
 #ifdef CXMAC_CONF_OFF_TIME
@@ -203,8 +203,6 @@ struct cxmac_hdr {
 // #define DEFAULT_STROBE_WAIT_TIME (7 * DEFAULT_ON_TIME / 16)
 #define DEFAULT_STROBE_WAIT_TIME (5 * DEFAULT_ON_TIME / 6)
 #endif /* COOJA */
-
-
 
 struct cxmac_config cxmac_config = {
   DEFAULT_ON_TIME,
