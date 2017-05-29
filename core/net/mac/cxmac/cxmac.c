@@ -120,6 +120,50 @@ struct cxmac_hdr {
 */
 };
 
+#ifdef COOJA
+
+#define MAX_STROBE_SIZE 50
+
+#ifdef CXMAC_CONF_ON_TIME
+#define DEFAULT_ON_TIME (CXMAC_CONF_ON_TIME)
+#else
+#define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 80)
+// #define DEFAULT_ON_TIME (RTIMER_ARCH_SECOND / 58)
+#endif
+
+#ifdef CXMAC_CONF_OFF_TIME
+#define DEFAULT_OFF_TIME (CXMAC_CONF_OFF_TIME)
+#else
+// #define DEFAULT_OFF_TIME (RTIMER_ARCH_SECOND / NETSTACK_RDC_CHANNEL_CHECK_RATE - DEFAULT_ON_TIME)
+#define DEFAULT_OFF_TIME (RTIMER_ARCH_SECOND / NETSTACK_RDC_CHANNEL_CHECK_RATE - DEFAULT_ON_TIME)
+#endif
+
+#define DEFAULT_PERIOD (DEFAULT_OFF_TIME + DEFAULT_ON_TIME)
+
+#define WAIT_TIME_BEFORE_STROBE_ACK RTIMER_ARCH_SECOND / 1000
+
+/* On some platforms, we may end up with a DEFAULT_PERIOD that is 0
+   which will make compilation fail due to a modulo operation in the
+   code. To ensure that DEFAULT_PERIOD is greater than zero, we use
+   the construct below. */
+#if DEFAULT_PERIOD == 0
+#undef DEFAULT_PERIOD
+#define DEFAULT_PERIOD 1
+#endif
+
+/* The cycle time for announcements. */
+#define ANNOUNCEMENT_PERIOD 4 * CLOCK_SECOND
+
+/* The time before sending an announcement within one announcement
+   cycle. */
+#define ANNOUNCEMENT_TIME (random_rand() % (ANNOUNCEMENT_PERIOD))
+
+#define DEFAULT_STROBE_WAIT_TIME (7 * DEFAULT_ON_TIME / 16)
+// #define DEFAULT_STROBE_WAIT_TIME (5 * DEFAULT_ON_TIME / 6)
+
+#else /* COOJA */
+
+
 #define MAX_STROBE_SIZE 50
 
 #ifdef CXMAC_CONF_ON_TIME
@@ -158,6 +202,9 @@ struct cxmac_hdr {
 
 // #define DEFAULT_STROBE_WAIT_TIME (7 * DEFAULT_ON_TIME / 16)
 #define DEFAULT_STROBE_WAIT_TIME (5 * DEFAULT_ON_TIME / 6)
+#endif /* COOJA */
+
+
 
 struct cxmac_config cxmac_config = {
   DEFAULT_ON_TIME,
@@ -189,7 +236,7 @@ static volatile unsigned char radio_is_on = 0;
 #define LEDS_ON(x) leds_on(x)
 #define LEDS_OFF(x) leds_off(x)
 #define LEDS_TOGGLE(x) leds_toggle(x)
-#define DEBUG 0
+#define DEBUG 1
 #define TIMING 0
 
 #if DEBUG

@@ -2,7 +2,7 @@
 
 SR=1 # Decide whether SR simulation runs or not
 LR=1 # For LR case
-TRAFFIC=0 # 0 = periodic, 1 = poisson
+TRAFFIC=1 # 0 = periodic, 1 = poisson
 VAR_PERIOD=(30)
 VAR_ARRIVAL=(30)
 VAR_TOPOLOGY=("16linear" "36grid" "50random")
@@ -10,9 +10,10 @@ VAR_LR_RANGE=("2X" "4X")
 VAR_LR_WEIGHT=("0.5" "2" "5")
 VAR_LSA_R=0
 VAR_STROBE_CNT=1
-VAR_ALPHA=1
+VAR_ALPHA=(1)
 VAR_PARENT_REDUCTION=0
 VAR_REDUCTION_RATIO=0
+VAR_DATA_ACK=1
 DATE="0528"
 
 # SR_RANGE simulation
@@ -25,7 +26,10 @@ then
 	do
 	    for topology in "${VAR_TOPOLOGY[@]}"
 	    do
-		./sr_run.sh $topology $TRAFFIC $period  0 $VAR_ALPHA $VAR_STROBE_CNT "${DATE}"
+		for alpha in "${VAR_ALPHA[@]}"
+		do
+		./sr_run.sh $topology $TRAFFIC $period  0 $alpha $VAR_STROBE_CNT "${DATE}" $VAR_DATA_ACK
+		done
 	    done
 	done
     else
@@ -33,7 +37,10 @@ then
 	do
 	    for topology in "${VAR_TOPOLOGY[@]}"
 	    do
-		./sr_run.sh $topology $TRAFFIC 0 $arrival $VAR_ALPHA $VAR_STROBE_CNT "${DATE}"
+		for alpha in "${VAR_ALPHA[@]}"
+		do
+		./sr_run.sh $topology $TRAFFIC 0 $arrival $alpha $VAR_STROBE_CNT "${DATE}" $VAR_DATA_ACK
+		done
 	    done
 	done
     fi
@@ -54,7 +61,10 @@ then
 		    do
 			for ratio in $VAR_REDUCTION_RATIO
 			do
-			./lr_run.sh $topology $TRAFFIC $period 0 $VAR_ALPHA $VAR_STROBE_CNT $weight $VAR_LSA_R $range $VAR_PARENT_REDUCTION $ratio "${DATE}"
+			    for alpha in "${VAR_ALPHA[@]}"
+			    do
+			./lr_run.sh $topology $TRAFFIC $period 0 $alpha $VAR_STROBE_CNT $weight $VAR_LSA_R $range $VAR_PARENT_REDUCTION $ratio "${DATE}" $VAR_DATA_ACK
+			    done
 			done
 		    done
 		done
@@ -71,7 +81,10 @@ then
 		    do
 			for ratio in $VAR_REDUCTION_RATIO
 			do
-			./lr_run.sh $topology $TRAFFIC 0 $arrival $VAR_ALPHA $VAR_STROBE_CNT $weight $VAR_LSA_R $range $VAR_PARENT_REDUCTION $ratio "${DATE}"
+			    for alpha in "${VAR_ALPHA[@]}"
+			    do
+			./lr_run.sh $topology $TRAFFIC 0 $arrival $alpha $VAR_STROBE_CNT $weight $VAR_LSA_R $range $VAR_PARENT_REDUCTION $ratio "${DATE}" $VAR_DATA_ACK
+			    done
 			done
 		    done
 		done

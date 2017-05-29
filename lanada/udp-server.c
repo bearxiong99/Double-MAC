@@ -75,7 +75,7 @@ tcpip_handler(void)
   if(uip_newdata()) {
     appdata = (char *)uip_appdata;
     appdata[uip_datalen()] = 0;
-    recv_id = (appdata[10] - '0') + (appdata[9] - '0')*10 + (appdata[8]- '0')*100;
+    recv_id = (appdata[11] - '0') + (appdata[10] - '0')*10 + (appdata[9]- '0')*100 + (appdata[8]- '0')*1000;
 //    printf("id! %d\n",recv_id);
     if(id_array[UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]] >= recv_id)
     {
@@ -84,17 +84,25 @@ tcpip_handler(void)
     }
     id_array[UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]] = recv_id;
     PRINTF("recv DATA '%s' from ", appdata);
-    PRINTF("%d FULL: ",
-           UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
-		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[8]);
-		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[9]);
-		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[10]);
-		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[11]);
-		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[12]);
-		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[13]);
-		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[14]);
-		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[15]);
-    PRINTF("\n");
+    PRINTF("%d %c \n",
+           UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1],\
+					  UIP_IP_BUF->srcipaddr.u8[8]>128?'L':'S');
+
+		
+//		PRINTF("%d %d",
+//           UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1],\
+//					 UIP_IP_BUF->srcipaddr.u8[8]);
+// 		PRINTF("%d FULL: ",
+//           UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
+//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[8]);
+//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[9]);
+//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[10]);
+//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[11]);
+//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[12]);
+//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[13]);
+//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[14]);
+//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[15]);
+ //   PRINTF("\n");
 #if SERVER_REPLY
     PRINTF("DATA sending reply\n");
     uip_ipaddr_copy(&server_conn->ripaddr, &UIP_IP_BUF->srcipaddr);

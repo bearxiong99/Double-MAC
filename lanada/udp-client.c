@@ -126,8 +126,8 @@ static void
 send_packet(void *ptr)
 {
   char buf[MAX_PAYLOAD_LEN];
-	char radio_temp;
-	int parent_temp;
+	char radio_temp = 'M';
+	int parent_temp = '0';
 
 #ifdef SERVER_REPLY
   uint8_t num_used = 0;
@@ -204,7 +204,7 @@ send_packet(void *ptr)
 	lifetime = get_residual_energy();
 #endif /* PS_COUNT */
 
-  PRINTF("app: DATA id:%03d from:%03d\n",
+  PRINTF("app: DATA id:%04d from:%03d\n",
          seq_id,myaddr);
 
 #if ZOUL_MOTE
@@ -218,16 +218,16 @@ send_packet(void *ptr)
 				parent_temp = nbr2->ipaddr.u8[15];
 			}
 		}
-  sprintf(buf,"DATA id:%03d from:%03dX energy:%d parent:%c %d",seq_id,myaddr,get_residual_energy(),\
+  sprintf(buf,"DATA id:%04d from:%03dX energy:%d parent:%c %d",seq_id,myaddr,get_residual_energy(),\
 			 radio_temp, parent_temp);
   uip_udp_packet_sendto(client_conn, buf, 50,
                         &server_ipaddr, UIP_HTONS(UDP_SERVER_PORT));
 #else
 
-  sprintf(buf,"DATA id:%03d from:%03dX",seq_id,myaddr);
+  sprintf(buf,"DATA id:%04d from:%03dX",seq_id,myaddr);
 
 //  uip_udp_packet_sendto(client_conn, buf, strlen(buf),
-  uip_udp_packet_sendto(client_conn, buf, 50,
+  uip_udp_packet_sendto(client_conn, buf, 50,\
                         &server_ipaddr, UIP_HTONS(UDP_SERVER_PORT));
 	// PRINTF("Residual Energy = %d\n", get_residual_energy());
 #endif

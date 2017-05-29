@@ -1,6 +1,6 @@
 for DIR in *
 do
-	if [ -d $DIR -a -n "`echo "$DIR" | grep traffic`" ]
+	if [ -d $DIR -a -n "`echo "$DIR" | grep traffic0`" ]
 	then
 		echo "------------------- Entering to DIR $DIR ----------------------"
 		cd $DIR

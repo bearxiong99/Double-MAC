@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for DIR in 0526*
+for DIR in 0525*
 do
 	if [ -d $DIR ]
 	then
@@ -15,11 +15,10 @@ do
 			while read line
 			do
 				prr=`echo "$line" | cut -d' ' -f2`
-				tot_prr=`echo "$tot_prr+$prr"|bc`
+				tot_prr=`echo "scale=3;$tot_prr+$prr"|bc`
 				let "node_count=$node_count + 1"
 			done < PRR/PRR.txt
-#			let "avg_prr=$tot_prr / $node_count"
-			avg_prr=`echo "$tot_prr / $node_count"|bc`
+			avg_prr=`echo "scale=3;$tot_prr / $node_count"|bc`
 			echo $traffic $dir : $avg_prr %
 			cd ..
 		done
