@@ -1133,6 +1133,7 @@ best_parent(rpl_dag_t *dag)
     }
     p = nbr_table_next(rpl_parents, p);
   }
+#if !ZOUL_MOTE
 #if RPL_LIFETIME_MAX_MODE
   if(best != prev && best != NULL && prev != NULL)
   {
@@ -1149,6 +1150,7 @@ best_parent(rpl_dag_t *dag)
 	  }
 #endif
   }
+#endif
 #endif
 
   return best;

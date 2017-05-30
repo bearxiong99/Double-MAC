@@ -332,10 +332,10 @@ best_parent(rpl_parent_t *p1, rpl_parent_t *p2)
   rpl_path_metric_t p1_metric;
   rpl_path_metric_t p2_metric;
 #if RPL_LIFETIME_MAX_MODE
-//  uip_ds6_nbr_t *nbr1 = NULL;
-//  uip_ds6_nbr_t *nbr2 = NULL;
-//  nbr1 = rpl_get_nbr(p1);
-//  nbr2 = rpl_get_nbr(p2);
+  uip_ds6_nbr_t *nbr1 = NULL;
+  uip_ds6_nbr_t *nbr2 = NULL;
+  nbr1 = rpl_get_nbr(p1);
+  nbr2 = rpl_get_nbr(p2);
 #endif
 #if DUAL_RADIO
 //  uint8_t is_longrange1;
@@ -382,8 +382,8 @@ best_parent(rpl_parent_t *p1, rpl_parent_t *p2)
 
 #endif	/* RPL_LIFETIME_MAX_MODE */
 
-//  printf("Comparing %d %c p1: %d\n", nbr1->ipaddr.u8[15], nbr1->ipaddr.u8[8]==0x82 ? 'L' : 'S', p1_metric);
-//  printf("Comparing %d %c p2: %d\n", nbr2->ipaddr.u8[15], nbr2->ipaddr.u8[8]==0x82 ? 'L' : 'S', p2_metric);
+  PRINTF("Comparing %d %c p1: %d\n", nbr1->ipaddr.u8[15], nbr1->ipaddr.u8[8]==0x82 ? 'L' : 'S', p1_metric);
+  PRINTF("Comparing %d %c p2: %d\n", nbr2->ipaddr.u8[15], nbr2->ipaddr.u8[8]==0x82 ? 'L' : 'S', p2_metric);
 #if OF_MWHOF
   if(p1 == dag->preferred_parent || p2 == dag->preferred_parent)
   {
