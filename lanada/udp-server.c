@@ -59,6 +59,7 @@ uint8_t alpha = ALPHA;
 uint8_t my_weight = 0;
 #define MAX_NUM_NODE 100
 int id_array[100]={0,};
+uint8_t id_count[500]={0,};
 #endif
 
 static struct uip_udp_conn *server_conn;
@@ -70,7 +71,6 @@ static void
 tcpip_handler(void)
 {
   char *appdata;
-  char *temp[4];
   int recv_id=0;
   if(uip_newdata()) {
     appdata = (char *)uip_appdata;
@@ -79,14 +79,16 @@ tcpip_handler(void)
 //    printf("id! %d\n",recv_id);
     if(id_array[UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]] >= recv_id)
     {
-    	printf("app: duplicated data %d\n",recv_id);
+//    	printf("app: duplicated data %d\n",recv_id);
     	return;
     }
+    id_count[recv_id]++;
+
     id_array[UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]] = recv_id;
     PRINTF("recv DATA '%s' from ", appdata);
-    PRINTF("%d %c \n",
+    PRINTF("%d %c count: %d \n",
            UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1],\
-					  UIP_IP_BUF->srcipaddr.u8[8]>128?'L':'S');
+					  UIP_IP_BUF->srcipaddr.u8[8]>128?'L':'S',id_count[recv_id]);
 
 		
 //		PRINTF("%d %d",

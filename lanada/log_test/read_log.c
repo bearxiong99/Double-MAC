@@ -13,7 +13,7 @@ PROCESS_THREAD(read_log_process, ev, data)
 {
 	static int fd = 0;
 	static int block_size = MAX_BLOCKSIZE;
-	char *filename = "log_message";
+	char *filename = "log_test";
 	int len;
 	int offset = 0;
 	char buf[MAX_BLOCKSIZE];

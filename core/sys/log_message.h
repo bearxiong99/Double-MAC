@@ -1,6 +1,8 @@
 /* Log levels */
 #include <stdio.h>
 #include "cfs/cfs.h"
+#include "sys/residual.h"
+#include <stdlib.h>
 
 #ifdef COOJA
 extern FILE *log_fp;
@@ -8,9 +10,10 @@ extern FILE *log_fp;
 extern int log_file;
 #endif	/* COOJA */
 
-#define LOG_LEVEL		0
+#define LOG_LEVEL		2
 #define SIMULATION_SETTING	1
 #define PS_COUNT 1
+#define MAX_BLOCKSIZE 100
 
 #if SIMULAITON_SETTING
 extern const energy_t DISSIPATION_RATE;
@@ -38,7 +41,7 @@ void log_finisher(void);
 	fflush(log_fp);\
 }while(0)
 #else	/* COOJA */
-#define LOG_MESSAGE(...) cfs_write(log_file, __VA_ARGS__, 30)
+#define LOG_MESSAGE(...) cfs_write(log_file, __VA_ARGS__, MAX_BLOCKSIZE)
 #endif	/* COOJA */
 
 #elif LOG_LEVEL == 2
@@ -52,7 +55,7 @@ void log_finisher(void);
 #else /* COOJA */
 #define LOG_MESSAGE(...) do{\
 		printf(__VA_ARGS__);\
-		cfs_write(log_file, __VA_ARGS__,30);\
+		printf("log_success %d",cfs_write(log_file, __VA_ARGS__,MAX_BLOCKSIZE));\
 	}while(0)
 #endif	/* COOJA */
 

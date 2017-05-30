@@ -15,7 +15,7 @@
 #define LONG_WEIGHT_RATIO 2
 
 /* Weight ratio between rank and parent's degree */
-#define ALPHA	0.5
+#define ALPHA	1
 
 /* Sink's infinite energy */
 #define SINK_INFINITE_ENERGY	1
@@ -56,7 +56,7 @@
 #if TRAFFIC_MODEL == 0
 #define PERIOD 30
 #elif TRAFFIC_MODEL == 1
-#define ARRIVAL_RATE 0 // Mean value, 1/lambda
+#define ARRIVAL_RATE 30 // Mean value, 1/lambda
 #endif
 
 

@@ -1449,7 +1449,7 @@ input_packet(void)
 #if DATA_ACK
 	if(!linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),&linkaddr_null)) // Only when it is not broadcast data
 	{
-		struct cxmac_hdr *hdr;
+		// struct cxmac_hdr *hdr;
 		uint8_t ack[MAX_STROBE_SIZE];
 		uint8_t ack_len, len;
 		linkaddr_t temp;

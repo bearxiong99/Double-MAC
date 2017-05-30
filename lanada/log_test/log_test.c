@@ -38,32 +38,75 @@
  */
 
 #include "contiki.h"
-// #include "cfs/cfs.h"
+#include "cfs/cfs.h"
 
 #include "../../core/sys/log_message.h"
 #include <stdio.h> /* For printf() */
 #include <string.h>
-// 
-// static int file = -1;
+ 
+#define MAX_BLOCKSIZE 40
+static int file = -1;
 /*---------------------------------------------------------------------------*/
 PROCESS(hello_world_process, "Hello world process");
 AUTOSTART_PROCESSES(&hello_world_process);
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(hello_world_process, ev, data)
 {
+	static int fd = 0;
+	static int block_size = MAX_BLOCKSIZE;
+	char *filename = "log_test";
+	int len;
+	int offset = 0;
+	char buf[MAX_BLOCKSIZE];
+
   PROCESS_BEGIN();
+	PROCESS_EXITHANDLER(cfs_close(fd));
+
+	fd = cfs_open(filename, CFS_READ);
+			
+	printf("Reading the log\n");
 	
+	if(fd < 0) {
+		printf("Can't open the log file.\n");
+	} 
+	else {
+		printf("LOG_START:");
+		while(1) {
+			cfs_seek(fd, offset, CFS_SEEK_SET);
+			len = cfs_read(fd, buf, block_size);
+			offset += block_size;
+			if(len <= 0) {
+				cfs_close(fd);
+				break;
+			}
+			printf("%s", buf);
+		}
+		printf("\nLOG_END");
+		PROCESS_EXIT();
+	}
+
+  /*-------------------------------------------------------------------------*/
 	// log_initialization();
 	// log_finisher();
 	
 	//LOG_MESSAGE("Hello, Joonki!! \n");
-	/* char data[20];
-	strcpy (data,"Hello, world\n");
-	file  = cfs_open("log_test", CFS_WRITE);
-	cfs_write(file,data, 20);	
-	cfs_close(file);
-  printf("Hello, world\n"); */
-  
-  PROCESS_END();
+	char data1[40];
+	char data2[40];
+	char data3[40];
+	int n1, n2, n3;
+	strcpy (data1,"JOONKI HI\n");
+	strcpy (data2,"JOONKI BYE\n");
+	strcpy (data3,"JOONKI GRADUATE\n");
+
+	file  = cfs_open("log_test", CFS_WRITE | CFS_APPEND);
+	if(file != -1) {
+		n1 = cfs_write(file,data1, 40);
+		n2 = cfs_write(file,data2, 40);
+		n3 = cfs_write(file,data3, 40);
+		cfs_close(file);
+
+		printf("Hello, world log written %d %d %d\n",n1, n2, n3);
+	}
+ 	PROCESS_END();
 }
 /*---------------------------------------------------------------------------*/

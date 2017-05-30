@@ -160,11 +160,10 @@ find_route_entry_by_dao_ack(uint8_t seq)
 
 /* JOONKI
  * maybe wrong place?? */
-#if RPL_LIFETIME_MAX_MODE
+/* #if RPL_LIFETIME_MAX_MODE
 static int
 add_nbr_from_dio(uip_ipaddr_t *from, rpl_dio_t *dio)
 {
-  /* add this to the neighbor cache if not already there */
   if(rpl_icmp6_update_nbr_table(from, NBR_TABLE_REASON_RPL_DIO, dio) == NULL) {
     PRINTF("RPL: Out of memory, dropping DIO from ");
     PRINT6ADDR(from);
@@ -173,7 +172,7 @@ add_nbr_from_dio(uip_ipaddr_t *from, rpl_dio_t *dio)
   }
   return 1;
 }
-#endif
+#endif */
 #if RPL_LIFETIME_MAX_MODE_DIO_ACK
 static int
 add_nbr_from_dio_ack(uip_ipaddr_t *from, uint8_t weight)
@@ -188,11 +187,10 @@ add_nbr_from_dio_ack(uip_ipaddr_t *from, uint8_t weight)
   return 1;
 }
 #endif
-#if RPL_LIFETIME_MAX_MODE
+/* #if RPL_LIFETIME_MAX_MODE
 static int
 add_nbr_from_dao(uip_ipaddr_t *from, uint8_t weight)
 {
-  /* add this to the neighbor cache if not already there */
   if(rpl_icmp6_update_nbr_table(from, NBR_TABLE_REASON_RPL_DAO, &weight) == NULL) {
     PRINTF("RPL: Out of memory, dropping DAO from ");
     PRINT6ADDR(from);
@@ -201,7 +199,7 @@ add_nbr_from_dao(uip_ipaddr_t *from, uint8_t weight)
   }
   return 1;
 }
-#endif
+#endif */
 
 /* prepare for forwarding of DAO */
 static uint8_t

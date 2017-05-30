@@ -1,10 +1,10 @@
 CONTIKI_PROJECT = log_test
 all: $(CONTIKI_PROJECT)
-
-SMALL=1
+# SMALL=1
 
 # CONTIKI_TARGET_SOURCEFILES += ../log_message.c
 
+CONTIKI_WITH_RIME = 1
 CONTIKI = ../..
 include $(CONTIKI)/Makefile.include
 
