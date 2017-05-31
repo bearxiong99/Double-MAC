@@ -47,6 +47,7 @@ void log_initialization(void){
 	printf("DISSIPATION_RATE: %d, %d, %d, %d, %d, %d, %d\n",DISSIPATION_RATE[0],DISSIPATION_RATE[1],\
 			DISSIPATION_RATE[2],DISSIPATION_RATE[3],DISSIPATION_RATE[4],DISSIPATION_RATE[5],DISSIPATION_RATE[6]);
 #endif
+
 #if TRAFFIC_MODEL == 0
 	printf("PERIOD: %d\n", PERIOD);
 #elif TRAFFIC_MODEL ==1
@@ -61,8 +62,38 @@ void log_initialization(void){
 	printf("\nOpening the file for cooja\n\n");
 	log_fp = fopen(filename, "w");
 #else	/* COOJA */
+	
+	static int fd = 0;
+	static int block_size = MAX_BLOCKSIZE;
+  char *filename = "log_message";
+  int len;
+  int offset = 0;
+  char buf[MAX_BLOCKSIZE];
+
+  fd = cfs_open(filename, CFS_READ);
+          
+  printf("Reading the log\n\n\n");
+  
+  if(fd < 0) {
+    printf("Can't open the log file.\n");
+  }   
+  else {
+    printf("LOG_START:");
+    while(1) {
+      cfs_seek(fd, offset, CFS_SEEK_SET);
+      len = cfs_read(fd, buf, block_size);
+      offset += block_size;
+      if(len <= 0) {
+        cfs_close(fd);
+        break;
+      }   
+      printf("%s", buf);
+    }   
+    printf("\nLOG_END");
+  }
+
 	printf("\nOpening the file for z1/firefly\n\n");
-	log_file = cfs_open("log_message", CFS_WRITE);
+	log_file = cfs_open("log_message", CFS_WRITE | CFS_APPEND);
 #endif /* COOJA */
 }
 

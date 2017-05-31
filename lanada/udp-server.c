@@ -70,7 +70,6 @@ static void
 tcpip_handler(void)
 {
   char *appdata;
-  char *temp[4];
   int recv_id=0;
   if(uip_newdata()) {
     appdata = (char *)uip_appdata;

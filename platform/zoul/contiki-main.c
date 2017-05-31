@@ -78,7 +78,8 @@
 #if DUAL_RADIO
 #include "dual_radio.h"
 #endif
-
+#include "net/rpl/rpl-private.h"
+#include "sys/log_message.h"
 /*---------------------------------------------------------------------------*/
 #if STARTUP_CONF_VERBOSE
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -181,6 +182,7 @@ main(void)
   process_init();
   watchdog_init();
 
+	
   /*
    * Character I/O Initialisation.
    * When the UART receives a character it will call serial_line_input_byte to
@@ -219,6 +221,12 @@ main(void)
   ctimer_init();
 
   board_init();
+
+	log_initialization();
+	LOG_MESSAGE("ZOUL platform log HELLO\n");
+	printf("\n\n\n\n\n");
+
+	// LOG_MESSAGE("Starting with energy %d\n",get_residual_energy());
 
 #if CRYPTO_CONF_INIT
   crypto_init();

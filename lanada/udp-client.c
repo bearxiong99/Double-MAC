@@ -36,6 +36,7 @@
 #include "sys/ctimer.h"
 #include "net/nbr-table.h"
 #include "rpl/rpl-private.h"
+#include "dev/button-sensor.h"
 
 #ifdef WITH_COMPOWER
 #include "powertrace.h"
@@ -160,45 +161,75 @@ send_packet(void *ptr)
 	total_count1 = dio_count + dao_count + dis_count + dio_ack_count;
 	total_count2 = dao_ack_count + dao_fwd_count + dao_ack_fwd_count + LSA_count;
 	if (data_message_count%PS == 0) {
-		LOG_MESSAGE("[PS] Periodic status review:\n");
-		LOG_MESSAGE("[PS] Control: %d, Data: %d, Data fwd: %d\n", 
+		char *log_buf = (char*) malloc(sizeof(char)*100);
+		sprintf(log_buf,"[PS] Periodic status review:\n");
+		LOG_MESSAGE(log_buf); 
+
+		sprintf(log_buf,"[PS] Control: %d, Data: %d, Data fwd: %d\n", 
 				tcp_output_count-data_message_count-data_fwd_count, data_message_count, data_fwd_count);
-		LOG_MESSAGE("[PS] ICMP: %d, TCP_OUTPUT: %d\n",
+		LOG_MESSAGE(log_buf); 
+
+		sprintf(log_buf,"[PS] ICMP: %d, TCP_OUTPUT: %d\n",
 				icmp_count, tcp_output_count);
-		LOG_MESSAGE("[PS] DIO:%d, DAO: %d, DIS: %d, DIO_ACK: %d, Total: %d\n", 
+		LOG_MESSAGE(log_buf); 
+
+		sprintf(log_buf,"[PS] DIO:%d, DAO: %d, DIS: %d, DIO_ACK: %d, Total: %d\n", 
 				dio_count, dao_count, dis_count, dio_ack_count, total_count1);
-		LOG_MESSAGE("[PS] DAO_ACK:%d, DAO_FWD: %d, DAO_ACK_FWD: %d, LSA: %d, Total: %d\n",
+		LOG_MESSAGE(log_buf); 
+
+		sprintf(log_buf,"[PS] DAO_ACK:%d, DAO_FWD: %d, DAO_ACK_FWD: %d, LSA: %d, Total: %d\n",
 				dao_ack_count, dao_fwd_count,dao_ack_fwd_count, LSA_count, total_count2 );
-		LOG_MESSAGE("[PS] CSMA_Transmission: %d, CXMAC_Transmission: %d, CXMAC_Collision: %d\n", 
+		LOG_MESSAGE(log_buf); 
+
+		sprintf(log_buf,"[PS] CSMA_Transmission: %d, CXMAC_Transmission: %d, CXMAC_Collision: %d\n", 
 				csma_transmission_count, cxmac_transmission_count, cxmac_collision_count);		
-		LOG_MESSAGE("[PS] CSMA_Drop: %d, CXMAC_Retransmission: %d\n",
+		LOG_MESSAGE(log_buf); 
+
+		sprintf(log_buf,"[PS] CSMA_Drop: %d, CXMAC_Retransmission: %d\n",
 				csma_drop_count, cxmac_retransmission_count - csma_drop_count);
-		LOG_MESSAGE("[PS] Remaining energy: %d\n", (int) get_residual_energy());
+		LOG_MESSAGE(log_buf); 
+
+		sprintf(log_buf,"[PS] Remaining energy: %d\n", (int) get_residual_energy());
+		LOG_MESSAGE(log_buf); 
 
 		rpl_parent_t *p = nbr_table_head(rpl_parents);
 		if (p != NULL) {
 			rpl_parent_t *preferred_parent = p->dag->preferred_parent;
 			if (preferred_parent != NULL) {
 				uip_ds6_nbr_t *nbr = rpl_get_nbr(preferred_parent);
-				LOG_MESSAGE("[PS] My parent is : %c %d\n", nbr->ipaddr.u8[8]>128 ? 'L':'S', nbr->ipaddr.u8[15]) ;
+				sprintf(log_buf,"[PS] My parent is : %c %d\n", nbr->ipaddr.u8[8]>128 ? 'L':'S', nbr->ipaddr.u8[15]) ;
+				LOG_MESSAGE(log_buf); 
 			}
 		}
-
+		free(log_buf);
 	}
 
 	if (lifetime > 0) {
 		if (get_residual_energy() == 0) {		
-			LOG_MESSAGE("[LT] Control: %d, Data: %d, Data fwd: %d\n", 
+			char *log_buf = (char*) malloc(sizeof(char)*100);
+			sprintf(log_buf,"[LT] Control: %d, Data: %d, Data fwd: %d\n", 
 					tcp_output_count-data_message_count-data_fwd_count, data_message_count, data_fwd_count);
-			LOG_MESSAGE("[LT] ICMP: %d, TCP_OUTPUT: %d\n",
+			LOG_MESSAGE(log_buf); 
+
+			sprintf(log_buf,"[LT] ICMP: %d, TCP_OUTPUT: %d\n",
 					icmp_count, tcp_output_count);
-			LOG_MESSAGE("[LT] DIO:%d, DAO: %d, DIS: %d, DIO_ACK: %d, Total: %d\n", 
+			LOG_MESSAGE(log_buf); 
+
+			sprintf(log_buf,"[LT] DIO:%d, DAO: %d, DIS: %d, DIO_ACK: %d, Total: %d\n", 
 					dio_count, dao_count, dis_count, dio_ack_count, total_count1);
-			LOG_MESSAGE("[LT] DAO_ACK:%d, DAO_FWD: %d, DAO_ACK_FWD: %d, LSA: %d, Total: %d\n",
+			LOG_MESSAGE(log_buf); 
+
+			sprintf(log_buf,"[LT] DAO_ACK:%d, DAO_FWD: %d, DAO_ACK_FWD: %d, LSA: %d, Total: %d\n",
 					dao_ack_count, dao_fwd_count,dao_ack_fwd_count, LSA_count, total_count2 );
-			LOG_MESSAGE("[LT] CSMA_Transmission: %d, CXMAC_Transmission: %d, CXMAC_Collision: %d\n", 
+			LOG_MESSAGE(log_buf); 
+
+			sprintf(log_buf,"[LT] CSMA_Transmission: %d, CXMAC_Transmission: %d, CXMAC_Collision: %d\n", 
 					csma_transmission_count, cxmac_transmission_count, cxmac_collision_count);
-			LOG_MESSAGE("Lifetime of this node ended here!!!\n");
+			LOG_MESSAGE(log_buf); 
+
+			sprintf(log_buf,"Lifetime of this node ended here!!!\n");
+			LOG_MESSAGE(log_buf); 
+			free(log_buf);
 					}
 	}
 	lifetime = get_residual_energy();
@@ -218,8 +249,8 @@ send_packet(void *ptr)
 				parent_temp = nbr2->ipaddr.u8[15];
 			}
 		}
-  sprintf(buf,"DATA id:%04d from:%03dX energy:%d parent:%c %d collision:%d",seq_id,myaddr,get_residual_energy(),\
-			 radio_temp, parent_temp, cxmac_collision_count);
+  sprintf(buf,"DATA id:%04d from:%03dX energy:%d parent:%c %d",seq_id,myaddr,(int)get_residual_energy(),\
+			 radio_temp, parent_temp);
   uip_udp_packet_sendto(client_conn, buf, 50,
                         &server_ipaddr, UIP_HTONS(UDP_SERVER_PORT));
 #else
@@ -308,16 +339,17 @@ PROCESS_THREAD(udp_client_process, ev, data)
 #endif
 
   PROCESS_BEGIN();
+	SENSORS_ACTIVATE(button_sensor);
 
   PROCESS_PAUSE();
 
   set_global_address();
 #if TRAFFIC_MODEL == 0
-  PRINTF("UDP client process started nbr:%d routes:%d\ period:%d\n",
-         NBR_TABLE_CONF_MAX_NEIGHBORS, UIP_CONF_MAX_ROUTES, PERIOD);
+  PRINTF("UDP client process started nbr:%d routes:%d period:%d\n",
+			NBR_TABLE_CONF_MAX_NEIGHBORS, UIP_CONF_MAX_ROUTES, PERIOD);
 #elif TRAFFIC_MODEL == 1
-  PRINTF("UDP client process started nbr:%d routes:%d\ poisson_avg:%d\n",
-         NBR_TABLE_CONF_MAX_NEIGHBORS, UIP_CONF_MAX_ROUTES, ARRIVAL_RATE);
+  PRINTF("UDP client process started nbr:%d routes:%d poisson_avg:%d\n",
+			NBR_TABLE_CONF_MAX_NEIGHBORS, UIP_CONF_MAX_ROUTES, ARRIVAL_RATE);
 #endif
 
   print_local_addresses();
@@ -356,7 +388,11 @@ PROCESS_THREAD(udp_client_process, ev, data)
     PROCESS_YIELD();
     if(ev == tcpip_event) {
       tcpip_handler();
-    }
+		}
+    if(ev == sensors_event && data == & button_sensor) {
+			printf("*************** RESET LOG MESSAGE **************************\n");
+			cfs_remove("log_message");		
+		}
 
     if(ev == serial_line_event_message && data != NULL) {
       char *str;

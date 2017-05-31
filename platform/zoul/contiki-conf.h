@@ -363,7 +363,7 @@ typedef uint32_t rtimer_clock_t;
 
 /* JOONKI
  * To switch the radio driver in runtime */
-#define DUAL_RADIO	0
+#define DUAL_RADIO	1
 #define ADDR_MAP DUAL_RADIO
 #define NETSTACK_DUAL_RADIO	DUAL_RADIO
 
@@ -524,7 +524,7 @@ struct radio_driver NETSTACK_RADIO;
 #define RPL_CONF_STATS                       0
 
 #ifndef RPL_CONF_OF
-#define RPL_CONF_OF rpl_mrhof
+#define RPL_CONF_OF rpl_ltmax_of
 #endif
 
 #define UIP_CONF_ND6_REACHABLE_TIME     600000
