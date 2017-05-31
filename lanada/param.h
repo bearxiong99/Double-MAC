@@ -56,7 +56,7 @@
 #if TRAFFIC_MODEL == 0
 #define PERIOD 30
 #elif TRAFFIC_MODEL == 1
-#define ARRIVAL_RATE 30 // Mean value, 1/lambda
+#define ARRIVAL_RATE 0 // Mean value, 1/lambda
 #endif
 
 
@@ -100,7 +100,7 @@ uint8_t alpha;
 #define LONG_ETX_PENALTY 5
 
 #elif RPL_LIFETIME_MAX_MODE
-#define RPL_ETX_WEIGHT 	0
+#define RPL_ETX_WEIGHT 	1
 uint8_t my_weight;
 uint8_t my_sink_reachability;
 uint8_t my_parent_number;

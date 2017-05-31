@@ -213,12 +213,12 @@ neighbor_link_callback(rpl_parent_t *p, int status, int numtx)
     /* update the link metric for this nbr */
     nbr->link_metric = new_ett;
 
-	char *log_buf = (char*) malloc(sizeof(char)*100);
+/*	char *log_buf = (char*) malloc(sizeof(char)*100);
 	sprintf(log_buf,"LTMAX_OF link_metric %d IP: %d %c\n",nbr->link_metric, nbr->ipaddr.u8[15],
 			nbr->ipaddr.u8[8]>128? 'L':'S');
 
 	LOG_MESSAGE(log_buf);
-	free(log_buf);
+	free(log_buf);*/
 
 #if RPL_LIFETIME_MAX_MODE
 #if DUAL_RADIO
@@ -392,12 +392,12 @@ best_parent(rpl_parent_t *p1, rpl_parent_t *p2)
 
 #endif	/* RPL_LIFETIME_MAX_MODE */
 
-	char *log_buf = (char*) malloc(sizeof(char)*100);
+/*	char *log_buf = (char*) malloc(sizeof(char)*100);
   sprintf(log_buf,"Comparing %d %c p1: %d\n", nbr1->ipaddr.u8[15], nbr1->ipaddr.u8[8]==0x82 ? 'L' : 'S', p1_metric);
 	LOG_MESSAGE(log_buf);
   sprintf(log_buf,"Comparing %d %c p2: %d\n", nbr2->ipaddr.u8[15], nbr2->ipaddr.u8[8]==0x82 ? 'L' : 'S', p2_metric);
 	LOG_MESSAGE(log_buf);
-	free(log_buf);
+	free(log_buf);*/
 
 #if OF_MWHOF
   if(p1 == dag->preferred_parent || p2 == dag->preferred_parent)
