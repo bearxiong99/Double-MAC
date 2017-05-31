@@ -21,7 +21,7 @@
 #define SINK_INFINITE_ENERGY	1
 
 /* Using strobe cnt, reducing idle listening while Tx preamble */
-#define STROBE_CNT_MODE		1
+#define STROBE_CNT_MODE		0
 
 /* To determine valid parent set, only valid parents are considered as a parent set */
 #define PARENT_REDUCTION_MODE	0
@@ -31,7 +31,7 @@
 #define DATA_ACK      1
 
 /* Energy log */
-#define RPL_ICMP_ENERGY_LOG		0
+#define RPL_ICMP_ENERGY_LOG		1
 
 /* Data aggregation shceme enabled or not */
 #define DATA_AGGREGATION 1	// not implemented yet
@@ -54,7 +54,7 @@
 
 #define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 30
+#define PERIOD 1
 #elif TRAFFIC_MODEL == 1
 #define ARRIVAL_RATE 0 // Mean value, 1/lambda
 #endif

@@ -104,7 +104,7 @@ typedef uint32_t rtimer_clock_t;
  *
  * @{
  */
-#define COFFEE_CONF_SIZE            (4 * COFFEE_SECTOR_SIZE)
+#define COFFEE_CONF_SIZE            (200 * COFFEE_SECTOR_SIZE)
 /** @} */
 /*---------------------------------------------------------------------------*/
 /**

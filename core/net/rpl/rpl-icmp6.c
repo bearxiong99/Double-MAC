@@ -367,10 +367,7 @@ dis_output(uip_ipaddr_t *addr)
 	dis_count ++;
 #endif
 #if RPL_ICMP_ENERGY_LOG
-	char *log_buf = (char*) malloc(sizeof(char)*100);
-	sprintf(log_buf,"DIS_OUTPUT, Energy: %d\n",(int)get_residual_energy()); 
-	LOG_MESSAGE(log_buf); 
-	free(log_buf);
+	LOG_MESSAGE("DIS_OUTPUT, Energy: %d\n",(int)get_residual_energy()); 
 #endif
 
   buffer = UIP_ICMP_PAYLOAD;
@@ -719,10 +716,7 @@ dio_output(rpl_instance_t *instance, uip_ipaddr_t *uc_addr)
 	dio_count ++;
 #endif
 #if RPL_ICMP_ENERGY_LOG
-	char *log_buf = (char*) malloc(sizeof(char)*100);
-	sprintf(log_buf,"DIO_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
-	LOG_MESSAGE(log_buf); 
-	free(log_buf);
+	LOG_MESSAGE("DIO_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
 #endif
 
 #if RPL_LEAF_ONLY
@@ -1138,10 +1132,7 @@ dio_ack_output(rpl_instance_t *instance, uip_ipaddr_t *uc_addr)
 	dio_ack_count ++;
 #endif
 #if RPL_ICMP_ENERGY_LOG
-	char *log_buf = (char*) malloc(sizeof(char)*100);
-	sprintf(log_buf,"DIO_ACK_OUTPUT, Energy: %d\n",(int) get_residual_energy());
-	LOG_MESSAGE(log_buf);
-	free(log_buf);
+	LOG_MESSAGE("DIO_ACK_OUTPUT, Energy: %d\n",(int) get_residual_energy());
 #endif
 
 	pos = 0;
@@ -1276,10 +1267,7 @@ LSA_converge_output(uint8_t lr_child)
 	LSA_count ++;
 #endif
 #if RPL_ICMP_ENERGY_LOG
-	char *log_buf = (char*) malloc(sizeof(char)*100);
-	sprintf(log_buf,"LSA_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
-	LOG_MESSAGE(log_buf); 
-	free(log_buf);
+	LOG_MESSAGE("LSA_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
 #endif
 
 	/* LSA routing information */
@@ -1513,10 +1501,7 @@ dao_input(void)
 				dao_fwd_count ++;
 #endif
 #if RPL_ICMP_ENERGY_LOG
-				char *log_buf = (char*) malloc(sizeof(char)*100);
-				sprintf(log_buf,"DAO_FWD_OUTPUT NO PATH, Energy: %d\n",(int) get_residual_energy()); 
-				LOG_MESSAGE(log_buf); 
-				free(log_buf);
+				LOG_MESSAGE("DAO_FWD_OUTPUT NO PATH, Energy: %d\n",(int) get_residual_energy()); 
 #endif
 
         uip_icmp6_send(rpl_get_parent_ipaddr(dag->preferred_parent),
@@ -1685,10 +1670,7 @@ fwd_dao:
 			dao_fwd_count ++;
 #endif
 #if RPL_ICMP_ENERGY_LOG
-			char *log_buf = (char*) malloc(sizeof(char)*100);
-			sprintf(log_buf,"DAO_FWD_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
-			LOG_MESSAGE(log_buf); 
-			free(log_buf);
+			LOG_MESSAGE("DAO_FWD_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
 #endif
       uip_icmp6_send(rpl_get_parent_ipaddr(dag->preferred_parent),
                      ICMP6_RPL, RPL_CODE_DAO, buffer_length);
@@ -1779,10 +1761,7 @@ dao_output(rpl_parent_t *parent, uint8_t lifetime)
 #endif
 
 #if RPL_ICMP_ENERGY_LOG
-	char *log_buf = (char*) malloc(sizeof(char)*100);
-	sprintf(log_buf,"DAO_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
-	LOG_MESSAGE(log_buf); 
-	free(log_buf);
+	LOG_MESSAGE("DAO_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
 #endif
 
 
@@ -2071,10 +2050,7 @@ dao_ack_input(void)
 				dao_ack_fwd_count ++;
 #endif
 #if RPL_ICMP_ENERGY_LOG
-				char *log_buf = (char*) malloc(sizeof(char)*100);
-				sprintf(log_buf,"DAO_ACK_FWD_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
-				LOG_MESSAGE(log_buf); 
-				free(log_buf);
+				LOG_MESSAGE("DAO_ACK_FWD_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
 #endif
         uip_icmp6_send(nexthop, ICMP6_RPL, RPL_CODE_DAO_ACK, 4);
       }
@@ -2103,10 +2079,7 @@ dao_ack_output(rpl_instance_t *instance, uip_ipaddr_t *dest, uint8_t sequence,
 #endif
 
 #if RPL_ICMP_ENERGY_LOG
-	char *log_buf = (char*) malloc(sizeof(char)*100);
-	sprintf(log_buf,"DAO_ACK_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
-	LOG_MESSAGE(log_buf); 
-	free(log_buf);
+	LOG_MESSAGE("DAO_ACK_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
 #endif
 
 /*JOONKI*/
