@@ -62,6 +62,7 @@
 #define DEBUG DEBUG_RPL_DAG
 #include "net/ip/uip-debug.h"
 
+#include "sys/log_message.h"
 //extern FILE *debugfp;
 
 /* A configurable function called after every RPL parent switch */
@@ -369,8 +370,8 @@ rpl_set_preferred_parent(rpl_dag_t *dag, rpl_parent_t *p)
     LOG_MESSAGE(" used to be ");
     if(dag->preferred_parent != NULL) {
       PRINT6ADDR(rpl_get_parent_ipaddr(dag->preferred_parent));
-      LOG_MESSAGE("IP:%d %c",rpl_get_nbr(rpl_get_parent_ipaddr(dag->preferred_parent))->ipaddr.u8[15],
-    		rpl_get_nbr(rpl_get_parent_ipaddr(dag->preferred_parent))->ipaddr.u8[8]>128? 'L':'S');
+      LOG_MESSAGE("IP:%d %c",rpl_get_nbr(dag->preferred_parent)->ipaddr.u8[15],
+    		rpl_get_nbr(dag->preferred_parent)->ipaddr.u8[8]>128? 'L':'S');
     } else {
       PRINTF("NULL");
       LOG_MESSAGE("NULL");
