@@ -224,9 +224,9 @@ main(void)
 
 	log_initialization();
 	LOG_MESSAGE("ZOUL platform log HELLO\n");
+	LOG_MESSAGE("Starting with energy %d\n",(int)get_residual_energy());
 	printf("\n\n\n\n\n");
 
-	// LOG_MESSAGE("Starting with energy %d\n",get_residual_energy());
 
 #if CRYPTO_CONF_INIT
   crypto_init();

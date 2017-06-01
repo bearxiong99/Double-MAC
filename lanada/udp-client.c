@@ -148,10 +148,7 @@ send_packet(void *ptr)
 
 
 #if RPL_ICMP_ENERGY_LOG
-	char *log_buf = (char*) malloc(sizeof(char)*100);
-	sprintf(log_buf,"DATA_PACKET, Energy: %d, Number: %d\n",(int) get_residual_energy(), seq_id); 
-	LOG_MESSAGE(log_buf); 
-	free(log_buf);
+	LOG_MESSAGE("DATA_PACKET, Energy: %d, Number: %d\n",(int) get_residual_energy(), seq_id); 
 #endif
 	seq_id++;
 
@@ -161,75 +158,43 @@ send_packet(void *ptr)
 	total_count1 = dio_count + dao_count + dis_count + dio_ack_count;
 	total_count2 = dao_ack_count + dao_fwd_count + dao_ack_fwd_count + LSA_count;
 	if (data_message_count%PS == 0) {
-		char *log_buf = (char*) malloc(sizeof(char)*100);
-		sprintf(log_buf,"[PS] Periodic status review:\n");
-		LOG_MESSAGE(log_buf); 
-
-		sprintf(log_buf,"[PS] Control: %d, Data: %d, Data fwd: %d\n", 
+		LOG_MESSAGE("[PS] Periodic status review:\n");
+		LOG_MESSAGE("[PS] Control: %d, Data: %d, Data fwd: %d\n", 
 				tcp_output_count-data_message_count-data_fwd_count, data_message_count, data_fwd_count);
-		LOG_MESSAGE(log_buf); 
-
-		sprintf(log_buf,"[PS] ICMP: %d, TCP_OUTPUT: %d\n",
+		LOG_MESSAGE("[PS] ICMP: %d, TCP_OUTPUT: %d\n",
 				icmp_count, tcp_output_count);
-		LOG_MESSAGE(log_buf); 
-
-		sprintf(log_buf,"[PS] DIO:%d, DAO: %d, DIS: %d, DIO_ACK: %d, Total: %d\n", 
+		LOG_MESSAGE("[PS] DIO:%d, DAO: %d, DIS: %d, DIO_ACK: %d, Total: %d\n", 
 				dio_count, dao_count, dis_count, dio_ack_count, total_count1);
-		LOG_MESSAGE(log_buf); 
-
-		sprintf(log_buf,"[PS] DAO_ACK:%d, DAO_FWD: %d, DAO_ACK_FWD: %d, LSA: %d, Total: %d\n",
+		LOG_MESSAGE("[PS] DAO_ACK:%d, DAO_FWD: %d, DAO_ACK_FWD: %d, LSA: %d, Total: %d\n",
 				dao_ack_count, dao_fwd_count,dao_ack_fwd_count, LSA_count, total_count2 );
-		LOG_MESSAGE(log_buf); 
-
-		sprintf(log_buf,"[PS] CSMA_Transmission: %d, CXMAC_Transmission: %d, CXMAC_Collision: %d\n", 
+		LOG_MESSAGE("[PS] CSMA_Transmission: %d, CXMAC_Transmission: %d, CXMAC_Collision: %d\n", 
 				csma_transmission_count, cxmac_transmission_count, cxmac_collision_count);		
-		LOG_MESSAGE(log_buf); 
-
-		sprintf(log_buf,"[PS] CSMA_Drop: %d, CXMAC_Retransmission: %d\n",
+		LOG_MESSAGE("[PS] CSMA_Drop: %d, CXMAC_Retransmission: %d\n",
 				csma_drop_count, cxmac_retransmission_count - csma_drop_count);
-		LOG_MESSAGE(log_buf); 
-
-		sprintf(log_buf,"[PS] Remaining energy: %d\n", (int) get_residual_energy());
-		LOG_MESSAGE(log_buf); 
-
+		LOG_MESSAGE("[PS] Remaining energy: %d\n", (int) get_residual_energy());
 		rpl_parent_t *p = nbr_table_head(rpl_parents);
 		if (p != NULL) {
 			rpl_parent_t *preferred_parent = p->dag->preferred_parent;
 			if (preferred_parent != NULL) {
 				uip_ds6_nbr_t *nbr = rpl_get_nbr(preferred_parent);
-				sprintf(log_buf,"[PS] My parent is : %c %d\n", nbr->ipaddr.u8[8]>128 ? 'L':'S', nbr->ipaddr.u8[15]) ;
-				LOG_MESSAGE(log_buf); 
+				LOG_MESSAGE("[PS] My parent is : %c %d\n", nbr->ipaddr.u8[8]>128 ? 'L':'S', nbr->ipaddr.u8[15]) ;
 			}
 		}
-		free(log_buf);
 	}
 
 	if (lifetime > 0) {
 		if (get_residual_energy() == 0) {		
-			char *log_buf = (char*) malloc(sizeof(char)*100);
-			sprintf(log_buf,"[LT] Control: %d, Data: %d, Data fwd: %d\n", 
+			LOG_MESSAGE("[LT] Control: %d, Data: %d, Data fwd: %d\n", 
 					tcp_output_count-data_message_count-data_fwd_count, data_message_count, data_fwd_count);
-			LOG_MESSAGE(log_buf); 
-
-			sprintf(log_buf,"[LT] ICMP: %d, TCP_OUTPUT: %d\n",
+			LOG_MESSAGE("[LT] ICMP: %d, TCP_OUTPUT: %d\n",
 					icmp_count, tcp_output_count);
-			LOG_MESSAGE(log_buf); 
-
-			sprintf(log_buf,"[LT] DIO:%d, DAO: %d, DIS: %d, DIO_ACK: %d, Total: %d\n", 
+			LOG_MESSAGE("[LT] DIO:%d, DAO: %d, DIS: %d, DIO_ACK: %d, Total: %d\n", 
 					dio_count, dao_count, dis_count, dio_ack_count, total_count1);
-			LOG_MESSAGE(log_buf); 
-
-			sprintf(log_buf,"[LT] DAO_ACK:%d, DAO_FWD: %d, DAO_ACK_FWD: %d, LSA: %d, Total: %d\n",
+			LOG_MESSAGE("[LT] DAO_ACK:%d, DAO_FWD: %d, DAO_ACK_FWD: %d, LSA: %d, Total: %d\n",
 					dao_ack_count, dao_fwd_count,dao_ack_fwd_count, LSA_count, total_count2 );
-			LOG_MESSAGE(log_buf); 
-
-			sprintf(log_buf,"[LT] CSMA_Transmission: %d, CXMAC_Transmission: %d, CXMAC_Collision: %d\n", 
+			LOG_MESSAGE("[LT] CSMA_Transmission: %d, CXMAC_Transmission: %d, CXMAC_Collision: %d\n", 
 					csma_transmission_count, cxmac_transmission_count, cxmac_collision_count);
-			LOG_MESSAGE(log_buf); 
-
-			sprintf(log_buf,"Lifetime of this node ended here!!!\n");
-			LOG_MESSAGE(log_buf); 
-			free(log_buf);
+			LOG_MESSAGE("Lifetime of this node ended here!!!\n");
 					}
 	}
 	lifetime = get_residual_energy();

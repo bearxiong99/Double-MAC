@@ -90,21 +90,22 @@ tcpip_handler(void)
            UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1],\
 					  UIP_IP_BUF->srcipaddr.u8[8]>128?'L':'S',id_count[recv_id]);
 
-		
-//		PRINTF("%d %d",
-//           UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1],\
-//					 UIP_IP_BUF->srcipaddr.u8[8]);
-// 		PRINTF("%d FULL: ",
-//           UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
-//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[8]);
-//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[9]);
-//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[10]);
-//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[11]);
-//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[12]);
-//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[13]);
-//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[14]);
-//		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[15]);
- //   PRINTF("\n");
+/*		
+		PRINTF("%d %d",
+           UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1],\
+					 UIP_IP_BUF->srcipaddr.u8[8]);
+ 		PRINTF("%d FULL: ",
+           UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
+		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[8]);
+		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[9]);
+		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[10]);
+		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[11]);
+		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[12]);
+		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[13]);
+		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[14]);
+		PRINTF(" %x", UIP_IP_BUF->srcipaddr.u8[15]);
+   PRINTF("\n"); 
+*/
 #if SERVER_REPLY
     PRINTF("DATA sending reply\n");
     uip_ipaddr_copy(&server_conn->ripaddr, &UIP_IP_BUF->srcipaddr);

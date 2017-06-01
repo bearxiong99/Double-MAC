@@ -1283,10 +1283,7 @@ uip_process(uint8_t flag)
 			data_fwd_count ++;
 #endif
 #if RPL_ICMP_ENERGY_LOG
-			char *log_buf = (char*) malloc(sizeof(char)*100);
-			sprintf(log_buf,"DATA_FWD_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
-			LOG_MESSAGE(log_buf); 
-			free(log_buf);
+			LOG_MESSAGE("DATA_FWD_OUTPUT, Energy: %d\n",(int) get_residual_energy()); 
 #endif
 
       UIP_STAT(++uip_stat.ip.forwarded);

@@ -78,7 +78,7 @@ void log_initialization(void){
     printf("Can't open the log file.\n");
   }   
   else {
-    printf("LOG_START:");
+    printf("LOG_START:----------------------------------------------------------\n");
     while(1) {
       cfs_seek(fd, offset, CFS_SEEK_SET);
       len = cfs_read(fd, buf, block_size);
@@ -89,7 +89,7 @@ void log_initialization(void){
       }   
       printf("%s", buf);
     }   
-    printf("\nLOG_END");
+    printf("\nLOG_END----------------------------------------------------------\n");
   }
 
 	printf("\nOpening the file for z1/firefly\n\n");

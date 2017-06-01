@@ -3,6 +3,7 @@
 #include "cfs/cfs.h"
 #include "sys/residual.h"
 #include <stdlib.h>
+#include <string.h>
 
 #ifdef COOJA
 extern FILE *log_fp;
@@ -13,7 +14,7 @@ extern int log_file;
 #define LOG_LEVEL		2
 #define SIMULATION_SETTING	1
 #define PS_COUNT 1
-#define MAX_BLOCKSIZE 100
+#define MAX_BLOCKSIZE 200
 
 #if SIMULAITON_SETTING
 extern const energy_t DISSIPATION_RATE;
@@ -41,7 +42,12 @@ void log_finisher(void);
 	fflush(log_fp);\
 }while(0)
 #else	/* COOJA */
-#define LOG_MESSAGE(...) cfs_write(log_file, __VA_ARGS__, MAX_BLOCKSIZE)
+#define LOG_MESSAGE(...) do{\
+		char *log  = (char*) malloc(sizeof(char)*MAX_BLOCKSIZE);\
+		sprintf(log,__VA_ARGS__);\
+		printf("[log_success %d]\t",cfs_write(log_file, log, strlen(log)));\
+		free(log);\
+	}while(0)
 #endif	/* COOJA */
 
 #elif LOG_LEVEL == 2
@@ -54,9 +60,13 @@ void log_finisher(void);
 
 #else /* COOJA */
 #define LOG_MESSAGE(...) do{\
+		char *log  = (char*) malloc(sizeof(char)*MAX_BLOCKSIZE);\
+		sprintf(log,__VA_ARGS__);\
+		printf("[log_success %d]\t",cfs_write(log_file, log,strlen(log)));\
+		free(log);\
 		printf(__VA_ARGS__);\
-		printf("log_success %d",cfs_write(log_file, __VA_ARGS__,MAX_BLOCKSIZE));\
 	}while(0)
+//		printf("log_success %d\n",cfs_write(log_file, __VA_ARGS__,MAX_BLOCKSIZE));
 #endif	/* COOJA */
 
 #elif LOG_LEVEL == 3
