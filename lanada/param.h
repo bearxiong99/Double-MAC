@@ -31,7 +31,7 @@
 #define DATA_ACK      1
 
 /* Energy log */
-#define RPL_ICMP_ENERGY_LOG		1
+#define RPL_ICMP_ENERGY_LOG		0
 
 /* Data aggregation shceme enabled or not */
 #define DATA_AGGREGATION 1	// not implemented yet
