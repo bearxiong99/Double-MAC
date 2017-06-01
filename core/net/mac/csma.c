@@ -500,6 +500,7 @@ send_packet(mac_callback_t sent, void *ptr)
       }
     } else {
       PRINTF("csma: Neighbor queue full\n");
+      LOG_MESSAGE("csma: Queue is full\n");
     }
     PRINTF("csma: could not allocate packet, dropping packet\n");
   } else {

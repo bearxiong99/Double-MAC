@@ -56,7 +56,7 @@
 #if TRAFFIC_MODEL == 0
 #define PERIOD 1
 #elif TRAFFIC_MODEL == 1
-#define ARRIVAL_RATE 30 // Mean value, 1/lambda
+#define ARRIVAL_RATE 0 // Mean value, 1/lambda
 #endif
 
 
