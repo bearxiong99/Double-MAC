@@ -33,7 +33,21 @@ obj_zoul/contiki-main.o: ../../platform/zoul/./contiki-main.c \
  ../../core/./net/queuebuf.h ../../core/./net/packetbuf.h \
  ../../core/./net/mac/tsch/tsch-conf.h ../../cpu/cc2538/./cpu.h \
  ../../cpu/cc2538/./ieee-addr.h ../../cpu/cc2538/./lpm.h \
- ../../core/sys/rtimer.h
+ ../../core/sys/rtimer.h ../../core/./net/rpl/rpl-private.h \
+ ../../core/./net/rpl/rpl.h ../../core/./net/rpl/rpl-conf.h \
+ ../../core/./lib/list.h ../../core/./net/ipv6/uip-ds6.h \
+ ../../core/./sys/stimer.h ../../core/./net/ipv6/uip-nd6.h \
+ ../../core/./net/ipv6/uip-ds6-route.h ../../core/./net/nbr-table.h \
+ ../../core/./net/ipv6/uip-ds6-nbr.h ../../core/./sys/ctimer.h \
+ ../../core/./../lanada/param.h \
+ ../../core/./net/ipv6/multicast/uip-mcast6.h \
+ ../../core/./net/ipv6/multicast/uip-mcast6-engines.h \
+ ../../core/./net/ipv6/multicast/uip-mcast6-route.h \
+ ../../core/./net/ipv6/multicast/smrf.h \
+ ../../core/./net/ipv6/multicast/roll-tm.h \
+ ../../core/./net/ipv6/multicast/uip-mcast6-stats.h \
+ ../../core/./sys/log_message.h ../../core/./cfs/cfs.h \
+ ../../core/./sys/residual.h ../../core/./sys/energest.h
 ../../platform/zoul/./contiki-main.c :
  ../../core/./contiki.h ../../core/./contiki-version.h :
  ../../platform/zoul/./contiki-conf.h ../../core/./dev/radio.h :
@@ -69,4 +83,18 @@ obj_zoul/contiki-main.o: ../../platform/zoul/./contiki-main.c \
  ../../core/./net/queuebuf.h ../../core/./net/packetbuf.h :
  ../../core/./net/mac/tsch/tsch-conf.h ../../cpu/cc2538/./cpu.h :
  ../../cpu/cc2538/./ieee-addr.h ../../cpu/cc2538/./lpm.h :
- ../../core/sys/rtimer.h :
+ ../../core/sys/rtimer.h ../../core/./net/rpl/rpl-private.h :
+ ../../core/./net/rpl/rpl.h ../../core/./net/rpl/rpl-conf.h :
+ ../../core/./lib/list.h ../../core/./net/ipv6/uip-ds6.h :
+ ../../core/./sys/stimer.h ../../core/./net/ipv6/uip-nd6.h :
+ ../../core/./net/ipv6/uip-ds6-route.h ../../core/./net/nbr-table.h :
+ ../../core/./net/ipv6/uip-ds6-nbr.h ../../core/./sys/ctimer.h :
+ ../../core/./../lanada/param.h :
+ ../../core/./net/ipv6/multicast/uip-mcast6.h :
+ ../../core/./net/ipv6/multicast/uip-mcast6-engines.h :
+ ../../core/./net/ipv6/multicast/uip-mcast6-route.h :
+ ../../core/./net/ipv6/multicast/smrf.h :
+ ../../core/./net/ipv6/multicast/roll-tm.h :
+ ../../core/./net/ipv6/multicast/uip-mcast6-stats.h :
+ ../../core/./sys/log_message.h ../../core/./cfs/cfs.h :
+ ../../core/./sys/residual.h ../../core/./sys/energest.h :

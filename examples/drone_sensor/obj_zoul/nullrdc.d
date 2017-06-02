@@ -24,7 +24,8 @@ obj_zoul/nullrdc.o: ../../core/net/mac/nullrdc.c \
  ../../core/./net/netstack.h ../../core/./net/llsec/llsec.h \
  ../../core/./net/mac/framer.h ../../core/./net/rime/rimestats.h \
  ../../core/./dev/watchdog.h ../../core/./../lanada/param.h \
- ../../core/./sys/log_message.h ../../core/./cfs/cfs.h
+ ../../core/./sys/log_message.h ../../core/./cfs/cfs.h \
+ ../../core/./sys/residual.h ../../core/./sys/energest.h
 ../../core/net/mac/nullrdc.c :
  ../../core/./net/mac/mac-sequence.h ../../core/./net/mac/nullrdc.h :
  ../../core/./net/mac/rdc.h ../../platform/zoul/./contiki-conf.h :
@@ -52,3 +53,4 @@ obj_zoul/nullrdc.o: ../../core/net/mac/nullrdc.c \
  ../../core/./net/mac/framer.h ../../core/./net/rime/rimestats.h :
  ../../core/./dev/watchdog.h ../../core/./../lanada/param.h :
  ../../core/./sys/log_message.h ../../core/./cfs/cfs.h :
+ ../../core/./sys/residual.h ../../core/./sys/energest.h :

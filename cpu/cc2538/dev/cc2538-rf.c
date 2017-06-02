@@ -128,7 +128,7 @@ static const uint8_t magic[] = { 0x53, 0x6E, 0x69, 0x66 };      /** Snif */
 #ifdef CC2538_RF_CONF_AUTOACK
 #define CC2538_RF_AUTOACK CC2538_RF_CONF_AUTOACK
 #else
-#define CC2538_RF_AUTOACK 1
+#define CC2538_RF_AUTOACK 0
 #endif
 /*---------------------------------------------------------------------------*/
 static uint8_t rf_flags;
@@ -307,7 +307,7 @@ get_tx_power(void)
       return output_power[i].power;
     }
   }
-  return OUTPUT_POWER_MIN;
+ return OUTPUT_POWER_MIN;
 }
 /*---------------------------------------------------------------------------*/
 /*
@@ -423,6 +423,7 @@ static int
 init(void)
 {
   PRINTF("RF: Init\n");
+ 	//printf("%d %d %d %d\n",RADIO_TX_OK, RADIO_TX_ERR, RADIO_TX_COLLISION ,RADIO_TX_NOACK);
 
   if(rf_flags & RF_ON) {
     return 0;
@@ -970,7 +971,7 @@ PROCESS_THREAD(cc2538_rf_process, ev, data)
 #if DUAL_RADIO
 			dual_radio_received(SHORT_RADIO);
 #endif
-//			printf("########################### CC2538_INTERRUPT ##############################\n");
+			// printf("########################### CC2538_INTERRUPT ##############################\n");
       packetbuf_set_datalen(len);
 
       NETSTACK_RDC.input();

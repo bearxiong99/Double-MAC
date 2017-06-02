@@ -54,7 +54,7 @@
 
 #define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 1
+#define PERIOD 10
 #elif TRAFFIC_MODEL == 1
 #define ARRIVAL_RATE 0 // Mean value, 1/lambda
 #endif
@@ -116,7 +116,7 @@ uint8_t my_valid_parent_number;
 
 
 //#if LSA_MAC
-#define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 2) // Short on time slot length in rtimer
+#define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 8) // Short on time slot length in rtimer
 //#endif
 
 /*-----------------------------------------------------------------------------------------------*/

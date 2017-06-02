@@ -703,7 +703,7 @@ cc1200_init(void)
 
     /* Set output power */
     // new_txpower = CC1200_RF_CFG.max_txpower;
-    new_txpower = 5;
+    new_txpower = 14;
     update_txpower(new_txpower);
 
     /* Adjust CAA threshold */

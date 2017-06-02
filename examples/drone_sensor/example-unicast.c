@@ -129,8 +129,8 @@ PROCESS_THREAD(example_unicast_process, ev, data)
 
     packetbuf_copyfrom("Hello", 5);
     addr.u8[0] = 0;
-    addr.u8[1] = 32;
-		printf("ADDRESS: %d %d\n", linkaddr_node_addr.u8[0], linkaddr_node_addr.u8[1]);
+    addr.u8[1] = 8;
+		// printf("ADDRESS: %d %d\n", linkaddr_node_addr.u8[0], linkaddr_node_addr.u8[1]);
     if(!linkaddr_cmp(&addr, &linkaddr_node_addr)) {
       broadcast_send(&broadcast);
 			printf("COUNT = %d\n",count);

@@ -24,7 +24,8 @@ obj_zoul/csma.o: ../../core/net/mac/csma.c ../../core/./net/mac/csma.h \
  ../../core/./net/llsec/llsec.h ../../core/./net/mac/rdc.h \
  ../../core/./net/mac/framer.h ../../core/./lib/list.h \
  ../../core/./lib/memb.h ../../lanada/param.h \
- ../../core/./sys/log_message.h ../../core/./cfs/cfs.h
+ ../../core/./sys/log_message.h ../../core/./cfs/cfs.h \
+ ../../core/./sys/residual.h ../../core/./sys/energest.h
 ../../core/net/mac/csma.c ../../core/./net/mac/csma.h :
  ../../core/./net/mac/mac.h ../../platform/zoul/./contiki-conf.h :
  ../../core/./dev/radio.h ../../platform/zoul/firefly/board.h :
@@ -52,3 +53,4 @@ obj_zoul/csma.o: ../../core/net/mac/csma.c ../../core/./net/mac/csma.h \
  ../../core/./net/mac/framer.h ../../core/./lib/list.h :
  ../../core/./lib/memb.h ../../lanada/param.h :
  ../../core/./sys/log_message.h ../../core/./cfs/cfs.h :
+ ../../core/./sys/residual.h ../../core/./sys/energest.h :
