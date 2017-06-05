@@ -99,9 +99,6 @@ PROCESS_THREAD(example_unicast_process, ev, data)
   static int count=0;
 	led_count=0;
 	broadcast_open(&broadcast, 129, &broadcast_callbacks);
-#if DUAL_RADIO
-	dual_radio_switch(LONG_RADIO);
-#endif
 	leds_on(LEDS_RED);
 	leds_on(LEDS_BLUE);
 	leds_on(LEDS_GREEN);
@@ -129,7 +126,7 @@ PROCESS_THREAD(example_unicast_process, ev, data)
 
     packetbuf_copyfrom("Hello", 5);
     addr.u8[0] = 0;
-    addr.u8[1] = 8;
+    addr.u8[1] = 40;
 		// printf("ADDRESS: %d %d\n", linkaddr_node_addr.u8[0], linkaddr_node_addr.u8[1]);
     if(!linkaddr_cmp(&addr, &linkaddr_node_addr)) {
       broadcast_send(&broadcast);

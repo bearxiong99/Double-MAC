@@ -192,9 +192,9 @@ neighbor_link_callback(rpl_parent_t *p, int status, int numtx)
 
   /* Do not penalize the ETX when collisions or transmission errors occur. */
   if(status == MAC_TX_OK || status == MAC_TX_NOACK) {
-/*    if(status == MAC_TX_NOACK) {
+	  if(status == MAC_TX_NOACK) {
         packet_ett = MAX_LINK_METRIC * RPL_DAG_MC_ETX_DIVISOR;
-    }*/
+    }
     if(p->flags & RPL_PARENT_FLAG_LINK_METRIC_VALID) {
       /* We already have a valid link metric, use weighted moving average to update it */
       new_ett = ((uint32_t)recorded_ett * ETX_ALPHA +
