@@ -69,6 +69,8 @@
 #include "reg.h"
 #include "ieee-addr.h"
 #include "lpm.h"
+#include "soc.h"
+
 
 #include <stdint.h>
 #include <string.h>
@@ -182,7 +184,7 @@ main(void)
   process_init();
   watchdog_init();
 
-	
+
   /*
    * Character I/O Initialisation.
    * When the UART receives a character it will call serial_line_input_byte to
@@ -226,7 +228,9 @@ main(void)
 	LOG_MESSAGE("ZOUL platform log HELLO\n");
 	LOG_MESSAGE("Starting with energy %d\n",(int)get_residual_energy());
 	printf("\n\n\n\n\n");
-
+#if STARTUP_CONF_VERBOSE
+	soc_print_info();
+#endif
 
 #if CRYPTO_CONF_INIT
   crypto_init();

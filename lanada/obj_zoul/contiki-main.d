@@ -30,7 +30,7 @@ obj_zoul/contiki-main.o: ..//platform/zoul/./contiki-main.c \
  ..//core/./net/mac/framer.h ..//core/./net/queuebuf.h \
  ..//core/./net/packetbuf.h ..//core/./net/mac/tsch/tsch-conf.h \
  ..//cpu/cc2538/./cpu.h ..//cpu/cc2538/./ieee-addr.h \
- ..//cpu/cc2538/./lpm.h ..//core/sys/rtimer.h \
+ ..//cpu/cc2538/./lpm.h ..//core/sys/rtimer.h ..//cpu/cc2538/./soc.h \
  ..//platform/zoul/./dual_radio.h ..//platform/zoul/./contiki-conf.h \
  ..//dev/cc1200/cc1200.h ..//core/./net/rime/rimestats.h \
  ../cpu/cc2538/dev/cc2538-rf.h ..//core/./net/rpl/rpl-private.h \
@@ -79,7 +79,7 @@ obj_zoul/contiki-main.o: ..//platform/zoul/./contiki-main.c \
  ..//core/./net/mac/framer.h ..//core/./net/queuebuf.h :
  ..//core/./net/packetbuf.h ..//core/./net/mac/tsch/tsch-conf.h :
  ..//cpu/cc2538/./cpu.h ..//cpu/cc2538/./ieee-addr.h :
- ..//cpu/cc2538/./lpm.h ..//core/sys/rtimer.h :
+ ..//cpu/cc2538/./lpm.h ..//core/sys/rtimer.h ..//cpu/cc2538/./soc.h :
  ..//platform/zoul/./dual_radio.h ..//platform/zoul/./contiki-conf.h :
  ..//dev/cc1200/cc1200.h ..//core/./net/rime/rimestats.h :
  ../cpu/cc2538/dev/cc2538-rf.h ..//core/./net/rpl/rpl-private.h :

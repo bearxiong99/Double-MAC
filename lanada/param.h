@@ -116,7 +116,7 @@ uint8_t my_valid_parent_number;
 
 
 //#if LSA_MAC
-#define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 8) // Short on time slot length in rtimer
+#define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 20) // Short on time slot length in rtimer
 //#endif
 
 /*-----------------------------------------------------------------------------------------------*/

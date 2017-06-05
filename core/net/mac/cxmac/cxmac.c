@@ -924,8 +924,11 @@ send_packet(void)
 
   collisions = 0;
   if(!is_already_streaming) {
+	  
 #ifndef ZOUL_MOTE
-	  watchdog_stop();
+		watchdog_stop();
+#else
+		watchdog_periodic();
 #endif
 	  got_strobe_ack = 0;
 	  t = RTIMER_NOW();
@@ -938,6 +941,9 @@ send_packet(void)
 					  RTIMER_CLOCK_LT(RTIMER_NOW(), t0 + cxmac_config.strobe_time);
 #endif
 			  strobes++) {
+#if ZOUL_MOTE
+			watchdog_periodic();
+#endif
 			/* JOONKI
 			 * short range broadcast skip sending strobed preambles */
 #if DUAL_RADIO
@@ -1190,7 +1196,7 @@ send_packet(void)
 					packetbuf_set_datalen(len);
 					if(NETSTACK_FRAMER.parse() >= 0) {
 						hdr = packetbuf_dataptr();
-						printf("after parsing type %x\n",hdr->type);
+						// printf("after parsing type %x\n",hdr->type);
 						if(hdr->type == TYPE_DATA_ACK) {
 #if DUAL_RADIO
 							if(linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),
@@ -1230,7 +1236,10 @@ send_packet(void)
     register_encounter(packetbuf_addr(PACKETBUF_ADDR_RECEIVER), encounter_time);
   }
 #endif /* WITH_ENCOUNTER_OPTIMIZATION */
+
+#ifndef ZOUL_MOTE
   watchdog_start();
+#endif
 	/* For debug */
   PRINTF("cxmac: send (strobes=%u,len=%u,%s), done\n", strobes,
 	 packetbuf_totlen(), got_strobe_ack ? "ack" : "no ack");
@@ -1521,7 +1530,7 @@ input_packet(void)
 		// process_start(&strobe_wait, NULL);
 	  // NETSTACK_RADIO.send(packetbuf_hdrptr(), packetbuf_totlen());
 		// LOG_MESSAGE("SEDNING DATA ACK!!!!!! %d\n",NETSTACK_RADIO.send(ack, ack_len));
-		printf("cxmac: send data ack %u\n", ack_len);
+		// printf("cxmac: send data ack %u\n", ack_len);
 		// printf("cxmac: send data ack %u\n", packetbuf_totlen());
 	}
 	queuebuf_to_packetbuf(packet);
@@ -1609,7 +1618,7 @@ input_packet(void)
 #endif
 	  // LOG_MESSAGE("SENDING STROBE ACK %d\n",NETSTACK_RADIO.send(packetbuf_hdrptr(), packetbuf_totlen()));
 	  NETSTACK_RADIO.send(packetbuf_hdrptr(), packetbuf_totlen());
-	  printf("cxmac: send strobe ack %u\n", packetbuf_totlen());
+	 // printf("cxmac: send strobe ack %u\n", packetbuf_totlen());
 	} else {
 	  PRINTF("cxmac: failed to send strobe ack\n");
 	}

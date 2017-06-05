@@ -1,0 +1,77 @@
+..//tools/sky/serialdump-linux -b115200  /dev/ttyUSB0
+after parsing type 14
+[log_success 33]	LTMAX_OF link_metric 256 IP: 1 L
+Contiki-317d68e
+Zolertia Firefly platform
+
+
+DUAL_RADIO: 1
+ADDR_MAP: 1
+RPL_LIFETIME_MAX_MODE: 1
+LONG_WEIGHT_RATIO: 2
+STROBE_CNT_MODE: 0
+DUAL_ROUTING_CONVERGE: 0
+LSA_MAC: 1
+DETERMINED_ROUTING_TREE: 0
+RESIDUAL_ENERGY_MAX: 1000000000
+PERIOD: 10
+Reading the log
+
+
+LOG_START:----------------------------------------------------------
+ZOUL platform log HELLO
+Starting with energy 999990926
+RPL: rpl_set_preferred_parent IP:16 L used to be NULL
+RPL: rpl_set_preferred_parent IP:3 L used to be IP:16 L
+LTMAX_OF link_metric 256 IP: 16 L
+RPL: rpl_set_preferred_parent IP:1 L used to be IP:3 L
+LTMAX_OF link_metric 256 IP: 3 L
+LTMAX_OF link_metric 256 IP: 1 L
+[PS] Periodic status review:
+[PS] Control: 6, Data: 0, Data fwd: 0
+[PS] ICMP: 6, TCP_OUTPUT: 6
+[PS] DIO:2, DAO: 4, DIS: 0, DIO_ACK: 0, Total: 6
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 0, CXMAC_Transmission: 5, CXMAC_Collision: 0
+[PS] CSMA_Drop: 0, CXMAC_Retransmission: 0
+[PS] Remaining energy: 999788687
+[PS] My parent is : L 1
+LTMAX_OF link_metric 256 IP: 1 L
+ZOUL platform log HELLO
+Starting with energy 999990920
+RPL: rpl_set_preferred_parent IP:1 L used to be NULL
+LTMAX_OF link_metric 256 IP: 1 L
+7
+[PS] My parent is : L 1
+LTMAX_OF link_metric 256 IP: 1 L
+ZOUL platform log HELLO
+Starting with energy 999990920
+RPL: rpl_set_prefe
+LOG_END----------------------------------------------------------
+
+Opening the file for z1/firefly
+
+[log_success 24]	ZOUL platform log HELLO
+[log_success 31]	Starting with energy 999990898
+
+
+
+
+
+cc1200_arch initialization finished!!
+Interrupt initialization finished!!
+CC1200 configure finish!!!!
+Rime configured with address 00:12:4b:00:06:0d:00:12
+Rime for long radio configured with address 80:12:4b:00:06:0d:00:12
+ Net: sicslowpan
+ MAC: nullmac
+ RDC: CX-MAC
+Tentative global IPv6 address fd00:0000:0000:0000:0212:4b00:060d:0012
+Tentative long range global IPv6 address fd00:0000:0000:0000:8212:4b00:060d:0012
+UDP client process started nbr:50 routes:20 period:10
+Client IPv6 addresses: fd00::212:4b00:60d:12
+fe80::212:4b00:60d:12
+Created a connection with the server :: local/remote port 8765/5678
+[log_success 30]	RPL: rpl_set_preferred_parent [log_success 7]	IP:16 L[log_success 12]	 used to be [log_success 4]	NULL[log_success 1]	
+after parsing type 14
+[log_success 34]	LTMAX_OF link_metric 256 IP: 16 L
