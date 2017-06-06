@@ -19,7 +19,7 @@ do
 		sudo make clean TARGET=zoul BOARD=firefly
 		sudo make udp-client TARGET=zoul BOARD=firefly
 	fi
-	NODEID="0x$NODE"
+	NODEID="$NODE"
 	sudo make udp-client.upload NODEID=$NODEID TARGET=zoul PORT=/dev/ttyUSB$PORT BOARD=firefly
 
 	echo

@@ -128,7 +128,7 @@ send_packet(void *ptr)
 {
   char buf[MAX_PAYLOAD_LEN];
 	char radio_temp = 'M';
-	int parent_temp = '0';
+	int parent_temp = 0;
 
 #ifdef SERVER_REPLY
   uint8_t num_used = 0;
