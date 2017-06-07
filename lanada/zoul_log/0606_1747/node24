@@ -1,0 +1,88 @@
+using saved target 'zoul'
+..//tools/sky/serialdump-linux -b115200  /dev/ttyUSB1
+Contiki-d30c381
+Zolertia Firefly platform
+
+
+DUAL_RADIO: 1
+ADDR_MAP: 1
+RPL_LIFETIME_MAX_MODE: 1
+LONG_WEIGHT_RATIO: 2
+STROBE_CNT_MODE: 0
+DUAL_ROUTING_CONVERGE: 0
+LSA_MAC: 1
+DETERMINED_ROUTING_TREE: 0
+RESIDUAL_ENERGY_MAX: 1000000000
+PERIOD: 80
+Reading the log
+
+
+LOG_START:----------------------------------------------------------
+ZOUL platform log HELLO
+Starting with energy 999990846
+CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: External reset
+RPL: rpl_set_preferred_parent IP:7 L used to be NULL
+RPL: rpl_set_preferred_parent IP:7 S used to be IP:7 L
+LTMAX_OF link_metric 1536 IP: 7 L
+LTMAX_OF link_metric 1280 IP: 7 S
+RPL: rpl_set_preferred_parent IP:25 S used to be IP:7 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 1408 IP: 7 S
+ZOUL platform log HELLO
+Starting with energy 999990894
+CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: External reset
+RPL: rpl_set_preferred_parent IP:6 L used to be NULL
+RPL: rpl_set_preferred_parent IP:6 S used to be IP:6 L
+RPL: rpl_set_preferred_parent IP:25 L used to be IP:6 S
+RPL: rpl_set_preferred_parent IP:25 S used to be IP:25 L
+LTMAX_OF link_metric 0 IP: 6 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 6 L
+LTMAX_OF link_metric 256 IP: 25 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 256 IP: 6 S
+RPL: rpl_set_preferred_parent IP:26 S used to be IP:25 S
+LTMAX_OF link_metric 768 IP: 26 S
+LTMAX_OF link_metric 332 IP: 25 S
+RPL: rpl_set_preferred_parent IP:6 S used to be IP:26 S
+RPL: rpl_set_preferred_parent IP:10 S used to be IP:6 S
+RPL: rpl_set_preferred_parent IP:6 S used to be IP:10 S
+MAX_OF link_metric 332 IP: 25 S
+RPL: rpl_set_preferred_parent IP:6 S 
+LOG_END----------------------------------------------------------
+
+Opening the file for z1/firefly
+
+[log_success 24]	ZOUL platform log HELLO
+[log_success 31]	Starting with energy 999990878
+
+
+
+
+
+[log_success 163]	CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: External reset
+cc1200_arch initialization finished!!
+Interrupt initialization finished!!
+CC1200 configure finish!!!!
+Rime configured with address 00:12:4b:00:06:0d:00:18
+Rime for long radio configured with address 80:12:4b:00:06:0d:00:18
+ Net: sicslowpan
+ MAC: CSMA
+ RDC: CX-MAC
+Tentative global IPv6 address fd00:0000:0000:0000:0212:4b00:060d:0018
+Tentative long range global IPv6 address fd00:0000:0000:0000:8212:4b00:060d:0018
+UDP client process started nbr:50 routes:20 period:80
+Client IPv6 addresses: fd00::212:4b00:60d:18
+fe80::212:4b00:60d:18
+Created a connection with the server :: local/remote port 8765/5678
+[log_success 30]	RPL: rpl_set_preferred_parent [log_success 6]	IP:9 L[log_success 12]	 used to be [log_success 4]	NULL[log_success 1]	
+[log_success 30]	RPL: rpl_set_preferred_parent [log_success 6]	IP:9 S[log_success 12]	 used to be [log_success 6]	IP:9 L[log_success 1]	

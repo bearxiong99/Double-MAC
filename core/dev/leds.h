@@ -50,6 +50,7 @@
 /* Allow platform to override LED numbering */
 #include "contiki-conf.h"
 
+uint8_t led_end; 
 void leds_init(void);
 
 /**

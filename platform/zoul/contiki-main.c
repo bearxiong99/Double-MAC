@@ -76,7 +76,7 @@
 #include <string.h>
 #include <stdio.h>
 
-/* JOONKI */
+
 #if DUAL_RADIO
 #include "dual_radio.h"
 #endif

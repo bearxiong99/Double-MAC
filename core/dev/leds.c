@@ -65,7 +65,14 @@ show_leds(unsigned char new_leds)
       ENERGEST_OFF(ENERGEST_TYPE_LED_RED);
     }
   }
-  leds_arch_set(leds);
+	/* LEDS are disable to protect battery */
+	if (led_end == 0 ) {
+  	leds_arch_set(leds);
+	} else if (led_end == 1){
+  	leds_arch_set(0);
+		led_end ++;
+	}
+
 }
 /*---------------------------------------------------------------------------*/
 void

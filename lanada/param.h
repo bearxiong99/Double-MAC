@@ -59,7 +59,7 @@
 #define ARRIVAL_RATE 0 // Mean value, 1/lambda
 #endif
 
-
+uint8_t join_instance;
 
 #if DUAL_ROUTING_CONVERGE
 uint8_t long_duty_on;

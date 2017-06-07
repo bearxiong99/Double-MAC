@@ -37,6 +37,7 @@
 #include "net/nbr-table.h"
 #include "rpl/rpl-private.h"
 #include "dev/button-sensor.h"
+#include "dev/leds.h"
 
 #ifdef WITH_COMPOWER
 #include "powertrace.h"
@@ -305,6 +306,7 @@ PROCESS_THREAD(udp_client_process, ev, data)
 
   PROCESS_BEGIN();
 	SENSORS_ACTIVATE(button_sensor);
+	led_end = 0;
 
   PROCESS_PAUSE();
 
@@ -336,9 +338,15 @@ PROCESS_THREAD(udp_client_process, ev, data)
 //  PRINTF("ON TIME %d\n",DEFAULT_ON_TIME);
 //  PRINTF("OFF TIME %d\n",DEFAULT_OFF_TIME);
 
+	
+
 #if WITH_COMPOWER
   powertrace_sniff(POWERTRACE_ON);
 #endif
+	
+	join_instance = 0;
+	PROCESS_WAIT_EVENT_UNTIL(join_instance == 1);
+	led_end = 1;
 
 #if TRAFFIC_MODEL == 0 // Periodic
   etimer_set(&arrival, SEND_INTERVAL);
@@ -349,6 +357,7 @@ PROCESS_THREAD(udp_client_process, ev, data)
 //  printf("poisson %d\n",poisson_int);
   etimer_set(&arrival, poisson_int);
 #endif
+
   while(1) {
     PROCESS_YIELD();
     if(ev == tcpip_event) {

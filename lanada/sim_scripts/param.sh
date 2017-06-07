@@ -60,7 +60,7 @@ echo "#define RPL_ENERGY_MODE 0
 #define ARRIVAL_RATE $7 // Mean value, 1/lambda
 #endif
 
-
+uint8_t join_instance;
 
 #if DUAL_ROUTING_CONVERGE
 uint8_t long_duty_on;

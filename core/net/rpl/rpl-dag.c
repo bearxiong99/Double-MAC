@@ -53,6 +53,7 @@
 #include "lib/list.h"
 #include "lib/memb.h"
 #include "sys/ctimer.h"
+#include "../lanada/param.h"
 
 #include <limits.h>
 #include <string.h>
@@ -1332,6 +1333,8 @@ rpl_join_instance(uip_ipaddr_t *from, rpl_dio_t *dio)
   rpl_dag_t *dag;
   rpl_parent_t *p;
   rpl_of_t *of;
+
+	join_instance = 1;
 
   /* Determine the objective function by using the
      objective code point of the DIO. */
