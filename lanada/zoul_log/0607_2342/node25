@@ -1,0 +1,698 @@
+..//tools/sky/serialdump-linux -b115200  /dev/ttyUSB0
+[log_success 30]	RPL: rpl_set_preferred_parent [log_success 7]	IP:11 S[log_success 12]	 used to be [log_success 6]	IP:7 S[log_success 1]	
+Contiki-a914865
+Zolertia Firefly platform
+
+
+DUAL_RADIO: 1
+ADDR_MAP: 1
+RPL_LIFETIME_MAX_MODE: 1
+LONG_WEIGHT_RATIO: 2
+STROBE_CNT_MODE: 0
+DUAL_ROUTING_CONVERGE: 0
+LSA_MAC: 1
+DETERMINED_ROUTING_TREE: 0
+RESIDUAL_ENERGY_MAX: 1000000000
+PERIOD: 80
+Reading the log
+
+
+LOG_START:----------------------------------------------------------
+ZOUL platform log HELLO
+Starting with energy 999990786
+CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: CLD or software reset
+ZOUL platform log HELLO
+Starting with energy 999990856
+CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: POR
+ZOUL platform log HELLO
+Starting with energy 999990880
+CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: POR
+ZOUL platform log HELLO
+Starting with energy 999990826
+CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: External reset
+RPL: rpl_set_preferred_parent IP:28 L used to be NULL
+LTMAX_OF link_metric 1024 IP: 28 L
+RPL: rpl_set_preferred_parent IP:12 L used to be IP:28 L
+LTMAX_OF link_metric 947 IP: 28 L
+RPL: rpl_set_preferred_parent IP:26 L used to be IP:12 L
+csma: drop with status 1 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 1024 IP: 12 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 26 L
+RPL: rpl_set_preferred_parent IP:28 L used to be IP:26 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 26 L
+RPL: rpl_set_preferred_parent IP:26 S used to be IP:28 L
+LTMAX_OF link_metric 929 IP: 28 L
+LTMAX_OF link_metric 768 IP: 26 S
+RPL: rpl_set_preferred_parent IP:20 L used to be IP:26 S
+LTMAX_OF link_metric 716 IP: 26 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 20 L
+RPL: rpl_set_preferred_parent IP:26 S used to be IP:20 L
+LTMAX_OF link_metric 2355 IP: 20 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 900 IP: 26 S
+RPL: rpl_set_preferred_parent IP:30 L used to be IP:26 S
+LTMAX_OF link_metric 835 IP: 26 S
+RPL: rpl_set_preferred_parent IP:26 S used to be IP:30 L
+LTMAX_OF link_metric 768 IP: 30 L
+LTMAX_OF link_metric 828 IP: 26 S
+RPL: rpl_set_preferred_parent IP:23 L used to be IP:26 S
+LTMAX_OF link_metric 847 IP: 26 S
+LTMAX_OF link_metric 768 IP: 23 L
+RPL: rpl_set_preferred_parent IP:26 S used to be IP:23 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 947 IP: 23 L
+LTMAX_OF link_metric 864 IP: 26 S
+RPL: rpl_set_preferred_parent NULL used to be IP:26 S
+RPL: rpl_set_preferred_parent IP:30 L used to be NULL
+LTMAX_OF link_metric 854 IP: 26 S
+RPL: rpl_set_preferred_parent IP:11 L used to be IP:30 L
+LTMAX_OF link_metric 691 IP: 30 L
+[PS] Periodic status review:
+[PS] Control: 66, Data: 0, Data fwd: 0
+[PS] ICMP: 66, TCP_OUTPUT: 66
+[PS] DIO:32, DAO: 22, DIS: 12, DIO_ACK: 0, Total: 66
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 42, CXMAC_Transmission: 176, CXMAC_Collision: 87
+[PS] CSMA_Drop: 6, CXMAC_Retransmission: 157
+[PS] Remaining energy: 991021528
+[PS] My parent is : L 11
+LTMAX_OF link_metric 0 IP: 11 L
+LTMAX_OF link_metric 801 IP: 30 L
+LTMAX_OF link_metric 25 IP: 11 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 278 IP: 11 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 506 IP: 11 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 711 IP: 11 L
+LTMAX_OF link_metric 691 IP: 11 L
+LTMAX_OF link_metric 775 IP: 11 L
+RPL: rpl_set_preferred_parent IP:24 L used to be IP:11 L
+LTMAX_OF link_metric 748 IP: 11 L
+LTMAX_OF link_metric 1280 IP: 24 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 1408 IP: 24 L
+LTMAX_OF link_metric 1395 IP: 24 L
+RPL: rpl_set_preferred_parent IP:11 L used to be IP:24 L
+LTMAX_OF link_metric 1306 IP: 24 L
+LTMAX_OF link_metric 724 IP: 11 L
+[PS] Periodic status review:
+[PS] Control: 96, Data: 7, Data fwd: 0
+[PS] ICMP: 96, TCP_OUTPUT: 103
+[PS] DIO:56, DAO: 28, DIS: 12, DIO_ACK: 0, Total: 96
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 64, CXMAC_Transmission: 293, CXMAC_Collision: 156
+[PS] CSMA_Drop: 10, CXMAC_Retransmission: 282
+[PS] Remaining energy: 980503410
+[PS] My parent is : L 11
+LTMAX_OF link_metric 702 IP: 11 L
+RPL: rpl_set_preferred_parent IP:26 S used to be IP:11 L
+LTMAX_OF link_metric 683 IP: 11 L
+LTMAX_OF link_metric 794 IP: 26 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 970 IP: 26 S
+RPL: rpl_set_preferred_parent IP:7 L used to be IP:26 S
+LTMAX_OF link_metric 898 IP: 26 S
+LTMAX_OF link_metric 256 IP: 7 L
+LTMAX_OF link_metric 435 IP: 7 L
+LTMAX_OF link_metric 442 IP: 7 L
+LTMAX_OF link_metric 423 IP: 7 L
+LTMAX_OF link_metric 431 IP: 7 L
+LTMAX_OF link_metric 413 IP: 7 L
+LTMAX_OF link_metric 474 IP: 7 L
+[PS] Periodic status review:
+[PS] Control: 123, Data: 14, Data fwd: 0
+[PS] ICMP: 123, TCP_OUTPUT: 137
+[PS] DIO:78, DAO: 33, DIS: 12, DIO_ACK: 0, Total: 123
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 87, CXMAC_Transmission: 351, CXMAC_Collision: 165
+[PS] CSMA_Drop: 11, CXMAC_Retransmission: 312
+[PS] Remaining energy: 973959986
+[PS] My parent is : L 7
+LTMAX_OF link_metric 477 IP: 7 L
+LTMAX_OF link_metric 480 IP: 7 L
+LTMAX_OF link_metric 534 IP: 7 L
+RPL: rpl_set_preferred_parent IP:26 S used to be IP:7 L
+LTMAX_OF link_metric 506 IP: 7 L
+RPL: rpl_set_preferred_parent IP:7 L used to be IP:26 S
+LTMAX_OF link_metric 910 IP: 26 S
+LTMAX_OF link_metric 481 IP: 7 L
+LTMAX_OF link_metric 484 IP: 7 L
+LTMAX_OF link_metric 461 IP: 7 L
+LTMAX_OF link_metric 619 IP: 7 L
+RPL: rpl_set_preferred_parent IP:26 S used to be IP:7 L
+LTMAX_OF link_metric 685 IP: 7 L
+LTMAX_OF link_metric 870 IP: 26 S
+LTMAX_OF link_metric 859 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 150, Data: 21, Data fwd: 0
+[PS] ICMP: 150, TCP_OUTPUT: 171
+[PS] DIO:100, DAO: 38, DIS: 12, DIO_ACK: 0, Total: 150
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 110, CXMAC_Transmission: 409, CXMAC_Collision: 168
+[PS] CSMA_Drop: 11, CXMAC_Retransmission: 338
+[PS] Remaining energy: 967973207
+[PS] My parent is : S 26
+LTMAX_OF link_metric 798 IP: 26 S
+LTMAX_OF link_metric 743 IP: 26 S
+LTMAX_OF link_metric 694 IP: 26 S
+LTMAX_OF link_metric 675 IP: 26 S
+LTMAX_OF link_metric 658 IP: 26 S
+LTMAX_OF link_metric 617 IP: 26 S
+LTMAX_OF link_metric 580 IP: 26 S
+LTMAX_OF link_metric 547 IP: 26 S
+LTMAX_OF link_metric 543 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 156, Data: 28, Data fwd: 0
+[PS] ICMP: 156, TCP_OUTPUT: 184
+[PS] DIO:104, DAO: 40, DIS: 12, DIO_ACK: 0, Total: 156
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 121, CXMAC_Transmission: 425, CXMAC_Collision: 168
+[PS] CSMA_Drop: 11, CXMAC_Retransmission: 341
+[PS] Remaining energy: 962223819
+[PS] My parent is : S 26
+LTMAX_OF link_metric 539 IP: 26 S
+LTMAX_OF link_metric 613 IP: 26 S
+LTMAX_OF link_metric 577 IP: 26 S
+LTMAX_OF link_metric 570 IP: 26 S
+LTMAX_OF link_metric 538 IP: 26 S
+LTMAX_OF link_metric 612 IP: 26 S
+LTMAX_OF link_metric 576 IP: 26 S
+LTMAX_OF link_metric 544 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 157, Data: 35, Data fwd: 0
+[PS] ICMP: 157, TCP_OUTPUT: 192
+[PS] DIO:104, DAO: 41, DIS: 12, DIO_ACK: 0, Total: 157
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 129, CXMAC_Transmission: 443, CXMAC_Collision: 168
+[PS] CSMA_Drop: 11, CXMAC_Retransmission: 351
+[PS] Remaining energy: 957352207
+[PS] My parent is : S 26
+LTMAX_OF link_metric 515 IP: 26 S
+LTMAX_OF link_metric 514 IP: 26 S
+LTMAX_OF link_metric 488 IP: 26 S
+LTMAX_OF link_metric 464 IP: 26 S
+LTMAX_OF link_metric 468 IP: 26 S
+LTMAX_OF link_metric 446 IP: 26 S
+LTMAX_OF link_metric 427 IP: 26 S
+LTMAX_OF link_metric 435 IP: 26 S
+LTMAX_OF link_metric 417 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 161, Data: 42, Data fwd: 0
+[PS] ICMP: 161, TCP_OUTPUT: 203
+[PS] DIO:106, DAO: 43, DIS: 12, DIO_ACK: 0, Total: 161
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 139, CXMAC_Transmission: 457, CXMAC_Collision: 168
+[PS] CSMA_Drop: 11, CXMAC_Retransmission: 354
+[PS] Remaining energy: 951692964
+[PS] My parent is : S 26
+LTMAX_OF link_metric 426 IP: 26 S
+LTMAX_OF link_metric 409 IP: 26 S
+LTMAX_OF link_metric 393 IP: 26 S
+LTMAX_OF link_metric 404 IP: 26 S
+LTMAX_OF link_metric 440 IP: 26 S
+LTMAX_OF link_metric 524 IP: 26 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 727 IP: 26 S
+LTMAX_OF link_metric 679 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 162, Data: 49, Data fwd: 0
+[PS] ICMP: 162, TCP_OUTPUT: 211
+[PS] DIO:106, DAO: 44, DIS: 12, DIO_ACK: 0, Total: 162
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 147, CXMAC_Transmission: 480, CXMAC_Collision: 168
+[PS] CSMA_Drop: 12, CXMAC_Retransmission: 369
+[PS] Remaining energy: 946600891
+[PS] My parent is : S 26
+LTMAX_OF link_metric 636 IP: 26 S
+LTMAX_OF link_metric 726 IP: 26 S
+LTMAX_OF link_metric 679 IP: 26 S
+LTMAX_OF link_metric 636 IP: 26 S
+LTMAX_OF link_metric 751 IP: 26 S
+LTMAX_OF link_metric 701 IP: 26 S
+LTMAX_OF link_metric 758 IP: 26 S
+LTMAX_OF link_metric 707 IP: 26 S
+LTMAX_OF link_metric 789 IP: 26 S
+LTMAX_OF link_metric 761 IP: 26 S
+LTMAX_OF link_metric 736 IP: 26 S
+LTMAX_OF link_metric 713 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 167, Data: 56, Data fwd: 0
+[PS] ICMP: 167, TCP_OUTPUT: 223
+[PS] DIO:106, DAO: 49, DIS: 12, DIO_ACK: 0, Total: 167
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 159, CXMAC_Transmission: 518, CXMAC_Collision: 178
+[PS] CSMA_Drop: 12, CXMAC_Retransmission: 402
+[PS] Remaining energy: 940164650
+[PS] My parent is : S 26
+LTMAX_OF link_metric 744 IP: 26 S
+LTMAX_OF link_metric 695 IP: 26 S
+LTMAX_OF link_metric 676 IP: 26 S
+LTMAX_OF link_metric 634 IP: 26 S
+LTMAX_OF link_metric 596 IP: 26 S
+LTMAX_OF link_metric 562 IP: 26 S
+LTMAX_OF link_metric 531 IP: 26 S
+LTMAX_OF link_metric 503 IP: 26 S
+LTMAX_OF link_metric 580 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 169, Data: 63, Data fwd: 0
+[PS] ICMP: 169, TCP_OUTPUT: 232
+[PS] DIO:106, DAO: 51, DIS: 12, DIO_ACK: 0, Total: 169
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 168, CXMAC_Transmission: 535, CXMAC_Collision: 181
+[PS] CSMA_Drop: 12, CXMAC_Retransmission: 413
+[PS] Remaining energy: 933785257
+[PS] My parent is : S 26
+LTMAX_OF link_metric 573 IP: 26 S
+LTMAX_OF link_metric 643 IP: 26 S
+LTMAX_OF link_metric 604 IP: 26 S
+LTMAX_OF link_metric 569 IP: 26 S
+LTMAX_OF link_metric 537 IP: 26 S
+LTMAX_OF link_metric 560 IP: 26 S
+LTMAX_OF link_metric 529 IP: 26 S
+LTMAX_OF link_metric 527 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 170, Data: 70, Data fwd: 0
+[PS] ICMP: 170, TCP_OUTPUT: 240
+[PS] DIO:106, DAO: 52, DIS: 12, DIO_ACK: 0, Total: 170
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 176, CXMAC_Transmission: 551, CXMAC_Collision: 181
+[PS] CSMA_Drop: 12, CXMAC_Retransmission: 421
+[PS] Remaining energy: 929153120
+[PS] My parent is : S 26
+LTMAX_OF link_metric 499 IP: 26 S
+LTMAX_OF link_metric 474 IP: 26 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 682 IP: 26 S
+LTMAX_OF link_metric 639 IP: 26 S
+LTMAX_OF link_metric 626 IP: 26 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 819 IP: 26 S
+LTMAX_OF link_metric 865 IP: 26 S
+LTMAX_OF link_metric 804 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 171, Data: 77, Data fwd: 0
+[PS] ICMP: 171, TCP_OUTPUT: 248
+[PS] DIO:106, DAO: 53, DIS: 12, DIO_ACK: 0, Total: 171
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 184, CXMAC_Transmission: 578, CXMAC_Collision: 181
+[PS] CSMA_Drop: 14, CXMAC_Retransmission: 440
+[PS] Remaining energy: 923879386
+[PS] My parent is : S 26
+LTMAX_OF link_metric 877 IP: 26 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 1045 IP: 26 S
+LTMAX_OF link_metric 1119 IP: 26 S
+LTMAX_OF link_metric 1083 IP: 26 S
+LTMAX_OF link_metric 1000 IP: 26 S
+LTMAX_OF link_metric 951 IP: 26 S
+LTMAX_OF link_metric 855 IP: 26 S
+LTMAX_OF link_metric 871 IP: 26 S
+LTMAX_OF link_metric 809 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 175, Data: 84, Data fwd: 0
+[PS] ICMP: 175, TCP_OUTPUT: 259
+[PS] DIO:108, DAO: 55, DIS: 12, DIO_ACK: 0, Total: 175
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 193, CXMAC_Transmission: 616, CXMAC_Collision: 181
+[PS] CSMA_Drop: 15, CXMAC_Retransmission: 467
+[PS] Remaining energy: 917999945
+[PS] My parent is : S 26
+LTMAX_OF link_metric 753 IP: 26 S
+LTMAX_OF link_metric 754 IP: 26 S
+LTMAX_OF link_metric 806 IP: 26 S
+LTMAX_OF link_metric 776 IP: 26 S
+LTMAX_OF link_metric 749 IP: 26 S
+LTMAX_OF link_metric 750 IP: 26 S
+LTMAX_OF link_metric 803 IP: 26 S
+LTMAX_OF link_metric 850 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 176, Data: 91, Data fwd: 0
+[PS] ICMP: 176, TCP_OUTPUT: 267
+[PS] DIO:108, DAO: 56, DIS: 12, DIO_ACK: 0, Total: 176
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 201, CXMAC_Transmission: 642, CXMAC_Collision: 181
+[PS] CSMA_Drop: 15, CXMAC_Retransmission: 485
+[PS] Remaining energy: 910872973
+[PS] My parent is : S 26
+LTMAX_OF link_metric 790 IP: 26 S
+LTMAX_OF link_metric 813 IP: 26 S
+LTMAX_OF link_metric 936 IP: 26 S
+LTMAX_OF link_metric 868 IP: 26 S
+LTMAX_OF link_metric 858 IP: 26 S
+LTMAX_OF link_metric 849 IP: 26 S
+LTMAX_OF link_metric 815 IP: 26 S
+LTMAX_OF link_metric 759 IP: 26 S
+LTMAX_OF link_metric 708 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 178, Data: 98, Data fwd: 0
+[PS] ICMP: 178, TCP_OUTPUT: 276
+[PS] DIO:108, DAO: 58, DIS: 12, DIO_ACK: 0, Total: 178
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 210, CXMAC_Transmission: 670, CXMAC_Collision: 190
+[PS] CSMA_Drop: 15, CXMAC_Retransmission: 509
+[PS] Remaining energy: 904872879
+[PS] My parent is : S 26
+LTMAX_OF link_metric 662 IP: 26 S
+LTMAX_OF link_metric 672 IP: 26 S
+LTMAX_OF link_metric 656 IP: 26 S
+LTMAX_OF link_metric 667 IP: 26 S
+LTMAX_OF link_metric 753 IP: 26 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 933 IP: 26 S
+LTMAX_OF link_metric 890 IP: 26 S
+LTMAX_OF link_metric 852 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 179, Data: 105, Data fwd: 0
+[PS] ICMP: 179, TCP_OUTPUT: 284
+[PS] DIO:108, DAO: 59, DIS: 12, DIO_ACK: 0, Total: 179
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 218, CXMAC_Transmission: 697, CXMAC_Collision: 190
+[PS] CSMA_Drop: 16, CXMAC_Retransmission: 528
+[PS] Remaining energy: 899251842
+[PS] My parent is : S 26
+LTMAX_OF link_metric 792 IP: 26 S
+LTMAX_OF link_metric 764 IP: 26 S
+LTMAX_OF link_metric 815 IP: 26 S
+LTMAX_OF link_metric 810 IP: 26 S
+LTMAX_OF link_metric 780 IP: 26 S
+LTMAX_OF link_metric 753 IP: 26 S
+LTMAX_OF link_metric 703 IP: 26 S
+LTMAX_OF link_metric 735 IP: 26 S
+LTMAX_OF link_metric 687 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 183, Data: 112, Data fwd: 0
+[PS] ICMP: 183, TCP_OUTPUT: 295
+[PS] DIO:110, DAO: 61, DIS: 12, DIO_ACK: 0, Total: 183
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 228, CXMAC_Transmission: 720, CXMAC_Collision: 190
+[PS] CSMA_Drop: 16, CXMAC_Retransmission: 540
+[PS] Remaining energy: 894106386
+[PS] My parent is : S 26
+LTMAX_OF link_metric 695 IP: 26 S
+LTMAX_OF link_metric 651 IP: 26 S
+LTMAX_OF link_metric 662 IP: 26 S
+LTMAX_OF link_metric 621 IP: 26 S
+LTMAX_OF link_metric 661 IP: 26 S
+LTMAX_OF link_metric 671 IP: 26 S
+LTMAX_OF link_metric 706 IP: 26 S
+LTMAX_OF link_metric 686 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 184, Data: 119, Data fwd: 0
+[PS] ICMP: 184, TCP_OUTPUT: 303
+[PS] DIO:110, DAO: 62, DIS: 12, DIO_ACK: 0, Total: 184
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 236, CXMAC_Transmission: 741, CXMAC_Collision: 190
+[PS] CSMA_Drop: 16, CXMAC_Retransmission: 553
+[PS] Remaining energy: 888428600
+[PS] My parent is : S 26
+LTMAX_OF link_metric 643 IP: 26 S
+LTMAX_OF link_metric 604 IP: 26 S
+LTMAX_OF link_metric 569 IP: 26 S
+LTMAX_OF link_metric 563 IP: 26 S
+LTMAX_OF link_metric 532 IP: 26 S
+LTMAX_OF link_metric 581 IP: 26 S
+LTMAX_OF link_metric 727 IP: 26 S
+LTMAX_OF link_metric 782 IP: 26 S
+LTMAX_OF link_metric 831 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 186, Data: 126, Data fwd: 0
+[PS] ICMP: 186, TCP_OUTPUT: 312
+[PS] DIO:110, DAO: 64, DIS: 12, DIO_ACK: 0, Total: 186
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 245, CXMAC_Transmission: 769, CXMAC_Collision: 190
+[PS] CSMA_Drop: 16, CXMAC_Retransmission: 572
+[PS] Remaining energy: 882050693
+[PS] My parent is : S 26
+LTMAX_OF link_metric 850 IP: 26 S
+LTMAX_OF link_metric 841 IP: 26 S
+LTMAX_OF link_metric 808 IP: 26 S
+LTMAX_OF link_metric 752 IP: 26 S
+LTMAX_OF link_metric 702 IP: 26 S
+LTMAX_OF link_metric 811 IP: 26 S
+LTMAX_OF link_metric 781 IP: 26 S
+LTMAX_OF link_metric 754 IP: 26 S
+[PS] Periodic status review:
+[PS] Control: 189, Data: 133, Data fwd: 0
+[PS] ICMP: 189, TCP_OUTPUT: 322
+[PS] DIO:112, DAO: 65, DIS: 12, DIO_ACK: 0, Total: 189
+[PS] DAO_ACK:0, DAO_FWD: 0, DAO_ACK_FWD: 0, LSA: 0, Total: 0
+[PS] CSMA_Transmission: 254, CXMAC_Transmission: 793, CXMAC_Collision: 190
+[PS] CSMA_Drop: 16, CXMAC_Retransmission: 586
+[PS] Remaining energy: 876986533
+[PS] My parent is : S 26
+LTMAX_OF link_metric 883 IP: 26 S
+LTMAX_OF link_metric 897 IP: 26 S
+LTMAX_OF link_metric 858 IP: 26 S
+RPL: rpl_set_preferred_parent IP:3 L used to be IP:26 S
+LTMAX_OF link_metric 900 IP: 26 S
+RPL: rpl_set_preferred_parent IP:30 S used to be IP:3 L
+csma: drop with status 1 after 8 transmissions, 0 collisions
+RPL: rpl_set_preferred_parent IP:19 L used to be IP:30 S
+RPL: rpl_set_preferred_parent IP:19 S used to be IP:19 L
+csma: drop with status 1 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 0 IP: 30 S
+RPL: rpl_set_preferred_parent IP:5 S used to be IP:19 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 3 L
+csma: drop with status 1 after 8 transmissions, 0 collisions
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 5 S
+RPL: rpl_set_preferred_parent IP:8 S used to be IP:5 S
+RPL: rpl_set_preferred_parent IP:19 S used to be IP:8 S
+LTMAX_OF link_metric 0 IP: 8 S
+LTMAX_OF link_metric 2508 IP: 5 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 256 IP: 8 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 19 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 19 S
+LTMAX_OF link_metric 2329 IP: 19 S
+LTMAX_OF link_metric 2121 IP: 19 S
+LTMAX_OF link_metric 2088 IP: 19 S
+LTMAX_OF link_metric 1930 IP: 19 S
+RPL: rpl_set_preferred_parent IP:7 S used to be IP:19 S
+LTMAX_OF link_metric 1788 IP: 19 S
+csma: drop with status 1 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 512 IP: 7 S
+RPL: rpl_set_preferred_parent IP:8 S used to be IP:7 S
+RPL: rpl_set_preferred_parent IP:3 S used to be IP:8 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 486 IP: 8 S
+LTMAX_OF link_metric 591 IP: 8 S
+LTMAX_OF link_metric 614 IP: 7 S
+LTMAX_OF link_metric 512 IP: 3 S
+LTMAX_OF link_metric 486 IP: 3 S
+LTMAX_OF link_metric 437 IP: 3 S
+csma: drop with status 1 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 393 IP: 3 S
+LTMAX_OF link_metric 353 IP: 3 S
+RPL: rpl_set_preferred_parent NULL used to be IP:3 S
+RPL: rpl_set_preferred_parent IP:6 S used to be NULL
+LTMAX_OF link_metric 317 IP: 3 S
+LTMAX_OF link_metric 285 IP: 3 S
+LTMAX_OF link_metric 256 IP: 3 S
+LTMAX_OF link_metric 230 IP: 3 S
+LTMAX_OF link_metric 283 IP: 3 S
+LTMAX_OF link_metric 1024 IP: 6 S
+RPL: rpl_set_preferred_parent IP:15 S used to be IP:6 S
+LTMAX_OF link_metric 972 IP: 6 S
+LTMAX_OF link_metric 512 IP: 15 S
+RPL: rpl_set_preferred_parent IP:2 S used to be IP:15 S
+LTMAX_OF link_metric 512 IP: 15 S
+LTMAX_OF link_metric 2048 IP: 2 S
+RPL: rpl_set_preferred_parent IP:23 S used to be IP:2 S
+LTMAX_OF link_metric 1920 IP: 2 S
+LTMAX_OF link_metric 1024 IP: 23 S
+RPL: rpl_set_preferred_parent IP:4 S used to be IP:23 S
+LTMAX_OF link_metric 947 IP: 23 S
+LTMAX_OF link_metric 768 IP: 4 S
+RPL: rpl_set_preferred_parent IP:30 S used to be IP:4 S
+LTMAX_OF link_metric 691 IP: 4 S
+LTMAX_OF link_metric 647 IP: 4 S
+LTMAX_OF link_metric 0 IP: 30 S
+LTMAX_OF link_metric 0 IP: 30 S
+LTMAX_OF link_metric 51 IP: 30 S
+RPL: rpl_set_preferred_parent IP:24 S used to be IP:30 S
+LTMAX_OF link_metric 256 IP: 24 S
+LTMAX_OF link_metric 199 IP: 30 S
+RPL: rpl_set_preferred_parent IP:18 L used to be IP:24 S
+RPL: rpl_set_preferred_parent IP:6 L used to be IP:18 L
+RPL: rpl_set_preferred_parent IP:3 S used to be IP:6 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 18 L
+LTMAX_OF link_metric 409 IP: 24 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 18 L
+LTMAX_OF link_metric 254 IP: 3 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 484 IP: 3 S
+RPL: rpl_set_preferred_parent IP:19 L used to be IP:3 S
+LTMAX_OF link_metric 512 IP: 19 L
+LTMAX_OF link_metric 563 IP: 3 S
+RPL: rpl_set_preferred_parent IP:8 L used to be IP:19 L
+LTMAX_OF link_metric 563 IP: 19 L
+LTMAX_OF link_metric 256 IP: 8 L
+RPL: rpl_set_preferred_parent IP:18 S used to be IP:8 L
+LTMAX_OF link_metric 1024 IP: 18 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 486 IP: 8 L
+RPL: rpl_set_preferred_parent IP:8 L used to be IP:18 S
+LTMAX_OF link_metric 1075 IP: 18 S
+LTMAX_OF link_metric 539 IP: 8 L
+RPL: rpl_set_preferred_parent IP:15 L used to be IP:8 L
+LTMAX_OF link_metric 587 IP: 8 L
+LTMAX_OF link_metric 256 IP: 15 L
+RPL: rpl_set_preferred_parent IP:24 S used to be IP:15 L
+LTMAX_OF link_metric 256 IP: 15 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 624 IP: 24 S
+RPL: rpl_set_preferred_parent IP:14 S used to be IP:24 S
+LTMAX_OF link_metric 664 IP: 24 S
+LTMAX_OF link_metric 512 IP: 14 S
+RPL: rpl_set_preferred_parent IP:12 S used to be IP:14 S
+LTMAX_OF link_metric 486 IP: 14 S
+LTMAX_OF link_metric 512 IP: 12 S
+[PS] Periodic status review:
+[PS] Control: 351, Data: 140, Data fwd: 0
+[PS] ICMP: 351, TCP_OUTPUT: 491
+[PS] DIO:202, DAO: 120, DIS: 12, DIO_ACK: 0, Total: 334
+[PS] DAO_ACK:0, DAO_FWD: 12, DAO_ACK_FWD: 0, LSA: 0, Total: 12
+[PS] CSMA_Transmission: 343, CXMAC_Transmission: 1373, CXMAC_Collision: 731
+[PS] CSMA_Drop: 32, CXMAC_Retransmission: 1353
+[PS] Remaining energy: 859056787
+[PS] My parent is : S 12
+LTMAX_OF link_metric 563 IP: 12 S
+RPL: rpl_set_preferred_parent IP:20 S used to be IP:12 S
+LTMAX_OF link_metric 660 IP: 12 S
+RPL: rpl_set_preferred_parent IP:30 S used to be IP:20 S
+LTMAX_OF link_metric 0 IP: 20 S
+RPL: rpl_set_preferred_parent IP:28 S used to be IP:30 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 256 IP: 20 S
+LTMAX_OF link_metric 179 IP: 30 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 417 IP: 30 S
+RPL: rpl_set_preferred_parent IP:7 S used to be IP:28 S
+LTMAX_OF link_metric 552 IP: 7 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 28 S
+LTMAX_OF link_metric 2329 IP: 28 S
+csma: drop with status 1 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 573 IP: 7 S
+RPL: rpl_set_preferred_parent IP:2 L used to be IP:7 S
+LTMAX_OF link_metric 566 IP: 7 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 2 L
+RPL: rpl_set_preferred_parent IP:12 S used to be IP:2 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 2 L
+LTMAX_OF link_metric 722 IP: 12 S
+RPL: rpl_set_preferred_parent IP:3 S used to be IP:12 S
+LTMAX_OF link_metric 752 IP: 12 S
+LTMAX_OF link_metric 609 IP: 3 S
+RPL: rpl_set_preferred_parent IP:12 S used to be IP:3 S
+LTMAX_OF link_metric 676 IP: 3 S
+LTMAX_OF link_metric 856 IP: 12 S
+RPL: rpl_set_preferred_parent IP:10 S used to be IP:12 S
+LTMAX_OF link_metric 796 IP: 12 S
+LTMAX_OF link_metric 2048 IP: 10 S
+RPL: rpl_set_preferred_parent IP:20 S used to be IP:10 S
+RPL: rpl_set_preferred_parent IP:7 S used to be IP:20 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2099 IP: 10 S
+LTMAX_OF link_metric 1889 IP: 10 S
+LTMAX_OF link_metric 1904 IP: 10 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 486 IP: 20 S
+LTMAX_OF link_metric 437 IP: 20 S
+csma: drop with status 1 after 8 transmissions, 0 collisions
+RPL: rpl_set_preferred_parent IP:14 S used to be IP:7 S
+LTMAX_OF link_metric 463 IP: 14 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 765 IP: 7 S
+RPL: rpl_set_preferred_parent IP:7 S used to be IP:14 S
+LTMAX_OF link_metric 688 IP: 7 S
+RPL: rpl_set_preferred_parent IP:30 S used to be IP:7 S
+LTMAX_OF link_metric 619 IP: 7 S
+LTMAX_OF link_metric 557 IP: 7 S
+LTMAX_OF link_metric 578 IP: 7 S
+LTMAX_OF link_metric 400 IP: 30 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 616 IP: 30 S
+RPL: rpl_set_preferred_parent IP:7 S used to be IP:30 S
+LTMAX_OF link_metric 554 IP: 30 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 754 IP: 30 S
+LTMAX_OF link_metric 678 IP: 30 S
+LTMAX_OF link_metric 635 IP: 30 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 776 IP: 7 S
+LTMAX_OF link_metric 749 IP: 7 S
+RPL: rpl_set_preferred_parent IP:5 L used to be IP:7 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 930 IP: 7 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 5 L
+RPL: rpl_set_preferred_parent IP:14 S used to be IP:5 L
+LTMAX_OF link_metric 467 IP: 14 S
+LTMAX_OF link_metric 2432 IP: 5 L
+LTMAX_OF link_metric 497 IP: 14 S
+RPL: rpl_set_preferred_parent IP:24 S used to be IP:14 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 703 IP: 14 S
+RPL: rpl_set_preferred_parent IP:15 L used to be IP:24 S
+LTMAX_OF link_metric 281 IP: 15 L
+LTMAX_OF link_metric 597 IP: 24 S
+RPL: rpl_set_preferred_parent IP:7 S used to be IP:15 L
+LTMAX_OF link_metric 329 IP: 15 L
+LTMAX_OF link_metric 716 IP: 24 S
+LTMAX_OF link_metric 888 IP: 7 S
+RPL: rpl_set_preferred_parent IP:11 S used to be IP:7 S
+preferred_parent IP:7 S used
+LOG_END----------------------------------------------------------
+
+Opening the file for z1/firefly
+
+[log_success 24]	ZOUL platform log HELLO
+[log_success 31]	Starting with energy 999990878
+
+
+
+
+
+[log_success 163]	CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: External reset
+cc1200_arch initialization finished!!
+Interrupt initialization finished!!
+CC1200 configure finish!!!!
+Rime configured with address 00:12:4b:00:06:0d:00:19
+Rime for long radio configured with address 80:12:4b:00:06:0d:00:19
+ Net: sicslowpan
+ MAC: CSMA
+ RDC: CX-MAC
+Tentative global IPv6 address fd00:0000:0000:0000:0212:4b00:060d:0019
+Tentative long range global IPv6 address fd00:0000:0000:0000:8212:4b00:060d:0019
+UDP client process started nbr:50 routes:20 period:80
+Client IPv6 addresses: fd00::212:4b00:60d:19
+fe80::212:4b00:60d:19
+Created a connection with the server :: local/remote port 8765/5678
+[log_success 30]	RPL: rpl_set_preferred_parent [log_success 7]	IP:11 L[log_success 12]	 used to be [log_success 4]	NULL[log_success 1]	
