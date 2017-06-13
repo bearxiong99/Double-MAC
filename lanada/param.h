@@ -21,7 +21,7 @@
 #define SINK_INFINITE_ENERGY	1
 
 /* Using strobe cnt, reducing idle listening while Tx preamble */
-#define STROBE_CNT_MODE		0
+#define STROBE_CNT_MODE		1
 
 /* To determine valid parent set, only valid parents are considered as a parent set */
 #define PARENT_REDUCTION_MODE	0
@@ -44,7 +44,7 @@
  * Only long duty cylce, long preamble */
 #if DUAL_RADIO
 #define LSA_MAC	1
-#define LSA_R	0
+#define LSA_R	1
 #else	/* DUAL_RADIO */
 #define LSA_MAC 0
 #define LSA_R 0
@@ -54,7 +54,7 @@
 
 #define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 80
+#define PERIOD 90
 #elif TRAFFIC_MODEL == 1
 #define ARRIVAL_RATE 0 // Mean value, 1/lambda
 #endif
@@ -84,7 +84,7 @@ uint8_t LSA_broadcast_count;
 
 /* CONVERGE_MODE 2 */
 uint8_t simple_convergence;
-#define SIMPLE_CONV_TIME (900ul * CLOCK_SECOND)
+#define SIMPLE_CONV_TIME (1800ul * CLOCK_SECOND)
 
 
 #ifdef RPL_LIFETIME_MAX_MODE
@@ -100,7 +100,7 @@ uint8_t alpha;
 #define LONG_ETX_PENALTY 5
 
 #elif RPL_LIFETIME_MAX_MODE
-#define RPL_ETX_WEIGHT 	1
+#define RPL_ETX_WEIGHT 	0
 uint8_t my_weight;
 uint8_t my_sink_reachability;
 uint8_t my_parent_number;
@@ -116,7 +116,11 @@ uint8_t my_valid_parent_number;
 
 
 //#if LSA_MAC
+#ifdef ZOUL_MOTE
 #define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 20) // Short on time slot length in rtimer
+#else
+#define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 2) // Short on time slot length in rtimer
+#endif
 //#endif
 
 /*-----------------------------------------------------------------------------------------------*/

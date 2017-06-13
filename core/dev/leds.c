@@ -66,13 +66,16 @@ show_leds(unsigned char new_leds)
     }
   }
 	/* LEDS are disable to protect battery */
+#if ZOUL_MOTE
 	if (led_end == 0 ) {
   	leds_arch_set(leds);
 	} else if (led_end == 1){
   	leds_arch_set(0);
 		led_end ++;
 	}
-
+#else
+ 	leds_arch_set(leds);
+#endif
 }
 /*---------------------------------------------------------------------------*/
 void

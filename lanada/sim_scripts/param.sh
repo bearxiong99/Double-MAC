@@ -44,7 +44,7 @@ echo "#define RPL_ENERGY_MODE 0
  * Preamble free short broadcast after long broadcast, dual broadcast is included in LSA-MAC
  * Only long duty cylce, long preamble */
 #if DUAL_RADIO
-#define LSA_MAC	1
+#define LSA_MAC	${11}
 #define LSA_R	$4
 #else	/* DUAL_RADIO */
 #define LSA_MAC 0
@@ -85,7 +85,7 @@ uint8_t LSA_broadcast_count;
 
 /* CONVERGE_MODE 2 */
 uint8_t simple_convergence;
-#define SIMPLE_CONV_TIME (900ul * CLOCK_SECOND)
+#define SIMPLE_CONV_TIME (1800ul * CLOCK_SECOND)
 
 
 #ifdef RPL_LIFETIME_MAX_MODE
@@ -117,7 +117,11 @@ uint8_t my_valid_parent_number;
 
 
 //#if LSA_MAC
+#ifdef ZOUL_MOTE
+#define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 20) // Short on time slot length in rtimer
+#else
 #define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 2) // Short on time slot length in rtimer
+#endif
 //#endif
 
 /*-----------------------------------------------------------------------------------------------*/

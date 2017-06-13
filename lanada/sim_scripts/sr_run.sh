@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JOONKI=0
+JOONKI=1
 
 if [ $JOONKI -eq 0 ]
 then
@@ -46,8 +46,8 @@ echo "#########################  We are in $PWD  ########################"
 
 if [ ! -e COOJA.testlog ]
 then
-#    java -mx512m -jar $CONTIKI/tools/cooja/dist/cooja.jar -nogui=$CONTIKI/lanada/sim_scripts/scripts/0502_$topology\_$LR_range\.csc -contiki="$CONTIKI"
-    java -mx512m -jar $CONTIKI/tools/cooja/dist/cooja.jar -nogui=$CONTIKI/lanada/sim_scripts/scripts/0601_$topology\_$LR_range\_loss\.csc -contiki="$CONTIKI"
+    java -mx512m -jar $CONTIKI/tools/cooja/dist/cooja.jar -nogui=$CONTIKI/lanada/sim_scripts/scripts/0502_$topology\_$LR_range\.csc -contiki="$CONTIKI"
+#    java -mx512m -jar $CONTIKI/tools/cooja/dist/cooja.jar -nogui=$CONTIKI/lanada/sim_scripts/scripts/0601_$topology\_$LR_range\_loss\.csc -contiki="$CONTIKI"
 fi
 ../../pp.sh
 cd ../..

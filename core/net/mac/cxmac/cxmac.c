@@ -1469,31 +1469,17 @@ input_packet(void)
 		}
 #endif
 #endif
+		/* JOONKI
+		 * Not sure why this is working */
+#ifdef ZOUL_MOTE
 	packetbuf_set_addr(PACKETBUF_ADDR_RECEIVER,
 			   packetbuf_addr(PACKETBUF_ADDR_SENDER));
- /*
+#else
 		linkaddr_copy(&temp,packetbuf_addr(PACKETBUF_ADDR_SENDER));
-		printf("%02x ",temp.u8[0]);
-		printf("%02x ",temp.u8[1]);
-		printf("%02x ",temp.u8[2]);
-		printf("%02x ",temp.u8[3]);
-		printf("%02x ",temp.u8[4]);
-		printf("%02x ",temp.u8[5]);
-		printf("%02x ",temp.u8[6]);
-		printf("%02x ",temp.u8[7]);
 		packetbuf_clear();
 		packetbuf_set_addr(PACKETBUF_ADDR_RECEIVER,&temp);
+#endif
 
-  printf("cxmac: send unicast to %02x%02x:%02x%02x:%02x%02x:%02x%02x\n",
-          packetbuf_addr(PACKETBUF_ADDR_RECEIVER)->u8[0],
-           packetbuf_addr(PACKETBUF_ADDR_RECEIVER)->u8[1],
-           packetbuf_addr(PACKETBUF_ADDR_RECEIVER)->u8[2],
-           packetbuf_addr(PACKETBUF_ADDR_RECEIVER)->u8[3],
-           packetbuf_addr(PACKETBUF_ADDR_RECEIVER)->u8[4],
-           packetbuf_addr(PACKETBUF_ADDR_RECEIVER)->u8[5],
-           packetbuf_addr(PACKETBUF_ADDR_RECEIVER)->u8[6],
-           packetbuf_addr(PACKETBUF_ADDR_RECEIVER)->u8[7]);
-*/
 #if DUAL_RADIO
 		if(sending_in_LR() == LONG_RADIO)
 		{
