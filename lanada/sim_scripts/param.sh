@@ -22,7 +22,11 @@ echo "#define RPL_ENERGY_MODE 0
 #define SINK_INFINITE_ENERGY	1
 
 /* Using strobe cnt, reducing idle listening while Tx preamble */
+#ifdef ZOUL_MOTE
+#define STROBE_CNT_MODE 0
+#else
 #define STROBE_CNT_MODE		$3
+#endif
 
 /* To determine valid parent set, only valid parents are considered as a parent set */
 #define PARENT_REDUCTION_MODE	$8
@@ -101,7 +105,11 @@ uint8_t alpha;
 #define LONG_ETX_PENALTY 5
 
 #elif RPL_LIFETIME_MAX_MODE
+#ifdef ZOUL_MOTE
+#define RPL_ETX_WEIGHT 	1
+#else
 #define RPL_ETX_WEIGHT 	0
+#endif
 uint8_t my_weight;
 uint8_t my_sink_reachability;
 uint8_t my_parent_number;

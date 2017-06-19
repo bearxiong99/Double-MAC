@@ -21,7 +21,11 @@
 #define SINK_INFINITE_ENERGY	1
 
 /* Using strobe cnt, reducing idle listening while Tx preamble */
+#ifdef ZOUL_MOTE
+#define STROBE_CNT_MODE		0
+#else
 #define STROBE_CNT_MODE		1
+#endif
 
 /* To determine valid parent set, only valid parents are considered as a parent set */
 #define PARENT_REDUCTION_MODE	0
@@ -44,7 +48,7 @@
  * Only long duty cylce, long preamble */
 #if DUAL_RADIO
 #define LSA_MAC	1
-#define LSA_R	1
+#define LSA_R	0
 #else	/* DUAL_RADIO */
 #define LSA_MAC 0
 #define LSA_R 0
@@ -54,9 +58,9 @@
 
 #define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 90
+#define PERIOD 60
 #elif TRAFFIC_MODEL == 1
-#define ARRIVAL_RATE 0 // Mean value, 1/lambda
+#define ARRIVAL_RATE 60 // Mean value, 1/lambda
 #endif
 
 uint8_t join_instance;
@@ -100,7 +104,11 @@ uint8_t alpha;
 #define LONG_ETX_PENALTY 5
 
 #elif RPL_LIFETIME_MAX_MODE
-#define RPL_ETX_WEIGHT 	0
+#ifdef ZOUL_MOTE
+#define RPL_ETX_WEIGHT  1
+#else
+#define RPL_ETX_WEIGHT  0
+#endif
 uint8_t my_weight;
 uint8_t my_sink_reachability;
 uint8_t my_parent_number;

@@ -27,6 +27,7 @@ DATE=${12}
 DATA_ACK=${13}
 LSA_MAC=${14}
 
+
 if [ $TRAFFIC_MODEL -eq 0 ]
 then
     mkdir $DATE\_traffic$TRAFFIC_MODEL\_period$PERIOD\_alpha$ALPHA\_dataack$DATA_ACK
