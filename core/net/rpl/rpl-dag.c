@@ -536,6 +536,7 @@ rpl_set_root(uint8_t instance_id, uip_ipaddr_t *dag_id)
   instance->mop = RPL_MOP_DEFAULT;
   instance->of = &RPL_OF;
 
+	printf("1\n");
   rpl_set_preferred_parent(dag, NULL);
 
   memcpy(&dag->dag_id, dag_id, sizeof(dag->dag_id));

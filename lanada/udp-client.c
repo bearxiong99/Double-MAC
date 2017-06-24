@@ -361,6 +361,11 @@ PROCESS_THREAD(udp_client_process, ev, data)
 	//	printf("join_instance: %d\n",join_instance);
 		ctimer_set(&client_poll,(3ul * CLOCK_SECOND),&polling,NULL);
 		PROCESS_YIELD();
+		if(ev == sensors_event && data == & button_sensor) {
+			printf("*************** RESET LOG MESSAGE **************************\n");
+			cfs_remove("log_message");		
+			log_reinit();
+		}
 	}
 
 //	printf("process_start\n");
@@ -384,6 +389,7 @@ PROCESS_THREAD(udp_client_process, ev, data)
     if(ev == sensors_event && data == & button_sensor) {
 			printf("*************** RESET LOG MESSAGE **************************\n");
 			cfs_remove("log_message");		
+			log_reinit();
 		}
 
     if(ev == serial_line_event_message && data != NULL) {

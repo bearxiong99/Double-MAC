@@ -97,6 +97,10 @@ void log_initialization(void){
 #endif /* COOJA */
 }
 
+void log_reinit(void){
+	log_file = cfs_open("log_message", CFS_WRITE | CFS_APPEND);
+}
+
 void log_finisher(void){
 #ifdef COOJA
 	printf("\nClosing the file for cooja\n\n");

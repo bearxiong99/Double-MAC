@@ -58,7 +58,7 @@
 
 #define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 60
+#define PERIOD 5
 #elif TRAFFIC_MODEL == 1
 #define ARRIVAL_RATE 60 // Mean value, 1/lambda
 #endif

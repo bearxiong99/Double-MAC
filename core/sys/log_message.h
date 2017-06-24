@@ -29,6 +29,7 @@ int icmp_count, tcp_output_count;
 #endif
 
 void log_initialization(void);
+void log_reinit(void);
 void log_finisher(void);
 
 

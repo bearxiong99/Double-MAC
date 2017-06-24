@@ -113,7 +113,7 @@ typedef uint32_t rtimer_clock_t;
  * @{
  */
 #ifndef WATCHDOG_CONF_ENABLE
-#define WATCHDOG_CONF_ENABLE        1 /**< Enable the watchdog timer */
+#define WATCHDOG_CONF_ENABLE        0 /**< Enable the watchdog timer */
 #endif
 /** @} */
 /*---------------------------------------------------------------------------*/
@@ -374,8 +374,8 @@ struct radio_driver NETSTACK_RADIO;
 #else /* DUAL_RADIO */
 
 #ifndef NETSTACK_CONF_RADIO
-// #define NETSTACK_CONF_RADIO         cc2538_rf_driver
-#define NETSTACK_CONF_RADIO         cc1200_driver
+#define NETSTACK_CONF_RADIO         cc2538_rf_driver
+// #define NETSTACK_CONF_RADIO         cc1200_driver
 #endif
 #endif /* DUAL_RADIO */
 
