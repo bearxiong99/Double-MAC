@@ -79,6 +79,7 @@ get_residual_energy(void){
     int i;
     for(i = 0; i < ENERGEST_TYPE_MAX; i++){
         energy -= ENERGEST_DISSIPATION_RATE[i] * energest_total_time[i].current;
+				LOG_MESSAGE("%d th energest: %d\n",i, energest_total_time[i].current);
     }
 #endif
 

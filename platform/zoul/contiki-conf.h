@@ -113,7 +113,7 @@ typedef uint32_t rtimer_clock_t;
  * @{
  */
 #ifndef WATCHDOG_CONF_ENABLE
-#define WATCHDOG_CONF_ENABLE        0 /**< Enable the watchdog timer */
+#define WATCHDOG_CONF_ENABLE        1 /**< Enable the watchdog timer */
 #endif
 /** @} */
 /*---------------------------------------------------------------------------*/
@@ -363,7 +363,7 @@ typedef uint32_t rtimer_clock_t;
 
 /* JOONKI
  * To switch the radio driver in runtime */
-#define DUAL_RADIO	0
+#define DUAL_RADIO	1
 #define ADDR_MAP DUAL_RADIO
 #define NETSTACK_DUAL_RADIO	DUAL_RADIO
 

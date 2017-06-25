@@ -401,9 +401,19 @@ PROCESS_THREAD(strobe_wait, ev, data)
 		off();
 #endif
 	}
-	else
+	else if (is_short_waiting == 1)
 	{
 		t = SHORT_SLOT_LEN;
+	}
+	else if (is_short_waiting == 2)
+	{
+#if DUAL_RADIO
+		dual_radio_off(BOTH_RADIO);
+#else
+		off();
+#endif
+
+		t = BEFORE_SHORT_SLOT;
 	}
 //	printf("before timer set\n");
 	clock_time_t t_wait = (1ul * CLOCK_SECOND * (t)) / RTIMER_ARCH_SECOND;
@@ -420,11 +430,21 @@ PROCESS_THREAD(strobe_wait, ev, data)
 		waiting_for_packet = 1;
 	}
 #if DUAL_RADIO
-	else
+	else (is_short_waiting == 1)
 	{
 		dual_radio_off(SHORT_RADIO);
 		waiting_for_packet = 0;
 	}
+	else if (is_short_waiting == 2)
+	{
+#if DUAL_RADIO
+		dual_radio_on(strobe_target);
+#else
+		on();
+#endif
+		waiting_for_packet = 1;
+	}
+
 #endif
 	is_short_waiting = 0;
 	PROCESS_END();

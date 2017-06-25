@@ -14,7 +14,8 @@ obj_zoul/soc.o: ..//cpu/cc2538/./soc.c ..//platform/zoul/./contiki-conf.h \
  ..//core/./sys/clock.h ..//core/./sys/energest.h ..//core/./sys/rtimer.h \
  ..//cpu/cc2538/./dev/sys-ctrl.h ..//cpu/cc2538/./reg.h \
  ..//cpu/cc2538/./soc.h ..//core/./sys/log_message.h ..//core/./cfs/cfs.h \
- ..//core/./sys/residual.h ..//core/./sys/energest.h
+ ..//core/./sys/residual.h ..//core/./sys/log_message.h \
+ ..//core/./sys/energest.h
 ..//cpu/cc2538/./soc.c ..//platform/zoul/./contiki-conf.h :
  ..//core/./dev/radio.h project-conf.h ..//platform/zoul/firefly/board.h :
  ..//cpu/cc2538/./dev/gpio.h ..//cpu/cc2538/./reg.h :
@@ -31,4 +32,5 @@ obj_zoul/soc.o: ..//cpu/cc2538/./soc.c ..//platform/zoul/./contiki-conf.h \
  ..//core/./sys/clock.h ..//core/./sys/energest.h ..//core/./sys/rtimer.h :
  ..//cpu/cc2538/./dev/sys-ctrl.h ..//cpu/cc2538/./reg.h :
  ..//cpu/cc2538/./soc.h ..//core/./sys/log_message.h ..//core/./cfs/cfs.h :
- ..//core/./sys/residual.h ..//core/./sys/energest.h :
+ ..//core/./sys/residual.h ..//core/./sys/log_message.h :
+ ..//core/./sys/energest.h :

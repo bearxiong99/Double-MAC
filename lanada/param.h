@@ -22,7 +22,7 @@
 
 /* Using strobe cnt, reducing idle listening while Tx preamble */
 #ifdef ZOUL_MOTE
-#define STROBE_CNT_MODE		0
+#define STROBE_CNT_MODE		1
 #else
 #define STROBE_CNT_MODE		1
 #endif
@@ -58,7 +58,7 @@
 
 #define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 5
+#define PERIOD 10
 #elif TRAFFIC_MODEL == 1
 #define ARRIVAL_RATE 60 // Mean value, 1/lambda
 #endif
@@ -126,6 +126,7 @@ uint8_t my_valid_parent_number;
 //#if LSA_MAC
 #ifdef ZOUL_MOTE
 #define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 20) // Short on time slot length in rtimer
+#define BEFORE_SHORT_SLOT	(RTIMER_ARCH_SECOND / 160 * 20) // Short on time slot length in rtimer
 #else
 #define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 2) // Short on time slot length in rtimer
 #endif

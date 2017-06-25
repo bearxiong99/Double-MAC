@@ -1861,6 +1861,7 @@ rpl_process_dio(uip_ipaddr_t *from, rpl_dio_t *dio)
   if(p_temp != NULL)
   {
 	  p_temp->parent_sum_weight = dio->dio_weight;
+		p_temp->rank = p->rank;
   }
   /* Recover addr */
   if(ip_temp->u8[8] == 0x82)

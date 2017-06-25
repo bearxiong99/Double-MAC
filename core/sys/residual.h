@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "contiki-conf.h"
+#include "log_message.h"
 typedef int32_t energy_t;
 
 
