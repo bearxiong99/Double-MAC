@@ -407,12 +407,8 @@ PROCESS_THREAD(strobe_wait, ev, data)
 	}
 	else if (is_short_waiting == 2)
 	{
-#if DUAL_RADIO
 		dual_radio_off(BOTH_RADIO);
-#else
-		off();
-#endif
-
+//		dual_radio_on(SHORT_RADIO);
 		t = BEFORE_SHORT_SLOT;
 	}
 //	printf("before timer set\n");
@@ -430,23 +426,26 @@ PROCESS_THREAD(strobe_wait, ev, data)
 		waiting_for_packet = 1;
 	}
 #if DUAL_RADIO
-	else (is_short_waiting == 1)
+	else if (is_short_waiting == 1)
 	{
 		dual_radio_off(SHORT_RADIO);
 		waiting_for_packet = 0;
+		is_short_waiting = 0;
 	}
 	else if (is_short_waiting == 2)
 	{
-#if DUAL_RADIO
-		dual_radio_on(strobe_target);
-#else
-		on();
-#endif
+		dual_radio_on(SHORT_RADIO);
 		waiting_for_packet = 1;
-	}
 
+		t = SHORT_SLOT_LEN;
+		clock_time_t t_wait = (1ul * CLOCK_SECOND * (t)) / RTIMER_ARCH_SECOND;
+		etimer_set(&et, t_wait);
+		PROCESS_WAIT_UNTIL(etimer_expired(&et));
+		dual_radio_off(SHORT_RADIO);
+		waiting_for_packet = 0;
+		is_short_waiting = 0;
+	}
 #endif
-	is_short_waiting = 0;
 	PROCESS_END();
 }
 
@@ -1405,11 +1404,18 @@ input_packet(void)
 				 * waiting for incoming short broadcast */
 				if (linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER), &linkaddr_null) && 
 						radio_received_is_longrange()==LONG_RADIO){
+					
+					/*
 					dual_radio_off(LONG_RADIO);
 					dual_radio_on(SHORT_RADIO);
 					waiting_for_packet = 1;
 					is_short_waiting = 1;
 					process_start(&strobe_wait, NULL);
+					*/
+					
+					is_short_waiting = 2;
+					process_start(&strobe_wait, NULL);
+
 				}	else{
 					dual_radio_off(BOTH_RADIO);
 					waiting_for_packet = 0;

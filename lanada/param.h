@@ -125,8 +125,8 @@ uint8_t my_valid_parent_number;
 
 //#if LSA_MAC
 #ifdef ZOUL_MOTE
-#define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 20) // Short on time slot length in rtimer
-#define BEFORE_SHORT_SLOT	(RTIMER_ARCH_SECOND / 160 * 20) // Short on time slot length in rtimer
+#define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 3) // Short on time slot length in rtimer
+#define BEFORE_SHORT_SLOT	(RTIMER_ARCH_SECOND / 160 * 13) // Short on time slot length in rtimer
 #else
 #define SHORT_SLOT_LEN	(RTIMER_ARCH_SECOND / 160 * 2) // Short on time slot length in rtimer
 #endif
