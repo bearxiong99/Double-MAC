@@ -216,9 +216,10 @@ neighbor_link_callback(rpl_parent_t *p, int status, int numtx)
         (unsigned)(packet_ett / RPL_DAG_MC_ETX_DIVISOR));
     /* update the link metric for this nbr */
     nbr->link_metric = new_ett;
+#ifdef ZOUL_MOTE
     LOG_MESSAGE("LTMAX_OF link_metric %d IP: %d %c\n",nbr->link_metric, nbr->ipaddr.u8[15],
 			nbr->ipaddr.u8[8]>128? 'L':'S');
-
+#endif
 /*	char *log_buf = (char*) malloc(sizeof(char)*100);
 	sprintf(log_buf,"LTMAX_OF link_metric %d IP: %d %c\n",nbr->link_metric, nbr->ipaddr.u8[15],
 			nbr->ipaddr.u8[8]>128? 'L':'S');

@@ -22,7 +22,7 @@
 
 /* Using strobe cnt, reducing idle listening while Tx preamble */
 #ifdef ZOUL_MOTE
-#define STROBE_CNT_MODE		1
+#define STROBE_CNT_MODE 0
 #else
 #define STROBE_CNT_MODE		1
 #endif
@@ -58,9 +58,9 @@
 
 #define TRAFFIC_MODEL 0 // 0: Periodic, 1: Poisson
 #if TRAFFIC_MODEL == 0
-#define PERIOD 10
+#define PERIOD 30
 #elif TRAFFIC_MODEL == 1
-#define ARRIVAL_RATE 60 // Mean value, 1/lambda
+#define ARRIVAL_RATE 0 // Mean value, 1/lambda
 #endif
 
 uint8_t join_instance;
@@ -105,9 +105,9 @@ uint8_t alpha;
 
 #elif RPL_LIFETIME_MAX_MODE
 #ifdef ZOUL_MOTE
-#define RPL_ETX_WEIGHT  1
+#define RPL_ETX_WEIGHT 	1
 #else
-#define RPL_ETX_WEIGHT  0
+#define RPL_ETX_WEIGHT 	0
 #endif
 uint8_t my_weight;
 uint8_t my_sink_reachability;
@@ -121,7 +121,6 @@ uint8_t my_valid_parent_number;
 #define LONG_TX_COST 9
 #define LONG_RX_COST 6
 #endif /* RPL_ENERGY_MODE */
-
 
 //#if LSA_MAC
 #ifdef ZOUL_MOTE

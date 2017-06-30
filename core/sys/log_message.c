@@ -98,7 +98,11 @@ void log_initialization(void){
 }
 
 void log_reinit(void){
+#ifdef COOJA
+
+#else
 	log_file = cfs_open("log_message", CFS_WRITE | CFS_APPEND);
+#endif
 }
 
 void log_finisher(void){

@@ -234,7 +234,7 @@ static volatile unsigned char radio_is_on = 0;
 #define LEDS_ON(x) leds_on(x)
 #define LEDS_OFF(x) leds_off(x)
 #define LEDS_TOGGLE(x) leds_toggle(x)
-#define DEBUG 0
+#define DEBUG 1
 #define TIMING 0
 
 #if DEBUG
@@ -405,12 +405,14 @@ PROCESS_THREAD(strobe_wait, ev, data)
 	{
 		t = SHORT_SLOT_LEN;
 	}
+#ifdef ZOUL_MOTE
 	else if (is_short_waiting == 2)
 	{
 		dual_radio_off(BOTH_RADIO);
 //		dual_radio_on(SHORT_RADIO);
 		t = BEFORE_SHORT_SLOT;
 	}
+#endif
 //	printf("before timer set\n");
 	clock_time_t t_wait = (1ul * CLOCK_SECOND * (t)) / RTIMER_ARCH_SECOND;
 	etimer_set(&et, t_wait);
@@ -432,6 +434,7 @@ PROCESS_THREAD(strobe_wait, ev, data)
 		waiting_for_packet = 0;
 		is_short_waiting = 0;
 	}
+#ifdef ZOUL_MOTE
 	else if (is_short_waiting == 2)
 	{
 		dual_radio_on(SHORT_RADIO);
@@ -446,6 +449,7 @@ PROCESS_THREAD(strobe_wait, ev, data)
 		is_short_waiting = 0;
 	}
 #endif
+#endif /* ZOUL_MOTE */
 	PROCESS_END();
 }
 
@@ -1405,17 +1409,18 @@ input_packet(void)
 				if (linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER), &linkaddr_null) && 
 						radio_received_is_longrange()==LONG_RADIO){
 					
-					/*
+#ifdef COOJA
 					dual_radio_off(LONG_RADIO);
 					dual_radio_on(SHORT_RADIO);
 					waiting_for_packet = 1;
 					is_short_waiting = 1;
 					process_start(&strobe_wait, NULL);
-					*/
-					
+#endif 
+
+#ifdef ZOUL_MOTE	
 					is_short_waiting = 2;
 					process_start(&strobe_wait, NULL);
-
+#endif
 				}	else{
 					dual_radio_off(BOTH_RADIO);
 					waiting_for_packet = 0;

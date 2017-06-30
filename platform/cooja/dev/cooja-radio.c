@@ -42,7 +42,7 @@
 
 #include "dev/radio.h"
 #include "dev/cooja-radio.h"
-
+#include "sys/residual.h"
 
 
 #include "dev/leds.h" // For debug
@@ -156,6 +156,9 @@ radio_LQI(void)
 static int
 radio_on(void)
 {
+	if (get_residual_energy == 0){
+		return 0;
+	}
 #if DUAL_RADIO
 	if(simRadioTarget == SHORT_RADIO)
 	{
@@ -307,7 +310,6 @@ radio_read(void *buf, unsigned short bufsize)
 		// fprintf(debugfp, "BUFFER address : %x, simInSizeLR : %d, simInSizeSR : %d\n\n",buf,simInSizeLR,simInSize);
 		// fflush(debugfp);
 		simInSizeLR = 0;
-	}	else {
 		memcpy(buf, simInDataBuffer, simInSize);
 		// fprintf(debugfp, "BUFFER address : %x, simInSizeLR : %d, simInSizeSR : %d\n\n",buf,simInSizeLR,simInSize);
 		// fflush(debugfp);
@@ -365,6 +367,10 @@ radio_send(const void *payload, unsigned short payload_len)
   int radiostateLR = simRadioHWOnLR;
   char tmp = simRadioTarget;
 #endif
+
+	if (get_residual_energy() == 0 ){
+		return RADIO_TX_ERR;
+	} 
   /* Simulate turnaround time of 2ms for packets, 1ms for acks*/
 #if WITH_TURNAROUND
   simProcessRunValue = 1;

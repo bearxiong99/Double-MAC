@@ -38,7 +38,7 @@
 #endif /* INCLUDE_SUBPLATFORM_CONF */
 
 #define DUAL_RADIO 1
-#define ADDR_MAP 1
+#define ADDR_MAP DUAL_RADIO 
 
 #define NETSTACK_DUAL_RADIO 0  /* JOONKI, don't change this variable */
 
@@ -148,7 +148,7 @@
 #define UIP_CONF_MAX_ROUTES   300
 #endif /* UIP_CONF_MAX_ROUTES */
 
-#define TCPIP_CONF_ANNOTATE_TRANSMISSIONS 1
+#define TCPIP_CONF_ANNOTATE_TRANSMISSIONS 0
 
 #ifndef UIP_CONF_ND6_SEND_RA
 #define UIP_CONF_ND6_SEND_RA		0

@@ -196,7 +196,9 @@ send_packet(void *ptr)
 			LOG_MESSAGE("[LT] CSMA_Transmission: %d, CXMAC_Transmission: %d, CXMAC_Collision: %d\n", 
 					csma_transmission_count, cxmac_transmission_count, cxmac_collision_count);
 			LOG_MESSAGE("Lifetime of this node ended here!!!\n");
-					}
+
+		 	NETSTACK_MAC.off(0);
+		}
 	}
 	lifetime = get_residual_energy();
 #endif /* PS_COUNT */

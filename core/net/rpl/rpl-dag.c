@@ -358,6 +358,7 @@ rpl_set_preferred_parent(rpl_dag_t *dag, rpl_parent_t *p)
 {
   if(dag != NULL && dag->preferred_parent != p) {
     PRINTF("RPL: rpl_set_preferred_parent ");
+#ifdef ZOUL_MOTE
     LOG_MESSAGE("RPL: rpl_set_preferred_parent ");
     if(p != NULL) {
       PRINT6ADDR(rpl_get_parent_ipaddr(p));
@@ -379,6 +380,7 @@ rpl_set_preferred_parent(rpl_dag_t *dag, rpl_parent_t *p)
     }
     PRINTF("\n");
     LOG_MESSAGE("\n");
+#endif
 
 #ifdef RPL_CALLBACK_PARENT_SWITCH
     RPL_CALLBACK_PARENT_SWITCH(dag->preferred_parent, p);
