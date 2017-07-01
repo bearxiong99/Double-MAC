@@ -1,0 +1,100 @@
+..//tools/sky/serialdump-linux -b115200  /dev/ttyUSB0
+Contiki-3d170de
+Zolertia Firefly platform
+
+
+DUAL_RADIO: 1
+ADDR_MAP: 1
+RPL_LIFETIME_MAX_MODE: 1
+LONG_WEIGHT_RATIO: 2
+STROBE_CNT_MODE: 0
+DUAL_ROUTING_CONVERGE: 0
+LSA_MAC: 1
+DETERMINED_ROUTING_TREE: 0
+RESIDUAL_ENERGY_MAX: 1000000000
+PERIOD: 60
+Reading the log
+
+
+LOG_START:----------------------------------------------------------
+ZOUL platform log HELLO
+Starting with energy 999990888
+CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: CLD or software reset
+ZOUL platform log HELLO
+Starting with energy 999990860
+CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: POR
+RPL: rpl_set_preferred_parent IP:18 L used to be NULL
+RPL: rpl_set_preferred_parent IP:18 S used to be IP:18 L
+LTMAX_OF link_metric 256 IP: 18 L
+RPL: rpl_set_preferred_parent IP:16 L used to be IP:18 S
+LTMAX_OF link_metric 256 IP: 18 S
+RPL: rpl_set_preferred_parent IP:22 L used to be IP:16 L
+LTMAX_OF link_metric 0 IP: 16 L
+LTMAX_OF link_metric 51 IP: 16 L
+RPL: rpl_set_preferred_parent IP:16 L used to be IP:22 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 2560 IP: 22 L
+LTMAX_OF link_metric 148 IP: 16 L
+RPL: rpl_set_preferred_parent IP:28 S used to be IP:16 L
+LTMAX_OF link_metric 158 IP: 16 L
+LTMAX_OF link_metric 768 IP: 28 S
+RPL: rpl_set_preferred_parent IP:23 S used to be IP:28 S
+LTMAX_OF link_metric 768 IP: 28 S
+RPL: rpl_set_preferred_parent IP:1 L used to be IP:23 S
+LTMAX_OF link_metric 0 IP: 23 S
+LTMAX_OF link_metric 0 IP: 23 S
+LTMAX_OF link_metric 256 IP: 1 L
+LTMAX_OF link_metric 128 IP: 23 S
+[PS] Periodic status review:
+[PS] Control: 31, Data: 0, Data fwd: 0
+[PS] ICMP: 31, TCP_OUTPUT: 31
+[PS] DIO:14, DAO: 12, DIS: 2, DIO_ACK: 0, Total: 28
+[PS] DAO_ACK:0, DAO_FWD: 2, DAO_ACK_FWD: 0, LSA: 0, Total: 2
+[PS] CSMA_Transmission: 19, CXMAC_Transmission: 78, CXMAC_Collision: 70
+[PS] CSMA_Drop: 1, CXMAC_Retransmission: 94
+[PS] Remaining energy: 996479800
+[PS] My parent is : L 1
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 486 IP: 1 L
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 693 IP: 1 L
+RPL: rpl_set_preferred_parent IP:12 S used to be IP:1 L
+LTMAX_OF link_metric 256 IP: 12 S
+csma: drop with status 2 after 8 transmissions, 0 collisions
+LTMAX_OF link_metric 879 IP: 1 L
+LTMAX_OF link_metric 384 IP: 12 S
+LTMAX_OF link_metric 448 IP: 12 S
+LTMAX_OF link_metric 454 IP: 12 S
+RPL: rpl_set_preferred_parent IP:18 S used to be IP:12 S
+LTMAX_OF link_metric 434 IP: 12 S
+LTMAX_OF link_metric 384 IP: 18 S
+RPL: rpl_set_preferred_parent IP:19 S used to be IP:18 S
+LTMAX_OF link_metric 371 IP: 18 S
+LTMAX_OF link_metric 0 IP: 19 S
+LTMAX_OF link_metric 153 IP: 19 S
+LTMAX_OF link_metric 214 IP: 19 S
+ZOUL platform log HELLO
+Starting with energy 999990858
+CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: POR
+ZOUL platform log HELLO
+Starting with energy 999990876
+CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: External reset
+ZOUL platform log HELLO
+Starting with energy 999990870
+CC2538: ID: 0xb964, rev.: PG2.0, Flash: 512 KiB, SRAM: 32 KiB, AES/SHA: 1, ECC/RSA: 1
+System clock: 16000000 Hz
+I/O clock: 16000000 Hz
+Reset cause: External reset
+RPL: rpl_set_preferred_parent IP:7 L used to

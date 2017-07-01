@@ -145,6 +145,7 @@ PROCESS_THREAD(udp_server_process, ev, data)
   PROCESS_PAUSE();
 
 //  SENSORS_ACTIVATE(button_sensor);
+	dead = 0;
 
   PRINTF("UDP server started. nbr:%d routes:%d\n",
          NBR_TABLE_CONF_MAX_NEIGHBORS, UIP_CONF_MAX_ROUTES);

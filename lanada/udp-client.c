@@ -198,6 +198,7 @@ send_packet(void *ptr)
 			LOG_MESSAGE("Lifetime of this node ended here!!!\n");
 
 		 	NETSTACK_MAC.off(0);
+			dead = 1;
 		}
 	}
 	lifetime = get_residual_energy();
@@ -319,6 +320,7 @@ PROCESS_THREAD(udp_client_process, ev, data)
   PROCESS_BEGIN();
 	SENSORS_ACTIVATE(button_sensor);
 	led_end = 0;
+	dead = 0;
 
   PROCESS_PAUSE();
 
@@ -363,11 +365,13 @@ PROCESS_THREAD(udp_client_process, ev, data)
 	//	printf("join_instance: %d\n",join_instance);
 		ctimer_set(&client_poll,(3ul * CLOCK_SECOND),&polling,NULL);
 		PROCESS_YIELD();
+#ifdef ZOUL_MOTE
 		if(ev == sensors_event && data == & button_sensor) {
 			printf("*************** RESET LOG MESSAGE **************************\n");
 			cfs_remove("log_message");		
 			log_reinit();
 		}
+#endif
 	}
 
 //	printf("process_start\n");
@@ -388,12 +392,13 @@ PROCESS_THREAD(udp_client_process, ev, data)
     if(ev == tcpip_event) {
       tcpip_handler();
 		}
+#ifdef ZOUL_MOTE
     if(ev == sensors_event && data == & button_sensor) {
 			printf("*************** RESET LOG MESSAGE **************************\n");
 			cfs_remove("log_message");		
 			log_reinit();
 		}
-
+#endif
     if(ev == serial_line_event_message && data != NULL) {
       char *str;
       str = data;

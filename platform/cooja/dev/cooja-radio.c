@@ -43,6 +43,7 @@
 #include "dev/radio.h"
 #include "dev/cooja-radio.h"
 #include "sys/residual.h"
+#include "../lanada/param.h"
 
 
 #include "dev/leds.h" // For debug
@@ -156,9 +157,10 @@ radio_LQI(void)
 static int
 radio_on(void)
 {
-	if (get_residual_energy == 0){
+	if (dead == 1){
 		return 0;
 	}
+	
 #if DUAL_RADIO
 	if(simRadioTarget == SHORT_RADIO)
 	{
@@ -368,9 +370,10 @@ radio_send(const void *payload, unsigned short payload_len)
   char tmp = simRadioTarget;
 #endif
 
-	if (get_residual_energy() == 0 ){
+	if (dead == 1 ){
 		return RADIO_TX_ERR;
 	} 
+	
   /* Simulate turnaround time of 2ms for packets, 1ms for acks*/
 #if WITH_TURNAROUND
   simProcessRunValue = 1;

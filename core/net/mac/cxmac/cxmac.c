@@ -448,8 +448,8 @@ PROCESS_THREAD(strobe_wait, ev, data)
 		waiting_for_packet = 0;
 		is_short_waiting = 0;
 	}
-#endif
 #endif /* ZOUL_MOTE */
+#endif
 	PROCESS_END();
 }
 
