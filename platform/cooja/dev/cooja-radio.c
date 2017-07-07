@@ -312,6 +312,7 @@ radio_read(void *buf, unsigned short bufsize)
 		// fprintf(debugfp, "BUFFER address : %x, simInSizeLR : %d, simInSizeSR : %d\n\n",buf,simInSizeLR,simInSize);
 		// fflush(debugfp);
 		simInSizeLR = 0;
+	} else {
 		memcpy(buf, simInDataBuffer, simInSize);
 		// fprintf(debugfp, "BUFFER address : %x, simInSizeLR : %d, simInSizeSR : %d\n\n",buf,simInSizeLR,simInSize);
 		// fflush(debugfp);
